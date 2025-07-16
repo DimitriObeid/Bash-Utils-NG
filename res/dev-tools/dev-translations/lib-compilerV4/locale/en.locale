@@ -1,0 +1,391 @@
+#!/usr/bin/env bash
+
+# -------------------------------------------------------------
+# "BU.DevBin.LibCompilerV4.Functions.CompilerUsage()" function.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__USAGE="Usage : ./path/to/lib-compilerV4.sh [MANDATORY ARG] [OPTIONAL ARGS]...";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__PROGRAM_DESC="Compiles the content of the Bash Utils framework's basic files and its main module into a single file.";
+
+# ----------------------------------------------------------------------------------
+# "BU.DevBin.LibCompilerV4.Functions.CompilerUsage()" function : mandatory argument.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__MANDATORY_ARG="Mandatory argument (use ONLY one of them) :";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__MANDATORY_ARG__LANG="
+    --lang=[ARRAY]                      array of languages ISO 639-1 codes. This option creates a compiled file for each language.
+
+                                        Each value represents the ISO 639-1 code of the language in which the messages and the top-level comments of
+                                        each compiled file must be translated, as well as the one of the individual translation file which contains
+                                        the translated messages used during the initialization processus of the Bash Utils framework, and whose
+                                        content must be embedded in each final file during the compilation process.
+
+                                        This translation file can be found in the '.Bash-utils/config/initializer/locale' folder, and is named :
+                                        '\${iso_639-1_code}.locale'
+
+                                        Each of these ISO 639-1 codes must be separated by a delimiter, which can be any of the following (NO BLANK
+                                        SPACES IS ALLOWED BETWEEN EACH CODE) : ,;|~_.:!§
+
+                                        If, among the ISO 639-1 codes passed, the 'en' (English) code is absent, then the English translation file
+                                        is shipped into the compiled file for security reasons : if the translation file of the currently wanted is
+                                        incomplete, and / or if the final user tries to use another language while using this compiled file, so that
+                                        the program's messages can still be displayed into plain text instead of empty strings.
+
+                                        If the 'supported' value is passed after the '=' sign, then a compiled file is created for each language
+                                        supported by the compiler, still in the same way as for each ISO 639-1 code passed to the compiler after
+                                        the '--lang=' option
+
+                                        Else, if the 'all' value is passed after the '=' sign, then a compiled file is created for every language,
+                                        including the ones not supported by the compiler and / or whose associated translation file is incomplete
+                                        and / or obsolete.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__MANDATORY_ARG__LANG_INCLUDE="
+    --lang-include=[ARRAY]              array of languages ISO 639-1 codes. This option creates a compiled file embedding the linguistic content
+                                        of each translation file used during the initialization process of the Bash utils framework.
+
+                                        Each value represents the ISO 639-1 code of the language of each individual translation file mentioned in
+                                        the paragraph above, and whose content must be embedded in the final file during the compilation process.
+
+                                        Each of these translation files is located in the folder mentioned into the description of the '--lang='
+                                        option described above, and has the same file name.
+
+                                        Each of these ISO 639-1 codes must be separated by a delimiter, which can be any of the following (NO BLANK
+                                        SPACES IS ALLOWED BETWEEN EACH CODE) : ,;|~_.:!§
+
+                                        If, among the ISO 639-1 codes passed, the 'en' (English) code is absent, then the same procedure mentioned
+                                        into the description of the '--lang=' option described above is applied for the same mentioned reasons.
+
+                                        If the 'supported' value is passed after the '=' sign, then the content of the translation file of each
+                                        language supported by the compiler will be written into the compiled file, with their function that defines
+                                        each of the variables containing the translated strings.
+
+                                        Else, if the 'all' value is passed after the '=' sign, then the content of EVERY translation files will be
+                                        written into the compiled file, including the files of the languages not supported by the compiler and / or
+                                        whose translation is incomplete and / or obsolete.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__MANDATORY_ARG__HELP="
+    -h --help                           replacement of the '--lang=' option. Displays on the screen the help messages and the compiler's usage
+                                        instructions.";
+
+# ----------------------------------------------------------------------------------
+# "BU.DevBin.LibCompilerV4.Functions.CompilerUsage()" function : optional arguments.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS="Optional arguments (WARNING : some options are incompatible between each other, please read carefully this help guide) :";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__COMPILATION_AUTHORS="
+    -A --compilation-authors            sets the name of the author(s) of the compilation of the file into its top-level comments, except if the
+                                        '-r' / '--keep-raw-document-layout' option is passed.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__COMPILATION_VERSION="
+    -V --compilation-version=[VERSION]  sets the version of the compiled file, except if the '-r' / '--keep-raw-document-layout' option is passed.
+                                        If the value is absent, the '1.0' version number is written into the 'version :' section.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__COMPILATION_LITE="
+    -l --compile-lite                   compiles a lite version of the framework, without the functions from the modules initializer script.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__COMPILE_STABLE="
+    -C --compile-stable                 sets the compiled file into a stable version. It will force the execution of the 'shellcheck' command
+                                        on each file to compile processed by the compiler, and will do the same to the output file once the
+                                        compilation process is done, before setting it in read-only mode. This option is incompatible with the
+                                        '-s' / '--no-shellcheck' option, an error message will be returned if both options are used together.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__COMPILE_UNSTABLE="
+    -c --compile-unstable               this option does actually nothing, as the compilation of an unstable version is the default behavior
+                                        of the Bash Utils framework's compiler.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__DISPLAY="
+    -d --display                        displays on the screen the content of the file currently processed by the compiler.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__HELP="
+    -h --help                           displays on the screen the help messages and the compiler's usage instructions.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__KEEP_COMMENTS="
+    -k --keep-comments                  keep each comment from the source file into the compiled file. The only ones which are not removed if this
+                                        option is not passed are the Shellcheck directives and the comments from the top-level compiled file.
+
+                                        Incompatible with the '-r' / '--keep-raw-document-layout' option.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__KEEP_EXEC_SAFEGUARDS="
+    -E --keep-exec-safeguards           keep the extra safeguard pieces of code (written at the beginning of each source file) which prevent the
+                                        direct execution of the said file. This option does not prevents the addition of an extra safeguard
+                                        code after the top-level of the compiled file.
+
+                                        Incompatible with the '-r' / '--keep-raw-document-layout' option.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__KEEP_FUNCTIONS_INFOS="
+    -i --keep-functions-infos           keep the comments used as informations about each function, from the string separating a function from
+                                        another (# ·········· ...) and the \"function\" keyword written outside of the commentaries block, and
+                                        which is used to declare a function.
+
+                                        Incompatible with the '-r' / '--keep-raw-document-layout' option.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__KEEP_FUNCTIONS_PVC_INFOS="
+    -p --keep-functions-pvc-infos       keep the comments beginning with the \"#**** Parameters\", \"#**** Variables\" and \"#**** Code\" strings,
+                                        which separate the parameters definition, the variables declarations and the code into the body of a function.
+
+                                        Incompatible with the '-r' / '--keep-raw-document-layout' option.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__KEEP_RAW_DOCUMENT_LAYOUT="
+    -r --keep-raw-document-layout       keep the raw compiled file's layout, without optimizing it. In this case, the aforementionned '--keep-*'
+                                        options will not work.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__NO_ALIASES_INCLUDE="
+    -a --no-aliases-include             does not includes the main module's aliases file into the compiled file.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__NO_ENGLISH_INCLUDE="
+    -e --no-english-include             does not includes the English translation file into the output file if the framework is compiled in another
+                                        language than English.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__NO_SHELLCHECK="
+    -s --no-shellcheck                  prevents the execution of the 'shellcheck' command on each file processed by the compiler. This option is
+                                        incompatible with the '-C' / '--compile-stable' option, an error message will be returned if both options
+                                        are used together. The files which were not modified since the last error checking with this command will
+                                        not be processed again.";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COMPILER_USAGE_FNCT__OPTIONAL_ARGS__REMOVE_SHELLCHECK_DIRECTIVES="
+    -S --remove-shellcheck-directives   removes the Shellcheck directives from the compiled file.
+
+                                        WARNING : Many false positive will be returned by Shellcheck if you decide to execute this program with the
+                                        compiled file, so this option is incompatible with the '--compile-stable' option.";
+
+
+# ------------------------------------------------------------------------------
+# "BU.DevBin.LibCompilerV4.Functions.HandleIncompatibleOptionalArgs()" function.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__HANDLEINCOMPATIBLEOPTIONALARGS__WARNING_MSG_SINGLE="${__WARNING}The ${__HIGHLIGHT}%s${__WARNING} option is incompatible with this option : ${__HIGHLIGHT}%s${__RESET}";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__HANDLEINCOMPATIBLEOPTIONALARGS__WARNING_MSG_MULTIPLE="${__WARNING}The ${__HIGHLIGHT}%s${__WARNING} option is incompatible with these options : ${__HIGHLIGHT}%s${__RESET}";
+
+
+# --------------------------------------------------------------------------------------
+# "BU.DevBin.LibCompilerV4.Functions.QuitErrorMessage_NumberOfFilesCompiled()" function.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__QUITERRORMESSAGE_NUMBEROFFILESCOMPILED__NO_FILES_WERE_COMPILED="${__ERROR}No files were compiled${__RESET}";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__QUITERRORMESSAGE_NUMBEROFFILESCOMPILED__NUMBER_OF_COMPILED_FILES="${__ERROR}Number of compiled files : ${__HIGHLIGHT}%s${__RESET}";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__QUITERRORMESSAGE_NUMBEROFFILESCOMPILED__LIST_OF_COMPILED_FILES="${__ERROR}List of the compiled files :${__RESET}";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__QUITERRORMESSAGE_NUMBEROFFILESCOMPILED__LANG_INCLUDE_HANDLING="${__ERROR}The compilation of the ${__HIGHLIGHT}%s${__ERROR} file failed${__RESET}";
+
+
+# --------------------------------------------------------------------------
+# If an unsupported argument is passed into the array of optional arguments.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__UNSUPPORTED_ARGUMENT_PASSED_IN_OPTIONAL_ARGS_ARRAY="AN UNSUPPORTED ARGUMENT WAS PASSED INTO THE ARRAY OF OPTIONAL ARGUMENT";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__UNSUPPORTED_ARGUMENT_PASSED_IN_OPTIONAL_ARGS_ARRAY__ADVICE="${__ERROR}The ${__HIGHLIGHT}%s${__ERROR} value is not supported. Please remove it from the array of arguments following the mandatory first argument (${__HIGHLIGHT}--lang=*${__ERROR} OR ${__HIGHLIGHT}--lang-include=*${__ERROR})${__RESET}";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__PRINT_NO_FILES_WERE_COMPILED_ERROR_MSG="STOPPING THE EXECUTION OF THE COMPILER, NO FILES FROM THE ${__HIGHLIGHT}BASH UTILS${__ERROR} FRAMEWORK WERE COMPILED !!!";
+
+
+# -----------------------------------------------------------------------------------
+# Verifying if the "no-shell-check" and "compile-stable" values were passed together.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__NO_SHELLCHECK_AND_COMPILE_STABLE_WERE_PASSED_TOGETHER="${__WARNING}WARNING : THE ${__HIGHLIGHT}%s${__WARNING} AND ${__HIGHLIGHT}%s${__WARNING} VALUES MUST NOT BE USED TOGETHER${__RESET}",
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__NO_SHELLCHECK_AND_COMPILE_STABLE_WERE_PASSED_TOGETHER__ADVICE="${__WARNING}In order to compile a stable file, the ${__HIGHLIGHT}shellcheck${__WARNING} command MUST be executed in order to check for any programming error in every files to be included${__RESET}";
+
+
+# --------------------------------
+# Shellcheck command verification.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__SHELLCHECK__DISABLED="WARNING: IT IS NOT RECOMMENDED TO RUN THIS SCRIPT WITHOUT THE SHELLCHECK COMMAND, UNLESS YOU KNOW EXACTLY WHAT YOU ARE DOING!";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__SHELLCHECK__MISSING="${__ERROR}THE ${__HIGHLIGHT}shellcheck${__ERROR} COMMAND IS NOT INSTALLED ON YOUR SYSTEM!${__RESET}";
+
+
+# ------------------------------------------------------------------------------------------------------------------------------------------
+# If the compiler was unable to check if either the 'lang=' or the '--lang-include=' parameters were passed as the program's first argument.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__COMPILER_UNABLE_TO_DETERMINE_FIRST_ARG__MSG_1="${__WARNING}WARNING : The compiler is unable to check if either the ${__HIGHLIGHT}--lang${__WARNING} OR the ${__HIGHLIGHT}--lang-include${__WARNING} parameter was passed as the program's first argument${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__COMPILER_UNABLE_TO_DETERMINE_FIRST_ARG__MSG_2="${__WARNING}The compiler will create a file which stores every languages you have passed as values for the first argument${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__COMPILER_UNABLE_TO_DETERMINE_FIRST_ARG__USER_INPUT="Please press any key to continue, or press L to compile a single file for each language, or press ESC or Q to terminate the compiler's execution";
+
+
+# -------------------------------------------
+# If a bad value is passed as first argument.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__BAD_LANG_ARRAY_PASSED__ERROR_MSG="ERROR : THE COMPILER'S FIRST ARGUMENT IS NOT CORRECTLY FORMATTED !!!";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__BAD_LANG_ARRAY_PASSED__ADVICE_1="${__WARNING}Please execute this script by passing the wanted ISO 639-1 code(s) like it is done in the following example string (between single quotes OR double quotes)${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__BAD_LANG_ARRAY_PASSED__ADVICE_2="${__WARNING}In this example, the framework will be compiled in these languages : English, French, Ukrainian, Swedish, Turkmen and Greenlandic";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__BAD_LANG_ARRAY_PASSED__ADVICE_3="${__WARNING}Or use ONLY one of these delimiters (no others are supported) between each ISO 639-1 codes instead of a space :";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__BAD_LANG_ARRAY_PASSED__ADVICE_4="${__WARNING}Or pass the \"${__HIGHLIGHT}all-supported${__WARNING}\", \"${__HIGHLIGHT}supported${__WARNING}\", \"${__HIGHLIGHT}lang=all-supported${__WARNING}\" OR \"${__HIGHLIGHT}lang=supported${__WARNING}\" strings only if you want to compile the framework with each of its supported languages${__RESET}";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__BAD_LANG_ARRAY_PASSED__HELP="${__WARNING}You can also pass the ${__HIGHLIGHT}%s${__WARNING} (or the ${__HIGHLIGHT}%s${__WARNING}) option in order to get a quick help${__RESET}";
+
+
+# -----------------------------
+# Shellcheck command execution.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__SHELLCHECK__VERIFICATION="${__NEWSTEP}Verifying the programming errors in the ${__HIGHLIGHT}%s${__NEWSTEP} file${__RESET}... ";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__SHELLCHECK__FAIL="${__ERROR}One or more programming errors were detected in the ${__HIGHLIGHT}%s${__ERROR} file!${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__SHELLCHECK__FAIL_STR="${__RESET}Failed ❌";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__SHELLCHECK__SUCCESS="${__SUCCESS}The ${__HIGHLIGHT}%s${__SUCCESS} file does not contain any programming errors${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__SHELLCHECK__SUCCESS_STR="${__RESET}Success ${__SUCCESS}✓${__RESET}";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__SHELLCHECK__SUCCESS_FILE_ALREADY_SHELLCHECKED="${__SUCCESS}The current version of the following file was already Shellchecked, continue the compilation : ${__HIGHLIGHT}%s${__RESET}";
+
+
+# -------------------------------------------------------------------------------
+# Checking if the "${v_curr_locale}" variable is a valid ISO 639-1 language code.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__BAD_LANGUAGE_PASSED="${__ERROR}An unsupported language ISO 639-1 code was passed as ${__HIGHLIGHT}LibCompilerV4.CompileInSingleFile()${__ERROR} function's first argument ${__RESET}";
+
+
+# ------------------------------------
+# Framework compilation start message.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__BEGIN_FRAMEWORK_COMPILATION="STARTING THE COMPILATION OF THE BASH UTILS FRAMEWORK IN THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE${__RESET}";
+
+
+# -------------------------------------------------------------------------------------------------------------------
+# ("BU.DevBin.LibCompilerV4.Functions.WriteBU" function) Writing the target file's content into the file to generate.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__UNABLE_TO_WRITE_IN_THE_FILE_TO_GENERATE="UNABLE TO WRITE THE FILE'S CONTENT IN THE FILE TO GENERATE !";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__UNABLE_TO_WRITE_IN_THE_FILE_TO_GENERATE__ADVICE="Please check its path, its rights and if it exists.";
+
+
+# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Writing the initializer script's english translation files content first into the file to generate (safeguard, as the english translation is the main supported language).
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__WRITE_INIT_SCRIPT_ENGLISH_TRANSLATION_FILES_CONTENT="COPYING THE INITIALIZER SCRIPT'S ENGLISH BACKUP TRANSLATION FILES CONTENT OF THE ${__HIGHLIGHT}%s${__NEWSTEP} LANGUAGE FROM THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE INTO THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__WRITE_INIT_SCRIPT_ENGLISH_TRANSLATION_FILES_CONTENT__EXPLAIN="This is a safeguard measure in case the content of a locale file must be updated after an update of the initialization script, since English is the primary supported language, so that a message is not returned as an empty string";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__WRITE_INIT_SCRIPT_ENGLISH_TRANSLATION_FILES_CONTENT__ERROR="FAILED TO COPY THE INITIALIZER SCRIPT'S ENGLISH BACKUP TRANSLATION FILES OF THE ${__HIGHLIGHT}%s${__ERROR} LANGUAGE, FROM THE ${__HIGHLIGHT}%s${__ERROR} FILE INTO THE ${__HIGHLIGHT}%s${__ERROR} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__WRITE_INIT_SCRIPT_ENGLISH_TRANSLATION_FILES_CONTENT__SUCCESS="SUCCESSFULLY COPIED THE INITIALIZER SCRIPT'S ENGLISH BACKUP TRANSLATION FILES FOR THE ${__HIGHLIGHT}%s${__SUCCESS} LANGUAGE, FROM THE ${__HIGHLIGHT}%s${__SUCCESS} FILE INTO THE ${__HIGHLIGHT}%s${__SUCCESS} FILE";
+
+
+# -----------------------------------------------------------------------------------------
+# Writing now the initializer script's translation files content into the file to generate.
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__WRITE_INIT_SCRIPT_TRANSLATION_FILES_CONTENT="COPYING THE INITIALIZER SCRIPT'S TRANSLATION FILES CONTENT OF THE ${__HIGHLIGHT}%s${__NEWSTEP} LANGUAGE FROM THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE INTO THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__WRITE_INIT_SCRIPT_TRANSLATION_FILES_CONTENT__ERROR="FAILED TO COPY THE INITIALIZER SCRIPT'S TRANSLATION FILES OF THE ${__HIGHLIGHT}%s${__ERROR} LANGUAGE FROM THE ${__HIGHLIGHT}%s${__ERROR} FILE INTO THE ${__HIGHLIGHT}%s${__ERROR} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__WRITE_INIT_SCRIPT_TRANSLATION_FILES_CONTENT__SUCCESS="SUCCESSFULLY COPIED THE INITIALIZER SCRIPT'S TRANSLATION FILES OF THE ${__HIGHLIGHT}%s${__SUCCESS} LANGUAGE FROM THE ${__HIGHLIGHT}%s${__SUCCESS} FILE INTO THE ${__HIGHLIGHT}%s${__SUCCESS} FILE";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__WRITE_INIT_SCRIPT_TRANSLATION_FILES_CONTENT__ERROR__NON_EXISTENT_FILE="${__ERROR}The ${__HIGHLIGHT}%s${__ERROR} file does not exists on the current drive, please create it and write its content if needed.${__RESET}"
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__WRITE_INIT_SCRIPT_TRANSLATION_FILES_CONTENT__LOOP="EMBEDDING THE TRANSLATION FILE FROM EACH OF THESE LANGUAGES INTO THE ${__HIGHLIGHT}%s${__NEWSTEP} COMPILED FILE : ${__HIGHLIGHT}%s${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__WRITE_INIT_SCRIPT_TRANSLATION_FILES_CONTENT__LOOP__ERROR="UNABLE TO FIND THE PATH TO THIS TRANSLATION FILE : ${__HIGHLIGHT}%s${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__WRITE_INIT_SCRIPT_TRANSLATION_FILES_CONTENT__LOOP__SUCCESS="SUCCESSFULLLY EMBEDDED THE TRANSLATION FILES FROM EACH OF THESE LANGUAGES INTO THE ${__HIGHLIGHT}%s${__SUCCESS} FILE : ${__HIGHLIGHT}%s${__RESET}";
+
+
+# --------------------------------------------------------------------------
+# Writing the main module's library files content into the file to generate.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__WRITE_MAIN_MODULE_LIB_FILES_CONTENT="COPYING THE MAIN MODULE'S LIBRARY FILES CONTENT INTO THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__WRITE_MAIN_MODULE_LIB_FILES_CONTENT__ERROR="FAILED TO COPY THE MAIN MODULE'S LIBRARY FILES CONTENT INTO THE ${__HIGHLIGHT}%s${__ERROR} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__WRITE_MAIN_MODULE_LIB_FILES_CONTENT__SUCCESS="SUCCESSFULLY COPIED THE MAIN MODULE'S LIBRARY FILES CONTENT INTO THE ${__HIGHLIGHT}%s${__SUCCESS} FILE";
+
+
+# --------------------------------------------------------------------------------
+# Writing the main module's configuration files content into the file to generate.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__WRITE_MAIN_MODULE_CONFIG_FILES_CONTENT="COPYING THE MAIN MODULE'S CONFIGURATION FILES CONTENT INTO THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__WRITE_MAIN_MODULE_CONFIG_FILES_CONTENT__ERROR="FAILED TO COPY THE MAIN MODULE'S CONFIGURATION FILES CONTENT INTO THE ${__HIGHLIGHT}%s${__ERROR} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__WRITE_MAIN_MODULE_CONFIG_FILES_CONTENT__SUCCESS="SUCCESSFULLY COPIED THE MAIN MODULE'S CONFIGURATION FILES CONTENT INTO THE ${__HIGHLIGHT}%s${__SUCCESS} FILE";
+
+
+# ---------------------------------------------------------------------------------
+# Writing the main module's initializer script's content into the file to generate.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__WRITE_MAIN_MODULE_INIT_SCRIPT_FILE_CONTENT="COPYING THE MAIN MODULE'S INITIALIZER SCRIPT'S CONTENT INTO THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__WRITE_MAIN_MODULE_INIT_SCRIPT_FILE_CONTENT__ERROR="FAILED TO COPY THE MAIN MODULE'S INITIALIZER SCRIPT'S CONTENT INTO THE ${__HIGHLIGHT}%s${__ERROR} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__WRITE_MAIN_MODULE_INIT_SCRIPT_FILE_CONTENT__SUCCESS="SUCCESSFULLY COPIED THE MAIN MODULE'S INITIALIZER SCRIPT'S CONTENT INTO THE ${__HIGHLIGHT}%s${__SUCCESS} FILE";
+
+
+# ---------------------------------------------------------------------------------------
+# Writing the initializer script's configuration files content into the file to generate.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__WRITE_INIT_SCRIPT_CONFIG_FILES_CONTENT="COPYING THE INITIALIZER SCRIPT'S CONFIGURATION files CONTENT INTO THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__WRITE_INIT_SCRIPT_CONFIG_FILES_CONTENT__ERROR="FAILED TO COPY THE INITIALIZER SCRIPT'S CONFIGURATION files CONTENT INTO THE ${__HIGHLIGHT}%s${__ERROR} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__WRITE_INIT_SCRIPT_CONFIG_FILES_CONTENT__SUCCESS="SUCCESSFULLY COPIED THE INITIALIZER SCRIPT'S CONFIGURATION files CONTENT INTO THE ${__HIGHLIGHT}%s${__SUCCESS} FILE";
+
+
+# -------------------------------------------------------------------
+# Writing the initializer script's content into the file to generate.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__WRITE_INIT_SCRIPT_FILE_CONTENT="COPYING THE INITIALIZER SCRIPT'S CONTENT INTO THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__WRITE_INIT_SCRIPT_FILE_CONTENT__ERROR="FAILED TO COPY THE INITIALIZER SCRIPT'S CONTENT INTO THE ${__HIGHLIGHT}%s${__ERROR} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__WRITE_INIT_SCRIPT_FILE_CONTENT__SUCCESS="SUCCESSFULLY COPIED THE INITIALIZER SCRIPT'S CONTENT INTO THE ${__HIGHLIGHT}%s${__SUCCESS} FILE";
+
+
+# -----------------------------------------------------------------------------
+# Copying the content of the generated file into the localized language's file.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__COPY_FILE_CONTENT_IN_LANG_FILE="COPYING THE CONTENT OF THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE INTO THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__COPY_FILE_CONTENT_IN_LANG_FILE__ERROR="FAILED TO COPY THE CONTENT OF THE ${__HIGHLIGHT}%s${__ERROR} FILE INTO THE ${__HIGHLIGHT}%s${__ERROR} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__COPY_FILE_CONTENT_IN_LANG_FILE__SUCCESS="SUCCESSFULLY COPIED THE CONTENT OF THE ${__HIGHLIGHT}%s${__SUCCESS} FILE INTO THE ${__HIGHLIGHT}%s${__SUCCESS} FILE";
+
+
+# --------------------------------------------------------------
+# Printing the statistics of the newly generated localized file.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__LOCALIZED_FILE__STATS="${__HIGHLIGHT}%s${__RESET} file statistics :";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__LOCALIZED_FILE__BYTES="Size in bytes           : %s";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__LOCALIZED_FILE__CHARS="Number of characters    : %s characters";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__LOCALIZED_FILE__LINES="Number of lines         : %s lines";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__LOCALIZED_FILE__WIDTH="Maximum display width   : %s columns";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__LOCALIZED_FILE__WORDS="Number of words         : %s words";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__CUSTOM_LANGUAGE_COMPILATION_FAILED="FAILED TO COMPILE A VERSION OF THE FRAMEWORK CONTAINING THE MAIN RESOURCES ENCAPSULATED IN A SINGLE FILE IN THIS LANGUAGE : ${__HIGHLIGHT}%s${__ERROR} !!!${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__CUSTOM_LANGUAGE_COMPILATION_SUCCESS="THE BASH UTILS FRAMEWORK HAS BEEN SUCCESSFULLY COMPILED TO THIS LANGUAGE : ${__HIGHLIGHT}%s${__RESET}";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__MULTI_LANGUAGES_COMPILATION_FAILED="FAILED TO COMPILE A VERSION OF THE FRAMEWORK CONTAINING THE MAIN RESOURCES ENCAPSULATED IN A SINGLE FILE IN MULTIPLE LANGUAGES";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__MULTI_LANGUAGES_COMPILATION_SUCCESS="THE BASH UTILS FRAMEWORK HAS BEEN SUCCESSFULLY COMPILED TO EVERY WANTED LANGUAGES";
+
+
+# ---------------------------------------------------------------------------------------
+# STABLE FILE COMPILATION ONLY : Checking for any programming error in the compiled file.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHECKING_ERRORS="CHECKING FOR PROGRAMMING ERRORS IN THE COMPILED ${__HIGHLIGHT}%s${__NEWSTEP} FILE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHECKING_ERRORS__ERROR="THE COMPILED ${__HIGHLIGHT}%s${__ERROR} FILE CONTAINS ONE OR MORE PROGRAMMING ERRORS";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHECKING_ERRORS__SUCCESS="THE COMPILED ${__HIGHLIGHT}%s${__SUCCESS} FILE DOES NOT CONTAINS ANY PROGRAMMING ERROR";
+
+
+# -------------------------------------------------------------------------------------
+# STABLE FILE COMPILATION ONLY : Copying the compiled file into the "stable" directory.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__COPYING_FILE="COPYING THE ${__HIGHLIGHT}%s${__NEWSTEP} FILE TO THE ${__HIGHLIGHT}%s${__NEWSTEP} DIRECTORY";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__COPYING_FILE__ERROR="FAILED TO COPY THE COMPILED ${__HIGHLIGHT}%s${__ERROR} FILE TO THE ${__HIGHLIGHT}%s${__ERROR} DIRECTORY";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__COPYING_FILE__ERROR_ADVICE_1="${__ERROR}Please check the permissions of the target directory${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__COPYING_FILE__ERROR_ADVICE_2="${__ERROR}If the file you try to compile already exists AND is read-only, please delete it manually${__RESET}";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__COPYING_FILE__ERROR_ENTER_YOUR_ANSWER="Enter your answer (1 : yes | 2 : no | other entries : no) : ";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__COPYING_FILE__SUCCESS="SUCCESSFULLY COPIED THE COMPILED ${__HIGHLIGHT}%s${__SUCCESS} FILE TO THE ${__HIGHLIGHT}%s${__SUCCESS} DIRECTORY";
+
+
+# --------------------------------------------------------------------------------------------------------
+# STABLE FILE COMPILATION ONLY : Setting the compiled file into read-only mode with the "$(chmod)" command.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_N__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHMOD="SETTING THE COMPILED ${__HIGHLIGHT}%s${__NEWSTEP} STABLE FILE IN READ-ONLY MODE FOR SAFETY REASONS";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHMOD__WARNING="WARNING : THE COMPILED ${__HIGHLIGHT}%s${__WARNING} STABLE FILE CANNOT BE SET IN READ ONLY MODE";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHMOD__WARNING__ASK="${__WARNING}Do you want to quit the script's execution ? If not, please execute the '${__CMDS}chmod ${__SUCCESS}-xw ${__HIGHLIGHT}%s${__YELLOW}' command after the compilation of this file${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_M__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHMOD__WARNING__ANS_1="${__WARNING}Continuing the compilation of the ${__HIGHLIGHT}Bash Utils${__WARNING} framework${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_E__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHMOD__WARNING__ASK_2="${__ERROR}Ending the compilation of the ${__HIGHLIGHT}Bash Utils${__ERROR} framework${__RESET}";
+
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__COMPILED_STABLE_FILE_WAS_NOT_SET_IN_READ_ONLY_MODE="THE COMPILED ${__HIGHLIGHT}%s${__WARNING} STABLE FILE WAS NOT SET IN READ-ONLY MODE, PLEASE DO SO MANUALLY AFTER THE COMPILATION PROCESS";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__COMPILED_STABLE_FILE_WAS_SUCCESSFULLY_SET_IN_READ_ONLY_MODE="THE COMPILED ${__HIGHLIGHT}%s${__SUCCESS} STABLE FILE WAS SUCCESSFULLY SET IN READ-ONLY MODE";
+
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHMOD__WARNING__ONE_FILE_NOT_CHMODED="A COMPILED FILE WAS NOT SET IN READ-ONLY MODE (${__HIGHLIGHT}%s${__WARNING})";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHMOD__WARNING__EVERY_FILES_NOT_CHMODED="NONE OF THE ${__HIGHLIGHT}%s${__WARNING} COMPILED STABLE FILES WERE SET TO READ-ONLY MODE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHMOD__WARNING__MULTIPLE_FILES_NOT_CHMODED="${__HIGHLIGHT}%s${__WARNING} OF THE ${__HIGHLIGHT}%s${__WARNING} COMPILED FILES WERE NOT SET IN READ-ONLY MODE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHMOD__SUCCESS_EQ_1="SUCCESSFULLY SET THE ${__HIGHLIGHT}%s${__SUCCESS} COMPILED STABLE FILE IN READ-ONLY MODE";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__COPY_COMPILED_FILE_IN_STABLE_DIRECTORY__CHMOD__SUCCESS_GT_1="SUCCESSFULLY SET EACH OF THE ${__HIGHLIGHT}%s${__SUCCESS} COMPILED STABLE FILES IN READ-ONLY MODE";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__STABLE_COMPILED_FILE_IS_READY_TO_BE_USED="THE COMPILED ${__HIGHLIGHT}%s${__SUCCESS} STABLE FILE WAS SUCCESSFULLY COMPILED AND IS READY TO BE USED";
+
+
+# --------------------------------------------------
+# If the framework was compiled in a stable version.
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__END_OF_COMPILATION__FILE_WHOSE_RIGHTS_HAVE_NOT_BEEN_MODIFIED="${__WARNING}Here is the existing compiled file whose rights have not been modified :${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__END_OF_COMPILATION__FILE_WHOSE_RIGHTS_HAVE_NOT_BEEN_MODIFIED__ADVICE="${__WARNING}Please execute the '${__CMDS}chmod ${__SUCCESS}-xw ${__HIGHLIGHT}%s${__WARNING}' command in order to set this file in read-only mode";
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__END_OF_COMPILATION__LIST_OF_FILES_WHOSE_RIGHTS_HAVE_NOT_BEEN_MODIFIED="${__WARNING}Here is the list of the ${__HIGHLIGHT}%s${__WARNING} existing compiled files whose rights have not been modified :${__RESET}";
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_W__END_OF_COMPILATION__LIST_OF_FILES_WHOSE_RIGHTS_HAVE_NOT_BEEN_MODIFIED__TIP="${__WARNING}Tip, you can type the \"${__CMDS}chmod ${__SUCCESS}-xw ${__HIGHLIGHT}%s*${__WARNING}\" command to change the rights of each file at once.${__RESET}";
+
+
+declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__MSG_S__END_OF_FRAMEWORK_COMPILATION="THE COMPILATION OF THE FRAMEWORK IS DONE";

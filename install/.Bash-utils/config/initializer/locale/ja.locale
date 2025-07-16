@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+
+# --------
+# ファイル情報 :
+
+# 名称          : ja.locale
+# 著者（複数可） : Dimitri OBEID
+# バージョン     : 1.0
+
+
+# ----------
+# スクリプトの説明 :
+
+# モジュール初期化スクリプトの日本語翻訳メッセージ。>
+
+
+# ----------------------------
+
+
+
+# ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+############################################### モジュールの初期化処理に必要なメッセージの翻訳 ###############################################
+
+#### 主な翻訳リソース
+
+## 主な機能
+
+# shellcheck disable=
+function BU.ModuleInit.SetInitLocale.ja()
+{
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ########################################## 翻訳リソースの定義 ##########################################
+
+    ####
+
+    ##
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="« %s », « %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT="« %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="« %s », « %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT="« %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__PLE="%s";
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ########################### PROCESSING THE MODULES INITIALIZATION SCRIPT ##########################
+
+    ####
+
+    ##
+
+    if [ ! -d "${__BU_MODULE_INIT__ROOT_HOME}/.Bash-utils" ]; then
+        declare -g -r __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER="Le dossier racine des configurations Bash Utils « .Bash-utils » n'existe pas dans votre répertoire personnel";
+        declare -g -r __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER__ADVICE="Veuillez copier ce dossier dans votre répertoire personnel. Vous pouvez l'installer en exécutant le fichier « install_and_update.sh », ou vous pouvez le trouver dans le dossier « Bash-utils/install ».";
+    fi
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    ####  : [-----] BEGINNING OF THE INITIALIZATION PROCESS
+
+    ##  : [-----] DEFINING GLOBAL VARIABLES
+
+    # ······································································
+    #  :
+
+
+
+
+
+
+    return 0;
+}
+
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #

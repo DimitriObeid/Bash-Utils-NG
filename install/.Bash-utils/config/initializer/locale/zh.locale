@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+# ---------
+# 关于文件的信息 :
+
+# 命名 : zh.locale
+# 作者 : Dimitri OBEID
+# 版本 : 1.0
+
+
+# -------
+# 脚本的描述 :
+
+# 模块初始化脚本的中文翻译信息。
+
+
+# ----------------------------
+
+
+
+# ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+##################################################### 为模块初始化过程翻译信息 ####################################################
+
+#### 主要翻译资源
+
+## 主要功能
+
+# shellcheck disable=
+function BU.ModuleInit.SetInitLocale.zh()
+{
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ########################################### 翻译资源的定义 ###########################################
+
+    ####
+
+    ##
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="« %s », « %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT="« %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="« %s », « %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT="« %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__PLE="%s";
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ################################
+
+    ####
+
+    ##
+
+    if [ ! -d "${__BU_MODULE_INIT__ROOT_HOME}/.Bash-utils" ]; then
+        declare -g -r __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER="Le dossier racine des configurations Bash Utils « .Bash-utils » n'existe pas dans votre répertoire personnel";
+        declare -g -r __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER__ADVICE="Veuillez copier ce dossier dans votre répertoire personnel. Vous pouvez l'installer en exécutant le fichier « install_and_update.sh », ou vous pouvez le trouver dans le dossier « Bash-utils/install ».";
+    fi
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    ####  : [-----] BEGINNING OF THE INITIALIZATION PROCESS
+
+    ##  : [-----] DEFINING GLOBAL VARIABLES
+
+    # ······································································
+    #  :
+
+
+
+
+
+    return 0;
+}
+
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #

@@ -1,0 +1,980 @@
+#!/usr/bin/env bash
+
+# ---------------------
+# FILE'S INFORMATIONS :
+
+# Name          : en.locale
+# Author(s)     : Dimitri OBEID
+# Version       : 1.0
+
+
+# ----------------------
+# SCRIPT'S DESCRIPTION :
+
+# English translation messages of the module initialization script.
+
+
+# ----------------------------
+
+
+
+# ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+########################### TRANSLATING THE MESSAGES FOR THE MODULES INITIALIZATION PROCESS ###########################
+
+#### MAIN TRANSLATION RESOURCES
+
+## MAIN FUNCTION
+
+# shellcheck disable=
+function BU.ModuleInit.SetInitLocale.()
+{
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ############################### DEFINING THE TRANSLATIONS RESOURCES ###############################
+
+    ####  [-----] DEFINING USEFUL VARIABLES
+
+    ##  [-----] REPEATED MESSAGES
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="« %s », « %s », « %s » -->";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT="« %s », « %s » -->";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="« %s », « %s », « %s » -->";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT="« %s », « %s » -->";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__PLE="%s";
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ########################### PROCESSING THE MODULES INITIALIZATION SCRIPT ##########################
+
+    #### : [-----] OUT OF FUNCTION MESSAGES
+
+    ## : [-----] MISSING BASH UTILS CONFIGURATIONS ROOT FOLDER
+
+    if [ ! -d "${__BU_MODULE_INIT__ROOT_HOME}/.Bash-utils" ]; then
+        declare -g __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER="";
+        declare -g __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER__ADVICE="";
+    fi
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    ####  : [-----] SECTION : BEGINNING OF THE INITIALIZATION PROCESS
+
+    ##  : [-----] SUB-SECTION : DEFINING GLOBAL VARIABLES
+
+    # ·······················································································
+    #  : "BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModules()"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PRINT_MISSING_PATH_FOR_DEFINED_GLOBAL_VARIABLE__NO_FNCT="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT} : \n";
+
+    # --------
+
+    ## ==============================================
+
+    ##  : [-----] SUB-SECTION : CALLING THE OTHER FUNCTIONS FOR INITIALIZATION
+
+    declare -g __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MSG_INITIALIZING_THE_MODULES="";
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    ####  : [-----] SECTION : INITIALIZER RESOURCES - FUNCTIONS
+
+    ##  : [-----] SUB-SECTION : FUNCTIONS AND RESOURCES NEEDED FOR TRAPPING SIGNALS
+
+    # ········································
+    #  : "BU.ModuleInit.DefineTraps()"
+
+    declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__EXITING_SCRIPT="";
+
+    # --------
+
+    ## ==============================================
+
+    ## : [-----] SUB-SECTION : FUNCTIONS NEEDED FOR THE DISPLAYING OF THE INITIALIZATION MESSAGES
+
+    # ········································
+    #  : "BU.ModuleInit.AskPrintLog()"
+
+    declare -g __BU_MODULE_INIT_MSG__ASKPRINTLOG__NO_LOG_TO_DISPLAY="";
+    declare -g __BU_MODULE_INIT_MSG__ASKPRINTLOG__ASK_DISPLAY="";
+    declare -g __BU_MODULE_INIT_MSG__ASKPRINTLOG__NO_ENGLISH="";
+    declare -g __BU_MODULE_INIT_MSG__ASKPRINTLOG__ENTER_ANS="";
+    declare -g __BU_MODULE_INIT_MSG__ASKPRINTLOG__NO_DISPLAY="";
+
+    # --------
+
+    # ······························································
+    # : "BU.ModuleInit.DisplayInitializedGlobalVarsInfos()"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__INIT_GLOBAL_VARS="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__SCRIPT_INFO="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__PID="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__INIT_ROOT_DIR_VARS="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__ROOT_HOME="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__ROOT="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__INITIALIZER_PATH="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIVGI__INIT_TMP_DIR="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIVGI__TMP_DIR_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIVGI__TMP_DIR_PATH="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__INIT_CONF_DIRS="";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_DIR_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_DIR_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_DIR_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_INIT_DIR_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_INIT_DIR_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_INIT_DIR_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_MODULES_DIR_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_MODULES_DIR_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_MODULES_DIR_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_INIT_LANG_DIR="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_INIT_LANG_DIR="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_INIT_LANG_DIR="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_INIT_DIR__CONFIGURATION_FILES="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__CONFIG_INIT_DIR__STATUS="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__INIT_MODULE_INIT_DIR="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__MODULES_DIR="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__INIT_VARS_LIB_ROOT_DIR_FILE_PATH="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__LIB_ROOT_DIR_ROOT_FILE_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__LIB_ROOT_DIR_ROOT_FILE_PARENT_DIR="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__LIB_ROOT_DIR_ROOT_FILE_PATH="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__INIT_VARS_LIB_ROOT_DIR_ROOT_FILE="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__LIB_ROOT_DIR_ROOT_FILE_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__LIB_ROOT_DIR_ROOT_FILE_PARENT_DIR="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__LIB_ROOT_DIR_ROOT_FILE_PATH="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__INIT_MISC_VARS="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__BU_BASE_IS_TRANSLATED="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__TRANSLATION_FILE_DELIM="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__DATE_LOG="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__USER_LANG="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DIGVI__BASHX_DEBUG_VALS_ARRAY="";
+
+    # --------
+
+    # ·······················································
+    #  : "BU.ModuleInit.DisplayInitGlobalVarsInfos()"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__1="Modl  : %s";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__2="File  : %s";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__3="Func  : %s";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__4="Line  : %s";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__5="Modl  : ";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__6="File  : ";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__7="Func  : ";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__8="Line  : ";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__9=" : %s";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__A=" : %s";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__B=" :";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__C=" : ";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__D=" : %s %s";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__E=" :  « %s »";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__F=" : %s";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__ACHAR="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__ASTRING="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__BOOL="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__CMD="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__CHAR="(() )";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__DIR="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__DIRPATH="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__FILE="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__FILEPATH="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__FLOAT="()";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__FLOATNEG="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__FLOATPOS="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__INT="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__INTNEG="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__INTPOS="()";
+
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__PATH="()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__TYPE__STRING="()";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__MODL="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__1}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__FILE="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__2}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__FUNC="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__3}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__LINE="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__4}";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__MODL_NULL="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__5}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__FILE_NULL="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__6}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__FUNC_NULL="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__7}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__LINE_NULL="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__8}";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__NO_VAR_TYPE_GIVEN="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__UNKNOWN_VAR_TYPE_GIVEN="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__CHECK_IS_ARRAY="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__9}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__CHECK_IS_NOT_ARRAY="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__A}";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__DESCRIPTION="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__B}";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__ARR_PROC_ARR_TYPE="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__C}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__ARR_PROC_ARR_VALUE="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__ARR_PROC_ARR_EMPTY="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__VAL_TYPE="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__D}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__VAL_IS_CMD="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__E}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__VAL_IS_NOT_CMD="${__BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__F}";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__VAL_IS_EMPTY="";
+
+    #
+    unset __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__1 \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__2 \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__3 \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__4 \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__5 \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__6 \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__7 \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__8 \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__9 \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__A \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__B \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__C \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__D \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__E \
+        __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__F;
+
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__IS_VAR_DEF_IN_INITIALIZER__MAIN_FILE="";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__IS_VAR_DEF_IN_INITIALIZER__MAIN_MODULE_CONF=" ()";
+    declare -g __BU_MODULE_INIT_MSG__DISP_INIT_GLOB_VARS_INFO__IS_VAR_DEF_IN_INITIALIZER__MAIN_MODULE_INIT=" ()";
+
+    # --------
+
+    # ································
+    #  : "BU.ModuleInit.Msg()"
+
+    declare -g __BU_MODULE_INIT_MSG__MSG__BAD_PERMISSION_1="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « \${__BU_MODULE_INIT_MSG_ARRAY_PERMISSION[@]} »  '%s' \n";
+    declare -g __BU_MODULE_INIT_MSG__MSG__BAD_PERMISSION_2=" '--log-display', '--log-no-display', '--log-shut', '--log-shut-display' .";
+
+    # --------
+
+    # ·········································
+    #  : "BU.ModuleInit.MsgTerminate()"
+
+    declare -g __BU_MODULE_INIT_MSG__MSG_TERMINATE__TERMINATE="";
+
+    # --------
+
+    # ········································
+    #  : "BU.ModuleInit.PressAnyKey()"
+
+    declare -g __BU_MODULE_INIT_MSG__PRESS_ANY_KEY__PRESS="";
+
+    # --------
+
+    # ·····································
+    #  : "BU.ModuleInit.PrintLog()"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__INITLOGS="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__HERE="";
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__FULL_MODE=" : ";
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__FULL_MODE__PARAM=" ( « --mode-log-full »  « module »)";
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__PARTIAL_MODE=" : ";
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__PARTIAL_MODE__PARAM=" :  ( « --mode-log-partial »  « module »)";
+
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__DISPLAY_LOGS_TITLE=" « less » ";
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__DISPLAY_LOGS_ADVICE_IF_NO_LOGS_ARE_DISPLAYED=",  CTRL + C";
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__DISPLAY_LOGS_CALL_PRESS_ANY_KEY_FNCT=" « less » ";
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__DONT_PRESS_Q=" « Q » ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__DISPLAY_LOGS_CANNOT_CREATE_TMP_FILE="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG__POST_DISPLAY_TEXT="";
+
+    # --------
+
+    # ··········································
+    #  : "BU.ModuleInit.PrintLogError()"
+
+    declare -g __BU_MODULE_INIT_MSG__PRINTLOG_ERROR__PRINT_ERROR="[  ]  : %s |  : %s |  : %s";
+
+    # --------
+
+    ## ==============================================
+
+    ## : [-----] SUB-SECTION : FUNCTIONS NEEDED FOR THE MODULES INITIALIZATION
+
+    # ······································
+    #  : "BU.ModuleInit.CheckPath()"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATH__NO_FILE_PATH="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATH__NO_TARGET_SPECIFICATION="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  !!!";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATH__PLEASE_SPECIFY_TARGET_SPECIFICATION=" 'f' (file)  'd' (directory)  « %s » .";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATH__DIR_NOT_FOUND="( : )";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATH__FILE_NOT_FOUND="( : )";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATH__UNKNOWN_TARGET="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « p_target »  « %s »,  'D', 'd', 'F' OR 'f'";
+
+    # --------
+
+    # ·····································
+    #  : "BU.ModuleInit.FindPath()"
+
+    declare -g __BU_MODULE_INIT_MSG__FIND_PATH__PATH_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : ";
+    declare -g __BU_MODULE_INIT_MSG__FIND_PATH__TOP_LEVEL_FUNCTION=" « %s() »  : %s()";
+
+    # --------
+
+    # ··········································
+    #  : "BU.ModuleInit.GetModuleName()"
+
+    declare -g __BU_MODULE_INIT_MSG__GET_MODULE_NAME__UNABLE_TO_GET="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : ";
+
+    # --------
+
+    # ·················································
+    # FUNCTION : "BU.ModuleInit.ListInstalledModules()"
+
+    # Unable to create the temporary directory.
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__UNABLE_TO_CREATE_TMP_DIR="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « tmp »  « %s/ » ";
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__UNABLE_TO_CREATE_TMP_DIR__ADVICE="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__INSTALLED_MODULES_LIST="INSTALLED MODULES LIST";
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__ONE_OR_MORE_MODULES_MISSING=" !  « %s »  « %s » ";
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__MODULES_CONFIGURATION_FOLDER_LIST="";
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__MODULES_INITIALIZATION_FOLDER_LIST="";
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__LISTED_MODULES_DIFFERENCES_BELOW="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__UNEXISTENT_PATH="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : ";
+
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__BOTH_CONF_AND_INIT_FOLDER_ARE_MISSING="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  !";
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__CONF_FOLDER_IS_MISSING="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  !";
+    declare -g __BU_MODULE_INIT_MSG__LIST_INSTALLED_MODULES__INIT_FOLDER_IS_MISSING="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  !";
+
+    # --------
+
+    # ············································
+    #  : "BU.ModuleInit.SourcingFailure()"
+
+    declare -g __BU_MODULE_INIT_MSG__SOURCING_FAILURE__UNABLE_TO_SOURCE="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « %s »  --> %s";
+
+    # --------
+
+    ## ==============================================
+
+    ## : [-----] SUB-SECTION : FUNCTIONS NEEDED FOR THE MODULES PROCESSING
+
+    # ··································
+    #  : "BU.ModuleInit.Usage()"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_0="                          :  :";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_1="--log-display             :  « \${__BU_MODULE_INIT_MSG_ARRAY[@]} » ";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_2="--log-no-display          :  « \${__BU_MODULE_INIT_MSG_ARRAY[@]} » ";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_3="--log-shut                :  « \${__BU_MODULE_INIT_MSG_ARRAY[@]} » ";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_4="--log-shut-display        :  « \${__BU_MODULE_INIT_MSG_ARRAY[@]} » ";
+
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_____LOG_0="WARNING                   :  :";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_____LOG_1="--mode-log-full           :  « \${__BU_MODULE_INIT_MSG_ARRAY[@]} » ";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_____LOG_2="--mode-log-partial        :  « \${__BU_MODULE_INIT_MSG_ARRAY[@]} » ";
+
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________DEBUG="--stat-debug=false            --stat-debug=true";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS____DEBUG_BASHX="--stat-debug-bashx=category   --stat-debug-bashx=file    --stat-debug-bashx=function  OR --stat-debug-bashx=sub-category";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__USAGE__SUPVALS=" :";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_LOG="${__BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_0}";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_LOG_DISPLAY="${__BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_1}";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_LOG_NO_DISPLAY="${__BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_2}";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_LOG_SHUT="${__BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_3}";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_LOG_SHUT_DISPLAY="${__BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_4}";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_LOG="${__BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_____LOG_0}";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_LOG_FULL="${__BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_____LOG_1}";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_LOG_PARTIAL="${__BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_____LOG_2}";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__USAGE__DEBUG_VALUES_LIST="GLOBAL STATUS VARIABLES - DEBUG VALUES :";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__DEBUG="${__BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________DEBUG}";
+    declare -g __BU_MODULE_INIT_MSG__USAGE__DEBUG_BASHX="${__BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS____DEBUG_BASHX}";
+
+    #
+    unset   __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_0 \
+            __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_1 \
+            __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_2 \
+            __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_3 \
+            __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________LOG_4 \
+            __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_____LOG_0 \
+            __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_____LOG_1 \
+            __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS_MODE_____LOG_2 \
+            __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS__________DEBUG \
+            __BU_MODULE_INIT_MSG__USAGE__INCOMPATIBLE_VALS____DEBUG_BASHX;
+
+    # --------
+
+    # ······················································································
+    #  : "BU.ModuleInit.ProcessFirstModuleParameters.LogPermissionWarningOptimize()"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__LPWO__SAME_MSG_ARRAY_PERM_PASSED_TWICE="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « \${__BU_MODULE_INIT_MSG_ARRAY_PERMISSION[@]} » "
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__LPWO__DIFF_MSG_ARRAY_PERM_PASSED__ADVICE_1=" « module »  '--log-display' 'log-no-display', '--log-shut'  '--log-shut-display' ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__LPWO__DIFF_MSG_ARRAY_PERM_PASSED__ADVICE_2="";
+
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__LPWO__DIFF_MSG_ARRAY_PERM_PASSED_EXTRA_INFO=" « \${__BU_MODULE_INIT_MSG_ARRAY_PERMISSION[@]} » ";
+
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__LPWO__DIFF_MSG_ARRAY_PERM_PASSED_CURRENT_VAL=" : %s";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__LPWO__DIFF_MSG_ARRAY_PERM_PASSED_NEW_VAL="New value : %s";
+
+    # --------
+
+    # ······················································································
+    #  : "BU.ModuleInit.ProcessFirstModuleParameters.ProcessBadStatusOptionValues()"
+
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__PBSOV__MSG=" :  « %s »  : %s";
+
+    # --------
+
+    # ·························································
+    #  : "BU.ModuleInit.ProcessFirstModuleParameters()"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VAL_NO_OPTS="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « module » ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VAL_NO_OPTS__ADVICE=" « module » ";
+
+    #~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~
+    #~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VALS_CHECK_LOOP__STAT_VAL_IS_BOOL="";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VALS_CHECK_LOOP__STAT_VAL_IS_STRING="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VALS_CHECK_LOOP__STAT__DEBUG__ARG_HAS_AWAITED_VAL="${__BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VALS_CHECK_LOOP__STAT_VAL_IS_BOOL} ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VALS_CHECK_LOOP__STAT__DEBUG_BASHX__ARG_HAS_AWAITED_VAL="${__BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VALS_CHECK_LOOP__STAT_VAL_IS_STRING}  « set -x » ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VALS_CHECK_LOOP__STAT__DEBUG_BASHX__ARG_HAS_AWAITED_VAL__VOID="${__BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VALS_CHECK_LOOP__STAT__DEBUG_BASHX__ARG_HAS_AWAITED_VAL}.  « void » ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VALS_CHECK_LOOP__STAT__DEBUG_BASHX__STAT_DEBUG_ARG_NOT_TRUE="NOTE : The « \${__BU_MODULE_INIT_STAT_DEBUG} » status global variable's value must be set to « true » in order to use this advanced debugging functionnality";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VALS_CHECK_LOOP__STAT__STAT_IS_NOT_SUPPORTED="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : « %s » IS NOT A SUPPORTED STATUS ARGUMENT BY THE « module » PARAMETER";
+
+    #~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~
+    #~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VAL_LOG_OPT_UNSUPPORTED_VAL="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « module » ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VAL_LOG_OPT_UNSUPPORTED_VAL__ADVICE=" « %s »  « module »";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VAL_MODE_LOG_OPT_UNSUPPORTED_VAL="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « module »  « %s » ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_VAL_MODE_LOG_OPT_UNSUPPORTED_VAL__ADVICE=" « %s »  « module » ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_GEN_OPT_UNSUPPORTED_VAL="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : « module »  « %s » ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_GEN_OPT_UNSUPPORTED_VAL__ADVICE=" « %s »  « module » ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE__SOURCE_STATUS_CONF_FILE__ERROR="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR} :  « %s » ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE__SOURCE_STATUS_CONF_FILE__SUCCESS=" « %s » ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_PARAM_PASSED_MAIN_MODULE_MISSING="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « MODULE »  « BashUtils_InitModules() » ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_PARAM_PASSED_MAIN_MODULE_MISSING__ADVICE=" « %s »  « %s » ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_PARAM_PASSED_AFTER_MAIN_MODULE="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : ,  « module -- »  « BashUtils_InitModules() » ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_PARAM_PASSED_AFTER_MAIN_MODULE__ADVICE=" « module » ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_AND_MAIN_PARAMS_MISSING="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « MODULE »  « MAIN » ,   « BashUtils_InitModules() » ";
+    declare -g __BU_MODULE_INIT_MSG__PROCESS_FIRST_MODULE_PARAMS__MODULE_AND_MAIN_PARAMS_MISSING__ADVICE=" « module » ";
+
+    # --------
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    #### : [-----] SECTION : SOURCING THE MODULES
+
+    ## : [-----] SUB-SECTION : INCLUSION OF LIBRARY FILES ACCORDING TO THE INCLUDED MODULE
+
+    # ····································
+    #  : "BashUtils_InitModules()"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__IS_ALREADY_CALLED="";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__MUST_PASS_A_MODULE_NAME="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT} :  « %s » ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__MODULES_INIT_MSG="INTIALIZING THESE MODULES :";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__MODULES_INIT_MSG__LOOP_ADD_ARRAY_INDEX__IS_MODULE_PARAM="Module %s : %s       <-- ";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__MODULES_INIT_MSG__LOOP_ADD_ARRAY_INDEX__IS_NOT_MODULE_PARAM="Module %s : %s";
+
+    #~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~
+    #~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    # 
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__CONF_PATH__DIGVI="  ( : %s |  : %s)";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INIT_PATH__DIGVI="  ( : %s |  : %s";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__NAME_WITH_ARGS=" « %s »  ( : %s |  : %s)";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_CONF_DIRS__DIR_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « %s »  « ls »  « config »  !!!";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_CONF_DIRS__DIR_NOT_FOUND__ADVICE=" --> ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_CONF_DIRS__SOURCE_MSG=" « %s » ";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_CONF_DIRS__MODULE_CONF_FILE_NOT_FOUND=" « %s »  (%s)";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_CONF_DIRS__MODULE_CONF_FILE_IS_EMPTY=" « %s »  « %s/%s » ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_INIT_DIRS__DIR_NOT_FOUND__CALL_PLE="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__PLE} :  « %s » ";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_INIT_DIRS__DIR_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} :  « %s »  « ls »  « modules »  !!!";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_INIT_DIRS__DIR_NOT_FOUND__ADVICE=" --> ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_INIT_DIRS__SOURCE=" « %s » ";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_INIT_DIRS__MODULE_INIT_FILE_NOT_FOUND=" « %s »  (%s)";
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__INCLUDE_INIT_DIRS__MODULE_INIT_FILE_IS_EMPTY="« %s »   « %s/%s » ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__SOURCE_MODULES_CONF_DIRS__CURRENT_MODULE__END_OF_MODULE_INIT=" « %s »  !";
+
+    #~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #~
+    #~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_IM__END_OF_FRAMEWORK_INIT=" « %s »  « %s » !";
+
+    # --------
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ########################## SOURCING THE MAIN MODULE'S CONFIGURATION FILES #########################
+
+    #### [-----] INITIALIZING THE MAIN MODULE - INCLUDING THE CONFIGURATION FILES
+
+    ## : [-----] FILE : "Colors.conf"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__PrintRawColorCodeVarsName_FNCT_A=" : %s";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__PrintRawColorCodeVarsName_FNCT_C=" : %s";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__PrintVariableNameFailedToInitialize_FNCT_A="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT} : ";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__PrintVariableNameFailedToInitialize_FNCT_C="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT} : ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_AQUA='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_BLACK='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_BLUE='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_CYAN='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_FUCHSIA='';
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_GRAY='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_GREEN='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_LIME='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_MAROON='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_NAVY='';
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_OLIVE='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_ORANGE='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_PINK='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_PURPLE='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_RED='';
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_SALMON='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_SILVER='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_TAN='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_TEAL='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_TURQUOISE='';
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_VIOLET='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_WHITE='';
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__COL_YELLOW='';
+
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__ACT_CMD="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__ACT_ERROR="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__ACT_FUNCTION="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__ACT_HIGHLIGHT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__ACT_NEWSTEP="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__ACT_PATH="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__ACT_SUCCESS="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__ACT_VAR="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__ACT_WARNING="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS__ACT_RESET="";
+
+    # --------
+
+    ## : [-----] FILE : "ColorsBG.conf"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS_BG__PrintColorVarNameCmdSub_FNCT_A="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS_BG__PrintColorVarNameCmdSub_FNCT_C="";
+
+    # --------
+
+    ## : [-----] FILE : "ColorsText.conf"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS_TEXT__PrintColorVarNameCmdSub_FNCT_A="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__COLORS_TEXT__PrintColorVarNameCmdSub_FNCT_C="";
+
+    # --------
+
+    ## : [-----] FILE : "Exit.conf"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__PrintReturnValue_FNCT="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__NOT_PERMITTED__VAR_DESC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__DIR_FILE_NOT_FOUND__VAR_DESC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__PERMISSION_DENIED__VAR_DESC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__FILE_EXISTS__VAR_DESC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__NOT_DIR__VAR_DESC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__IS_DIR__VAR_DESC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__INVALID_ARGUMENT__VAR_DESC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__FILE_TOO_LARGE__VAR_DESC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__NO_SPACE_LEFT__VAR_DESC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__RO_FS__VAR_DESC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__EXIT__FILENAME_TOO_LONG_VAR_DESC="";
+
+    # --------
+
+    ## : [-----] FILE : "Filesystem.conf"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__FILESYSTEM__PrintFSLengthDescription_FNCT="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__FILESYSTEM__UNSUPPORTED_FILESYSTEM="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT} : ";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__FILESYSTEM__SET_GENERAL_SPECIFICATION__FILENAME_LENGTH="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT} : ";
+
+    # --------
+
+    ## : [-----] FILE : "Module.conf"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUSubFoldersPaths__FNCT__BIN="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUSubFoldersPaths__FNCT__CONFIG="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUSubFoldersPaths__FNCT__DOCS="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUSubFoldersPaths__FNCT__LIB="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUSubFoldersPaths__FNCT__RES="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUDevToolsPaths__FNCT__DEVTOOLS="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUDevToolsPaths__FNCT__DEVTOOLS_BIN="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUDevToolsPaths__FNCT__DEVTOOLS_DSK="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUDevToolsPaths__FNCT__DEVTOOLS_IMG="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUDevToolsPaths__FNCT__DEVTOOLS_SRC="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BUDevToolsPaths__FNCT__DEVTOOLS_TRA="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BULibFolderContent__FNCT__LIB_FUNCTS_DIR_PATH="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BULibFolderContent__FNCT__LIB_MOD_DIR_PATH="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BULibFolderContent__FNCT__LIB_LANG_DIR_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__MainModuleConfigFolderContentOptimize__FNCT="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__MainModuleFunctionsPathOptimize__FNCT="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__MainModuleInitializerPath__FNCT__FILE_INITIALIZER_PATH="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BU_MAIN_ROOT_DIR_PATH_STORAGE_FILE_PATH="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BU_MAIN_ROOT_DIR_PATH_STORAGE_FILE_PATH__ROOT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BU_MAIN_ROOT_DIR_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__INVALID_ROOT_DIR_PATH__ERR="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT} : ";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__INVALID_ROOT_DIR_PATH__INFO="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__INVALID_ROOT_DIR_PATH__ADVICE="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__EMPTY_ROOT_DIR_PATH__ERR="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT} : ";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__EMPTY_ROOT_DIR_PATH__ADVICE="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__CANNOT_READ_ROOT_DIR_PATH__ERR="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT} : ";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__CANNOT_READ_ROOT_DIR_PATH__INFO="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__CANNOT_READ_ROOT_DIR_PATH__ADVICE_1="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__CANNOT_READ_ROOT_DIR_PATH__ADVICE_2="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__ABSENT_ROOT_DIR_PATH__ERR="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT} :";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__ABSENT_ROOT_DIR_PATH__ADVICE="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BU_MAIN_MODULE_FUNCTIONS_FILES_PATH_ARRAY="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BU_MAIN_MODULE_MODIFIED_STATUS_VARS_ARRAY="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BU_MAIN_MODULE_LIB_FILES_PATH_ARRAY="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BU_MAIN_MODULE_CONFIG_FILES_PATH_ARRAY="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__MODULE__BU_MAIN_MODULE_LIST_CONFIG_FILES_PATH_ARRAY="";
+
+    # --------
+
+    ## : [-----] FILE : "Project.conf"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__GetProjectFilePath__UNABLE_TO_GET_THE_PARENT_DIR="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR} : ";
+
+    # Definition of the global variables.
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_FILE_NAME__VAR="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_NAME__VAR="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_TMP_DIR_PARENT_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_TMP_DIR_PARENT_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_TMP_DIR_PATH__VAR="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_TMP_DIR_PATH__ROOT_VAR="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_FILE_PATH__VAR="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_ALIAS_FILE_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_ALIAS_FILE_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_ALIAS_FILE_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_BG_CODE_FILE_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_BG_CODE_FILE_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_BG_CODE_FILE_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_BG_RAW_CODE_FILE_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_BG_RAW_CODE_FILE_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_BG_RAW_CODE_FILE_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_TEXT_CODE_FILE_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_TEXT_CODE_FILE_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_TEXT_CODE_FILE_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_TEXT_RAW_CODE_FILE_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_TEXT_RAW_CODE_FILE_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_COLOR_TEXT_RAW_CODE_FILE_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_LOG_DIR_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_LOG_DIR_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_LOG_DIR_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_LOG_FILE_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_LOG_FILE_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_LOG_FILE_PATH="";
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_LANG_CSV_PARSER_SCRIPT_PARENT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_LANG_CSV_PARSER_SCRIPT_NAME="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__PROJECT__BU_MAIN_PROJECT_LANG_CSV_PARSER_SCRIPT_PATH="";
+
+    # --------
+
+    ## : [-----] FILE : "Text.conf"
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TEXT__PrintTextModeCmdSubs__FNCT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TEXT__PrintFormatCmdSubs__FNCT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TEXT__PrintResetCmdSubs__FNCT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TEXT__PrintAllResetCmdSubs__FNCT="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TEXT__PrintVariableNameFailedToInitialize__FNCT="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT} : ";
+
+    # Definition of the global variables.
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TEXT__BU_MAIN_TXT_CHAR_HEADER_LINE__VAR="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TEXT__BU_MAIN_TXT_PRINT_TAB__VAR="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TEXT__BU_MAIN_TXT_STORE_LINE__VAR="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TEXT__BU_MAIN_TXT_STORE_ECHO_TRUE_MESSAGES_ARRAY__ARRAY="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TEXT__BU_MAIN_TXT_ERR_SUBSTR_DELIM__VAR="";
+
+    # --------
+
+    ## : [-----] FILE : "Time.conf"
+
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TIME__BU_MAIN_TIME_DATE="";
+    declare -g __BU_MODULE_INIT_MSG__BU_MAIN_MODCONFIG__TIME__BU_MAIN_TIME_DATE_DISPLAY=" : [ YYYY-MM-DD hh-mm-ss ]";
+
+    # --------
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ######################## PROCESSING THE MAIN MODULE'S INITIALIZATION SCRIPT #######################
+
+    #### - [-----] INITIALIZING THE MAIN MODULE - PROCESSING THE INITIALIZER FILE
+
+    ## : [-----] STEP ONE : DEFINING THE NEEDED RESOURCES
+
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_ONE__SOURCE_LIBRARY="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_ONE__SOURCE_CONFIG="":
+
+    ## ==============================================
+
+    ## : [-----] STEP TWO : MINIMAL INCLUSION OF FILES IN ORDER TO USE THEIR RESOURCES DURING THE TRANSLATION PART
+
+    #
+
+    ## ==============================================
+
+    ## : [-----] STEP THREE : PROCESSING THE MAIN MODULE'S PARAMETERS
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE__SUPPORTED_ARGS="":
+
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE_______DECHO="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE________ECHO="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE_______ERROR="";
+
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE_________LOG="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE_______LOG_R="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE_____OP_ROOT="";
+
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE______TIME_H="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE______TIME_N="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE______TIME_T="";
+
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__USAGE_____TXT_FMT="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__BAD_VALUE_GIVEN="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : ";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__BAD_VALUE_GIVEN__ADVICE=" : ";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_BOOL="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_FLOAT="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_STRING="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR_DESC_DECHO="${__BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_STRING}";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR_DESC_ECHO="${__BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_BOOL}";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR_DESC_ERROR="${__BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_STRING}";
+
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR_DESC_LOG="${__BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_BOOL}";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR_DESC_LOG_R="${__BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_STRING}";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR_DESC_OP_ROOT="${__BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_STRING}";
+
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR_DESC_TIME_H="${__BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_FLOAT}";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR_DESC_TIME_N="${__BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_FLOAT}";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR_DESC_TIME_T="${__BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_FLOAT}";
+
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR_DESC_TXT_FMT="${__BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_BOOL}";
+
+    #
+    unset __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_BOOL \
+        __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_FLOAT \
+        __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_THREE__STAT_GLOB_VAR__IS_STAT_VAL_STRING;
+
+    ## ==============================================
+
+    ## : [-----] STEP FOUR : INCLUSION OF THE REST OF THE LIBRARY AND CONFIGURATION FILES
+
+    #
+
+    ## ==============================================
+
+    ## : [-----] STEP FIVE : PROCESSING PROJECT'S RESOURCES
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_FIVE__CREATE_TXT_COL_FILE__ERROR="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_FIVE__CREATE_TXT_COL_FILE__SUCCESS="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_FIVE__CREATE_TXT_COL_FILE__EXISTS="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_FIVE__CREATE_BG_COL_FILE__ERROR="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_FIVE__CREATE_BG_COL_FILE__SUCCESS="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_FIVE__CREATE_BG_COL_FILE__EXISTS="";
+
+    #
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_FIVE__CREATE_LOG_FILE__ERROR="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_FIVE__CREATE_LOG_FILE__SUCCESS="";
+    declare -g __BU_MODULE_INIT_MSG__INIT_MAIN_MODULE__STEP_FIVE__CREATE_LOG_FILE__EXISTS="";
+
+    return 0;
+}
+
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #

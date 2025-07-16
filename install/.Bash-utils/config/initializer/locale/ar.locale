@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+# -----------
+# معلومات الملف :
+
+# اسم       : ar.locale
+# المؤلفون      : Dimitri OBEID (ديمتري عبيد)
+# إصدار :    1.0
+
+# ----------------
+# وصف البرنامج النصي :
+
+# رسائل الترجمة العربية لنص تهيئة الوحدة
+
+# ----------------------------
+
+
+
+# ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+############################################# ترجمة الرسائل المتعلقة بعملية تهيئة الوحدة #############################################
+
+#### مصادر الترجمة الرئيسية
+
+## الوظيفة الأساسية
+
+# shellcheck disable=
+function BU.ModuleInit.SetInitLocale.ar()
+{
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ########################################## تعريف موارد الترجمة ##########################################
+
+    #### تعريف المتغيرات المفيدة
+
+    ## رسائل متكررة
+
+    # اكتب اسم الملف واسم الوظيفة ورقم السطر الذي يحدث فيه الخطأ غير الفادح.
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="";
+
+    # اكتب اسم الملف ورقم السطر الذي حدث فيه الخطأ غير الفادح.
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT="";
+
+    # اكتب اسم الملف واسم الوظيفة ورقم السطر الذي حدث فيه الخطأ الفادح
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="";
+
+    # اكتب اسم الملف ورقم السطر الذي حدث فيه الخطأ الفادح.
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT="";
+
+    # اكتب بداية أي نص تريد طباعته باستخدام الدالة "BU.ModuleInit.PrintLogError()".
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__PLE="%s";
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ########################### PROCESSING THE MODULES INITIALIZATION SCRIPT ##########################
+
+    ####
+
+    ##
+
+    if [ ! -d "${__BU_MODULE_INIT__ROOT_HOME}/.Bash-utils" ]; then
+        declare -g -r __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER="Le dossier racine des configurations Bash Utils « .Bash-utils » n'existe pas dans votre répertoire personnel";
+        declare -g -r __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER__ADVICE="Veuillez copier ce dossier dans votre répertoire personnel. Vous pouvez l'installer en exécutant le fichier « install_and_update.sh », ou vous pouvez le trouver dans le dossier « Bash-utils/install ».";
+    fi
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    ####  : [-----] BEGINNING OF THE INITIALIZATION PROCESS
+
+    ##  : [-----] DEFINING GLOBAL VARIABLES
+
+    # ······································································
+    #  :
+
+
+
+
+    return 0;
+}

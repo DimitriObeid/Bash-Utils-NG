@@ -1,0 +1,369 @@
+//////////////////////////////////////////////////////////////////
+This file was generated with the "./docs_filename_hash.py" command
+
+It contains the list of every English documentation files with the five first characters of the hash of their name
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+JSON infos :
+ - file_path : Path to the file from the folder where this script is located (ALWAYS IN THE "Bash-utils/docs" DIRECTORY)
+ - tex_title : Value parsed from the targeted LaTeX file, in order to generate a hex code per document
+ - hex__code : Generated hexadecimal code, which is used into the name of every LaTeX and PDF files
+
+
+JSON DATA :
+[
+    {
+        "file_path": "en/Introduction - BD545.tex",
+        "tex_title": "Bash-utils/docs/en/Introduction to Bash Utils.tex",
+        "hex__code": "BD545",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/Tutorials - 26C06.tex",
+        "tex_title": "Bash-utils/docs/en/Tutorials.tex",
+        "hex__code": "26C06",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/Color code - DF331.tex",
+        "tex_title": "Bash-utils/docs/en/Color code.tex",
+        "hex__code": "DF331",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/lib-install - 422D6.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/lib-install.tex",
+        "hex__code": "422D6",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/bin-generation - 70FB9.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/bin-generation.tex",
+        "hex__code": "70FB9",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/mr-clean - 4E11C.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/mr-clean.tex",
+        "hex__code": "4E11C",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/latex-create-document - F1E94.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/latex-create-document.tex",
+        "hex__code": "F1E94",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/latex-unite - 6EF2C.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/latex-unite.tex",
+        "hex__code": "6EF2C",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/module-mk - E9FF4.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/module-mk.tex",
+        "hex__code": "E9FF4",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/module-rm - 2BC53.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/module-rm.tex",
+        "hex__code": "2BC53",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/256-color-palette - FD502.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/256-color-palette.tex",
+        "hex__code": "FD502",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/lib-compilerV3 - B2212.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/lib-compilerV3.tex",
+        "hex__code": "B2212",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/lib-generator - E3E01.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/lib-generator.tex",
+        "hex__code": "E3E01",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/latex-clean - 7373B.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/latex-clean.tex",
+        "hex__code": "7373B",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/desktop - 039A0.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/desktop.tex",
+        "hex__code": "039A0",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/install-dev-env - D9BDA.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/install-dev-env.tex",
+        "hex__code": "D9BDA",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/latex-convert-to-printable - 50DF3.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/latex-convert-to-printable.tex",
+        "hex__code": "50DF3",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/latex-compiler - 47A6B.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/latex-compiler.tex",
+        "hex__code": "47A6B",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/devtools/lib-unite - F0BE8.tex",
+        "tex_title": "Bash-utils/docs/en/devtools/lib-unite.tex",
+        "hex__code": "F0BE8",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/Functioning of the modules manager - 250CD.tex",
+        "tex_title": "Bash-utils/docs/en/Functioning of the modules manager.tex",
+        "hex__code": "250CD",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/01) InitScript/Error codes - 35109.tex",
+        "tex_title": "Bash-utils/docs/en/modules/01) InitScript/Error codes.tex",
+        "hex__code": "35109",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/01) InitScript/Functions - 4EEA3.tex",
+        "tex_title": "Bash-utils/docs/en/modules/01) InitScript/Functions.tex",
+        "hex__code": "4EEA3",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/03) InitModule/Software/Initializer - 87AF1.tex",
+        "tex_title": "Bash-utils/docs/en/modules/03) InitModule/Software/Sotware - Initializer.tex",
+        "hex__code": "87AF1",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/03) InitModule/main/Initializer - E8A6E.tex",
+        "tex_title": "Bash-utils/docs/en/modules/03) InitModule/main/Main - Initializer.tex",
+        "hex__code": "E8A6E",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/03) InitModule/Hardware/Initializer - 3E1BE.tex",
+        "tex_title": "Bash-utils/docs/en/modules/03) InitModule/Hardware/Hardware - Initializer.tex",
+        "hex__code": "3E1BE",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/Software/Module-conf - 1B2DF.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/Software/Module-conf.tex",
+        "hex__code": "1B2DF",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/Exit-conf - 04B46.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/Exit-conf.tex",
+        "hex__code": "04B46",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/ColorsBG-conf - 5A7C3.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/ColorsBG-conf.tex",
+        "hex__code": "5A7C3",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/Text-conf - BEEA4.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/Text-conf.tex",
+        "hex__code": "BEEA4",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/Locale-conf - FE235.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/Locale-conf.tex",
+        "hex__code": "FE235",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/Time-conf - 7F305.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/Time-conf.tex",
+        "hex__code": "7F305",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/Module-conf - B5F99.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/Module-conf.tex",
+        "hex__code": "B5F99",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/Status-conf - D0455.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/Status-conf.tex",
+        "hex__code": "D0455",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/ColorsText-conf - 16019.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/ColorsText-conf.tex",
+        "hex__code": "16019",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/Filesystem-conf - A6E02.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/Filesystem-conf.tex",
+        "hex__code": "A6E02",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/Aliases-conf - D4B3F.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/Aliases-conf.tex",
+        "hex__code": "D4B3F",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/Colors-conf - 2FCE1.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/Colors-conf.tex",
+        "hex__code": "2FCE1",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/main/Project-conf - 1B4DC.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/main/Project-conf.tex",
+        "hex__code": "1B4DC",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/02) Config/Hardware/Module-conf - D8C8E.tex",
+        "tex_title": "Bash-utils/docs/en/modules/02) Config/Hardware/Module-conf.tex",
+        "hex__code": "D8C8E",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Status - 7F036.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Status.tex",
+        "hex__code": "7F036",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Headers - 26C36.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Headers.tex",
+        "hex__code": "26C36",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Checkings - 20E72.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Checkings.tex",
+        "hex__code": "20E72",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Decho - B476D.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Decho.tex",
+        "hex__code": "B476D",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Filesystem - ED272.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Filesystem.tex",
+        "hex__code": "ED272",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Files - 96B34.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Files.tex",
+        "hex__code": "96B34",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/TextFormat - F8594.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/TextFormat.tex",
+        "hex__code": "F8594",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Text - D1630.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Text.tex",
+        "hex__code": "D1630",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Inputs - 0C862.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Inputs.tex",
+        "hex__code": "0C862",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/BasicMaths - 481D6.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/BasicMaths.tex",
+        "hex__code": "481D6",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Directories - C4375.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Directories.tex",
+        "hex__code": "C4375",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/OS - 073CE.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/OS.tex",
+        "hex__code": "073CE",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/CMDS - F9165.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/CMDS.tex",
+        "hex__code": "F9165",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/DevTools - D29B4.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/DevTools.tex",
+        "hex__code": "D29B4",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Time - 50974.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Time.tex",
+        "hex__code": "50974",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Args - E1853.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Args.tex",
+        "hex__code": "E1853",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Locale - F1A47.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Locale.tex",
+        "hex__code": "F1A47",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Echo - B9D5F.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Echo.tex",
+        "hex__code": "B9D5F",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/PosixTerm - 35421.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/PosixTerm.tex",
+        "hex__code": "35421",
+        "code_stat": "Unchanged hex code"
+    },
+    {
+        "file_path": "en/modules/04) Functions/main/Errors - 5B55D.tex",
+        "tex_title": "Bash-utils/docs/en/modules/04) Functions/main/Errors.tex",
+        "hex__code": "5B55D",
+        "code_stat": "Unchanged hex code"
+    }
+]

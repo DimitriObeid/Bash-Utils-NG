@@ -1,0 +1,15 @@
+1) Créer une variable nommée "$num_ligne" enregistrant un nombre entier, qui servira à incrémenter le numéro de la ligne à lire.
+
+2) Créer une variable nommée "$num_colonne" enregistrant un nombre entier, qui servira à incrémenter le numéro de colonne jusqu'à trouver la colonne cible.
+
+3) Lire la première colonne jusqu'à trouver la case "VARIABLE" (normalement la première case de la première ligne, de la première ligne).
+
+4) Depuis cette première ligne de la première colonne, lire chaque colonne de la même ligne jusqu'à trouver le code de langue (ISO 639-1 passé en second argument lors de l'appel de la fonction "ParseCSVLibLang()", puis récupérer le numéro de la colonne.
+
+5) Remettre la valeur de la variable "$num_colonne" à 0, puis incrémenter la valeur de la variable "$num_ligne" d'un.
+
+6) Pour chaque ligne de la première colonne, écrire le nom de la variable dans un fichier temporaire, puis écrire un '=' dans ce fichier à la suite.
+
+7) Récupérer le texte traduit dans la colonne de langue cible, puis de l'écrire à la suite du '=' dans ce fichier temporaire.
+
+8) Remettre la valeur de la variable "$num_colonne" à 0, puis incrémenter la valeur de la variable "$num_ligne" pour passer à la colonne suivante.

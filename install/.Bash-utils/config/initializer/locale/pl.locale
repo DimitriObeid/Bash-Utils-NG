@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+# --------------------
+# INFORMACJE O PLIKU :
+
+# Nazwa         : pl.locale
+# Autor(ka)     : Dimitri OBEID
+# Wersja        : 1.0
+
+
+# --------------
+# OPIS SKRYPTU :
+
+# Polskie komunikaty tłumaczące skrypt inicjalizacji modułu.
+
+
+# ----------------------------
+
+
+
+# ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+############################## TŁUMACZENIE KOMUNIKATÓW DLA PROCESU INICJALIZACJI MODUŁÓW ##############################
+
+#### GŁÓWNE ZASOBY TŁUMACZENIOWE
+
+## FUNKCJA GŁÓWNA
+
+# shellcheck disable=
+function BU.ModuleInit.SetInitLocale.pl()
+{
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ################################ DEFINICJA ZASOBÓW TŁUMACZENIOWYCH ################################
+
+    ####
+
+    ##
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="« %s », « %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT="« %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="« %s », « %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT="« %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__PLE="%s";
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ########################### PROCESSING THE MODULES INITIALIZATION SCRIPT ##########################
+
+    ####
+
+    ##
+
+    if [ ! -d "${__BU_MODULE_INIT__ROOT_HOME}/.Bash-utils" ]; then
+        declare -g -r __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER="Le dossier racine des configurations Bash Utils « .Bash-utils » n'existe pas dans votre répertoire personnel";
+        declare -g -r __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER__ADVICE="Veuillez copier ce dossier dans votre répertoire personnel. Vous pouvez l'installer en exécutant le fichier « install_and_update.sh », ou vous pouvez le trouver dans le dossier « Bash-utils/install ».";
+    fi
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    ####  : [-----] BEGINNING OF THE INITIALIZATION PROCESS
+
+    ##  : [-----] DEFINING GLOBAL VARIABLES
+
+    # ······································································
+    #  :
+
+
+
+
+
+
+    return 0;
+}
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #

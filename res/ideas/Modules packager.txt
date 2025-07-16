@@ -1,0 +1,25 @@
+Once the developpers had finished developping their own module, they can execute the "module-pack.sh" script in order to gather the
+folders associated with their module and pack it into a folder, which can be also compressed into the format wanted by the developper. 
+
+In order to install the newly downloaded module, the end user can execute the "module-install.sh" script, while passing the path to
+the folder OR the compressed file which contains the module. Its functioning is described into the "Modules installer.txt" file.
+
+
+Here is how the "module-pack" script must behave :
+    - The developper must provide the name of their module. If they want to pack several modules at once, they can separate their names with a colon ',' WITHOUT blank spaces.
+    - The developper can provide the method of packaging by choosing between a folder, or a compressed file containing the same folder. By default, no compressed file is created.
+        - If the developper decided to compress their project, they can choose the compression format between Zip or 7z.
+
+    - The developper can also choose which module must be packed in a compressed file or not, by using the same technique than the modules names for the second and the third optionnal parameters.
+
+    - After checking for errors during the parameters processing, the script will, in a "for" loop, create a folder named "${name_of_the_module_passed_as_first_arg}".
+    - These folders : 
+        - "lib/functions/${name_of_the_module_passed_as_first_arg}",
+        - "install/.Bash-utils/config/modules/${name_of_the_module_passed_as_first_arg}",
+        - "install/.Bash-utils/modules/${name_of_the_module_passed_as_first_arg}"
+    
+    are copied into the newly created folder.
+
+    - A folder named "manifests" will also be created, and the manifest file associated with the current module from the "install/.Bash-utils/manifests" will be copied into the newly created "manifests" folder.
+
+    - If the developper decided to put the folder into a compressed file, a prompt will be displayed, asking them to choose the compression format.

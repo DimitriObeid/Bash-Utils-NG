@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name="wc.sh"
+Comment="Getting size, number of characters, words and lines in the whole Bash-utils library"
+Exec=bash -c "${BASH_UTILS_DEVTOOLS_BIN}/wc.sh"
+Icon="${__BU_MAIN_ICONS}/wc.png"
+Terminal=false
+Type=Application
+Categories=Development;

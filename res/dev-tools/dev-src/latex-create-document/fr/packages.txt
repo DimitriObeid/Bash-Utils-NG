@@ -1,0 +1,125 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}             % Encodage du texte (caractères accentués).
+\usepackage[french]{babel}              % Langue du document.
+\usepackage[sfdefault]{roboto}          % Police d'écriture utilisée dans le document.
+\usepackage[T1]{fontenc}                % Règle de césure pour les caractères accentués (pour le compilateur LaTeX).
+
+\usepackage{fancyhdr}                   % Ajout d'en-têtes et de pieds de page à chaque page du document.
+\usepackage{graphicx}                   % Ajout d'images dans le document.
+\usepackage{hyperref}                   % Création de liens cliquables pointant vers d'autres parties du document.
+\usepackage{parskip}                    % Sauts de ligne déterminables entre chaque paragraphe.
+
+% Ne pas oublier de modifier l'option "svgnames" (couleurs définies sur le modèle RGB, meilleur pour
+% l'affichage numérique) en option "dvipsnames" (basé sur le modèle de couleur CJMB (CMYK), meilleur
+% pour l'impression) via le script de conversion en format imprimable.
+
+\usepackage[usenames,svgnames]{xcolor}                      % Coloration du texte.
+\usepackage{verbatim}                                       % Mise en page des paragraphes.
+
+\usepackage[document]{ragged2e}                             % Justification du texte.
+\usepackage[a4paper,margin=1in,footskip=0.25in]{geometry}   % Mise en page du document.
+
+
+% ----------------------------------------------------------------------------------------------------------------
+% Pour plus d'informations et de documentation sur ces paquets LaTeX, veuillez vous référer aux liens ci-dessous :
+
+% inputenc  : https://www.ctan.org/pkg/inputenc
+% babel     : https://www.ctan.org/pkg/babel
+% roboto    : https://www.ctan.org/pkg/roboto
+% fontenc   : https://www.ctan.org/pkg/fontenc
+
+% fancyhdr  : https://www.ctan.org/pkg/fancyhdr
+% graphicx  : https://www.ctan.org/pkg/graphicx
+% hyperref  : https://www.ctan.org/pkg/hyperref
+% parskip   : https://www.ctan.org/pkg/parskip
+
+% xcolor    : https://www.ctan.org/pkg/xcolor
+% verbatim  : https://www.ctan.org/pkg/verbatim
+
+% ragged2e  : https://www.ctan.org/pkg/ragged2e
+% geometry  : https://www.ctan.org/pkg/geometry
+
+
+% ------------------------------------------------------------------------------------------------------------------------
+% Liste des couleurs définies (pour la mise en page et pour le changement de thème pour l'impression de la documentation).
+
+% Définition de la couleur       % Normal   | Imprimable    - Description
+
+\definecolor{back}{HTML}{000000} % Noir     | Blanc         - Couleur de fond du document.
+\definecolor{case}{HTML}{fcff00} % Jaune                    - Couleur des conditions "case".
+\definecolor{cmds}{HTML}{909090} % Gris                     - Couleur des noms de commandes du système et de leurs arguments.
+\definecolor{cond}{HTML}{be480a} % Brique                   - Couleur des conditions "if".
+\definecolor{func}{HTML}{800080} % Mauve                    - Couleur des fonctions définies dans chaque module du framework Bash Utils.
+
+\definecolor{loop}{HTML}{00ffff} % Cyan                     - Couleur des boucles.
+\definecolor{main}{HTML}{8F00FF} % Violet                   - Couleur des fonctions du script principal.
+\definecolor{path}{HTML}{bfff00} % Citron vert              - Couleur des chemins de dossiers et de fichiers.
+\definecolor{sec1}{HTML}{ff0000} % Rouge                    - Couleur des titres principaux et de premier niveau.
+\definecolor{sec2}{HTML}{00ff00} % Vert                     - Couleur des titres de deuxième niveau.
+
+\definecolor{sec3}{HTML}{0060ff} % Bleu                     - Couleur des titres de troisième niveau.
+\definecolor{text}{HTML}{ffffff} % Blanc    | Noir          - Couleur du texte normal.
+\definecolor{vars}{HTML}{FF7F00} % Orange                   - Couleur des noms des paramètres et des variables.
+
+
+% ------------------------------------------------------------------------
+% Définition de la police d'écriture et de la couleur de fond du document.
+
+\fontfamily{Roboto}
+
+\pagecolor{back}
+
+
+% ----------------------------------------
+% Définition des informations du document.
+
+\title{\color{sec1}%%%%%}\color{text}
+\author{%%%%%}
+\date{%%%%%}
+\pagestyle{fancy}
+
+\pdfinfo{
+  /Title    (%%%%%)
+  /Author   (%%%%%)
+  /Creator  (%%%%%)
+  /Producer (%%%%%)
+  /Subject  (%%%%%)
+  /Keywords ()
+}
+
+
+% ------------------------------------------------------------
+% Mise en page des paragraphes et des en-têtes de chaque page.
+
+\setlength{\parskip}{1em}
+
+\setlength{\headheight}{13pt}
+
+
+% ------------------
+% Début du document.
+
+\begin{document}
+    \maketitle
+    \newpage
+
+    \hypertarget{contents}{}
+    \tableofcontents
+    \newpage
+
+    \begin{abstract}
+
+    \end{abstract}
+
+    \section{}
+
+    % ------------
+
+    % ----------------------
+
+    % -----------------------------------------------
+
+    % /////////////////////////////////////////////////////////////////////////////////////////////// %
+
+\end{document}

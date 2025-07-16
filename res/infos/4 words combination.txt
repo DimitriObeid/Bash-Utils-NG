@@ -1,0 +1,28 @@
+#**** Généré par ChatGPT, le 31/01/2023 ****#
+
+Il y a 4! = 24 combinaisons différentes possibles contenant les quatre mots "cod", "eng", "ori" et "usr", tous ensemble.
+
+cod eng ori usr
+cod eng usr ori
+cod ori eng usr
+cod ori usr eng
+cod usr eng ori
+cod usr ori eng
+eng cod ori usr
+eng cod usr ori
+eng ori cod usr
+eng ori usr cod
+eng usr cod ori
+eng usr ori cod
+ori cod eng usr
+ori cod usr eng
+ori eng cod usr
+ori eng usr cod
+ori usr cod eng
+ori usr eng cod
+usr cod eng ori
+usr cod ori eng
+usr eng cod ori
+usr eng ori cod
+usr ori cod eng
+usr ori eng cod

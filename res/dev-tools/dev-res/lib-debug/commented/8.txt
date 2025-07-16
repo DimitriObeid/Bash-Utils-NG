@@ -1,0 +1,6 @@
+#        BU.Main.Echo.Debug
+#            "main" \
+#            "$(basename "${BASH_SOURCE[0]}")" \
+#            "${FUNCNAME[0]}" \
+#            "${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__PRINTING_FORMATTED_STRINGS}" \
+#            "${__BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__PRINTING_FORMATTED_STRINGS__DEBUGGING}";

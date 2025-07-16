@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+
+# -------------------------
+# ΠΛΗΡΟΦΟΡΊΕΣ ΤΟΥ ΑΡΧΕΊΟΥ :
+
+# Όνομα             : el.locale
+# Συγγραφέας(ες)    : Dimitri OBEID (Δημήτρη ΌΜΠΕΪΝΤ)
+# Έκδοση            : 1.0
+
+
+# ----------------------
+# ΠΕΡΙΓΡΑΦΉ ΤΟΥ ΚΏΔΙΚΑ :
+
+# Ελληνικά μεταφραστικά μηνύματα του σεναρίου αρχικοποίησης της ενότητας.
+
+
+# ----------------------------
+
+
+
+# ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+######################### ΜΕΤΆΦΡΑΣΗ ΤΩΝ ΜΗΝΥΜΆΤΩΝ ΓΙΑ ΤΗ ΔΙΑΔΙΚΑΣΊΑ ΑΡΧΙΚΟΠΟΊΗΣΗΣ ΤΩΝ ΕΝΟΤΉΤΩΝ ########################
+
+#### ΚΎΡΙΟΙ ΜΕΤΑΦΡΑΣΤΙΚΟΊ ΠΌΡΟΙ
+
+## ΚΥΡΙΑ ΛΕΙΤΟΥΡΓΙΑ
+
+# shellcheck disable=
+function BU.ModuleInit.SetInitLocale.el()
+{
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ################################# ΟΡΙΣΜΌΣ ΤΩΝ ΜΕΤΑΦΡΑΣΤΙΚΏΝ ΠΌΡΩΝ #################################
+
+    ####
+
+    ##
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="« %s », « %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT="« %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="« %s », « %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT="« %s », « %s » -->";
+
+    #
+    declare -g -r __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__PLE="%s";
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+    ########################### PROCESSING THE MODULES INITIALIZATION SCRIPT ##########################
+
+    ####
+
+    ##
+
+    if [ ! -d "${__BU_MODULE_INIT__ROOT_HOME}/.Bash-utils" ]; then
+        declare -g -r __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER="Le dossier racine des configurations Bash Utils « .Bash-utils » n'existe pas dans votre répertoire personnel";
+        declare -g -r __BU_MODULE_INIT_MSG__OUT_OF_FNCT__MISSING_BASH_UTILS_HOME_FOLDER__ADVICE="Veuillez copier ce dossier dans votre répertoire personnel. Vous pouvez l'installer en exécutant le fichier « install_and_update.sh », ou vous pouvez le trouver dans le dossier « Bash-utils/install ».";
+    fi
+
+    ## ==============================================
+
+
+
+    # /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+    ####  : [-----] BEGINNING OF THE INITIALIZATION PROCESS
+
+    ##  : [-----] DEFINING GLOBAL VARIABLES
+
+    # ······································································
+    #  :
+
+
+
+
+
+
+    return 0;
+}
+
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #

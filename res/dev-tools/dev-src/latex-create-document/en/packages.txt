@@ -1,0 +1,38 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}     % Text encoding (accented characters).
+\usepackage[english]{babel}     % Document language.
+\usepackage[sfdefault]{roboto}  % Font used in the document.
+\usepackage[T1]{fontenc}		% Hyphenation rule for accented characters (for the LaTeX compiler).
+
+\usepackage{fancyhdr}           % Adding headers and footers for each document's pages.
+\usepackage{hyperref}           % Creating clickable links pointing towards other parts of the document.
+\usepackage{parskip}            % Determinable line breaks between each paragraph.
+
+% Don't forget to change the option "svgnames" (colors defined on the RGB model, better for digital display)
+% to "dvipsnames" option (based on CMYK model, better for printing) via the conversion script to printable format.
+\usepackage[usenames,svgnames]{xcolor}      % Text coloration.
+\usepackage{verbatim}						% Paragraph layout.
+
+\usepackage[document]{ragged2e}                             % Text justification.
+\usepackage[a4paper,margin=1in,footskip=0.25in]{geometry}	% Document layout.
+
+
+% List of defined colors (for the layout and for changing the theme for printing the documentation).
+\definecolor{back}{HTML}{000000} % Black         - Background
+\definecolor{case}{HTML}{fcff00} % Bright yellow - Case conditions
+\definecolor{cmds}{HTML}{909090} % Gray          - Commands + arguments
+\definecolor{cond}{HTML}{be480a} % Brick         - Conditions
+\definecolor{func}{HTML}{8F00FF} % Violet        - Functions
+\definecolor{loop}{HTML}{00ffff} % Cyan          - Loops
+\definecolor{path}{HTML}{bfff00} % Lime          - Files and folders paths
+\definecolor{sec1}{HTML}{ff0000} % Red           - First level titles
+\definecolor{sec2}{HTML}{00ff00} % Green         - Second level titles
+\definecolor{sec3}{HTML}{0060ff} % Blue          - Third level titles
+\definecolor{text}{HTML}{ffffff} % White         - Normal text
+\definecolor{vars}{HTML}{FF7F00} % Orange        - Names of parameters and variables
+
+
+\fontfamily{Roboto}
+
+\pagecolor{back}

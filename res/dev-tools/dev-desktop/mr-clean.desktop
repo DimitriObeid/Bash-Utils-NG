@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name="mr-clean.sh"
+Comment="Deleting the unneeded files from the project's development evironment"
+Exec=bash -c "/usr/local/lib/Bash-utils/res/dev-tools/dev-bin/mr-clean.sh"
+Icon="/usr/local/lib/Bash-utils/res/dev-tools/dev-img/mr-clean.sh.png"
+Terminal=false
+Type=Application
+Categories=Development;

@@ -1,0 +1,186 @@
+#!/usr/bin/env bash
+
+# ---------------------
+# FILE'S INFORMATIONS :
+
+# Name          : Filename.lib
+# Module        : Module's name
+# Author(s)     : Author(s)'s name
+# Version       : Version number
+
+
+# ----------------------
+# SCRIPT'S DESCRIPTION :
+
+# Description of the script.
+
+
+# ----------------------------
+# SHELLCHECK GLOBAL DISABLER :
+
+# Add a coma after each warning code to disable multiple warnings at one go.
+
+# Do not uncomment the "shellcheck disable" line, or else the "$(shellcheck)" command will be executed during the script's execution, and will not detect any coding mistake during a debugging process.
+
+# DO NOT ADD A COMA AFTER A SHELLCHECK CODE IF THERE'S NO OTHER SHELLCHECK CODE FOLLOWING IT, OR ELSE THE "$(shellcheck)" COMMAND WILL RETURN ERRORS DURING THE DEBUGGING PROCESS !!!
+
+# IF YOU WANT TO ADD ANOTHER SHELLCHECK CODE, WRITE THIS CODE DIRECTLY AFTER THE COMMA, WITHOUT ADDING A BLANK SPACE AFTER IT !!!
+
+# shellcheck disable=SC2154
+
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------
+# DO NOT EXECUTE THIS SCRIPT DIRECTLY, instead, just source it by calling the "${__BU_MAIN_FUNCTIONS_FILES_PATH}" array in the initializer file.
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+# Preventing the direct execution of this file, as it is not meant to be directly executed, but sourced.
+if [ "${0##*/}" == "${BASH_SOURCE[0]##*/}" ]; then
+    if [[ "${LANG}" == de_* ]]; then
+        echo -e "ACHTUNG !" >&2; echo >&2;
+        echo -e "Dieses Shell-Skript (${BASH_SOURCE[0]}) ist nicht dazu gedacht, direkt ausgeführt zu werden !" >&2; echo >&2;
+        echo -e "Verwenden Sie nur dieses Skript, indem Sie es in Ihr Projekt aufnehmen." >&2;
+
+    elif [[ "${LANG}" == es_* ]]; then
+        echo -e "ATENCIÓN !" >&2; echo >&2;
+        echo -e "Este script de shell (${BASH_SOURCE[0]}) no debe ejecutarse directamente !" >&2; echo >&2;
+        echo -e "Utilice sólo este script incluyéndolo en el script de su proyecto." >&2;
+
+    elif [[ "${LANG}" == fr_* ]]; then
+        echo -e "ATTENTION !" >&2; echo >&2;
+        echo -e "Ce script shell (${BASH_SOURCE[0]}) n'est pas conçu pour être directement exécuté !" >&2; echo >&2;
+        echo -e "Utilisez seulement ce script en l'incluant dans votre projet." >&2;
+
+    elif [[ "${LANG}" == hi_* ]]; then
+        echo -e "चेतावनी!" >&2; echo >&2;
+        echo -e "यह शेल स्क्रिप्ट (${BASH_SOURCE[0]}) सीधे निष्पादित करने के लिए नहीं है!" >&2; echo >&2;
+        echo -e "इस स्क्रिप्ट को अपने प्रोजेक्ट स्क्रिप्ट में शामिल करके ही इस्तेमाल करें।" >&2;
+
+    elif [[ "${LANG}" == id_* ]]; then
+        echo -e "PERINGATAN !" >&2; echo >&2;
+        echo -e "Skrip shell ini (${BASH_SOURCE[0]}) tidak dimaksudkan untuk dieksekusi secara langsung !" >&2; echo >&2;
+        echo -e "Gunakan skrip ini hanya dengan memasukkannya ke dalam skrip proyek Anda." >&2;
+
+    elif [[ "${LANG}" == ja_* ]]; then
+        echo -e "警告 ！" >&2; echo >&2;
+        echo -e "このシェルスクリプト（${BASH_SOURCE[0]}）は、直接実行することはできません！" >&2; echo >&2;
+        echo -e "このスクリプトは、プロジェクトスクリプトに含める必要があり、このスクリプトと一緒にしか使用できません。" >&2;
+
+    elif [[ "${LANG}" == ko_* ]]; then
+        echo -e "경고 !" >&2; echo >&2;
+        echo -e "이 셸 스크립트(${BASH_SOURCE[0]})는 직접 실행하도록 설계되지 않았습니다!" >&2; echo >&2;
+        echo -e "프로젝트 스크립트에 포함하여 이 스크립트만 사용하십시오." >&2;
+
+    elif [[ "${LANG}" == pt_* ]]; then
+        echo -e "ATENÇÃO !" >&2; echo >&2;
+        echo -e "Este script de shell (${BASH_SOURCE[0]}) não é para ser executado directamente !" >&2; echo >&2;
+        echo -e "Utilize este guião apenas incluindo-o no seu projecto." >&2;
+
+    elif [[ "${LANG}" == ru_* ]]; then
+        echo -e "ВНИМАНИЕ !" >&2; echo >&2;
+        echo -e "Этот сценарий оболочки (${BASH_SOURCE[0]}) не предназначен для непосредственного выполнения !" >&2; echo >&2;
+        echo -e "Используйте только этот скрипт, включив его в свой проект." >&2;
+
+    elif [[ "${LANG}" == sv_* ]]; then
+        echo -e "VARNING!" >&2; echo >&2;
+        echo -e "Detta skalskript (${BASH_SOURCE[0]}) är inte avsett att köras direkt!" >&2; echo >&2;
+        echo -e "Använd endast detta skript genom att inkludera det i ditt projektskript." >&2;
+
+    elif [[ "${LANG}" == tr_* ]]; then
+        echo -e "UYARI!" >&2; echo >&2;
+        echo -e "Bu kabuk betiği (${BASH_SOURCE[0]}) doğrudan çalıştırılmak üzere tasarlanmamıştır!" >&2; echo >&2;
+        echo -e "Proje kodunuza dahil ederek yalnızca bu kodu kullanın." >&2;
+
+    elif [[ "${LANG}" == uk_* ]]; then
+        echo -e "УВАГА !" >&2; echo >&2;
+        echo -e "Цей скрипт оболонки (${BASH_SOURCE[0]}) не призначений для безпосереднього виконання !" >&2; echo >&2;
+        echo -e "Використовуйте тільки цей скрипт, включивши його в скрипт вашого проекту." >&2;
+
+    elif [[ "${LANG}" == zh_* ]]; then
+        echo -e "警告 !" >&2; echo >&2;
+        echo -e "这个shell脚本(${BASH_SOURCE[0]})是不能直接执行的!" >&2; echo >&2;
+        echo -e "只使用这个脚本并将其纳入你的项目脚本。" >&2;
+
+    else
+        echo -e "WARNING !" >&2; echo >&2;
+        echo -e "This shell script (${BASH_SOURCE[0]}) is not meant to be executed directly !" >&2; echo >&2;
+        echo -e "Use only this script by including it in your project script." >&2;
+
+    fi;
+    
+    echo >&2; 
+    
+    exit 1; 
+fi
+
+# End of the prevention of the direct execution of this file.
+
+# ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+#################################### DEFINING LIBRARY FUNCTIONS ###################################
+
+#### CATEGORY 1
+#### DEBUG ID : 'file::category-1'
+
+declare -r __BU_MODULENAME_FILENAME_LIB__CAT_DEBUG_ID__CATEGORY_1='file::category-1';
+
+## SUB-CATEGORY 1
+## DEBUG ID : "sub-category-1"
+
+declare -r __BU_MODULENAME_FILENAME_LIB__SUBCAT_DEBUG_ID__CATEGORY_1__SUB_CATEGORY_1="${__BU_MODULE_NAME_FILE_NAME_LIB__CAT_DEBUG_ID__CATEGORY_1}::sub-category-1";
+
+# ·······················
+# Function's description.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   -
+
+function FunctionName1()
+{
+    #**** Parameters ****
+    local p_arg1=${1:-'Default value'};     # ARG TYPE : Type   - REQUIRED | DEFAULT VAL : 'Default value'  - DESC :
+    local p_arg2=${2:-$'\0'};               # ARG TYPE : Type   - OPTIONAL | DEFAULT VAL : NULL             - DESC :
+
+    #**** Variables ****
+    local v_var='';     # VAR TYPE : Type   # DESC :
+
+    #**** Code ****
+    # Some code
+
+    #~ ~~~~~~~~~~~~~~~~~~~~~~
+    #~ Some section separator
+    #~ ~~~~~~~~~~~~~~~~~~~~~~
+
+    return 0;
+}
+
+# ·······················
+# Function's description.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   -
+
+function FunctionName2()
+{
+    # Some code
+
+    return 0;
+}
+
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+#### CATEGORY 2
+#### DEBUG ID : 'file::category-2'
+
+declare -r __BU_MODULENAME_FILENAME_LIB__CAT_DEBUG_ID__CATEGORY_2='file::category-2';
+
+## SUB-CATEGORY 2
+## DEBUG ID : 'sub-category-2'
+
+declare -r __BU_MODULENAME_FILENAME_LIB__SUBCAT_DEBUG_ID__CATEGORY_2__SUB_CATEGORY_2="${__BU_MODULE_NAME_FILE_NAME_LIB__CAT_DEBUG_ID__CATEGORY_2}::sub-category-2";

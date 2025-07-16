@@ -1,0 +1,11 @@
+In order to install the newly downloaded module, the end user can execute the "module-install.sh" script, while passing the path to
+the folder OR the compressed file which contains the module.
+
+Here is how the "module-install" script must behave :
+    - The user must provide a path towards the folder or the compressed file which contains the resources of the module.
+
+    - Once the parameters are processed, the script must automatically detect if the targeted module is stored into a folder or a compressed file. If so, the folder is extracted from the compressed file.
+
+    - Once the checkings are done, the installation script must copy the "functions", "config" and "modules" folders into the path where they belong.
+
+    - The manifest file from the "manifests" folder is copied into the "install/.Bash-utils/manifests" folder.

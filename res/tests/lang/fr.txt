@@ -1,0 +1,1 @@
+__BU_TEST="Ceci est un test"

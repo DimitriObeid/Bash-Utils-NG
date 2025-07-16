@@ -1,0 +1,1492 @@
+#!/usr/bin/env bash
+
+# ---------------------
+# FILE'S INFORMATIONS :
+
+# Name          : Echo.lib
+# Module        : Main
+# Author(s)     : Dimitri OBEID
+# Version       :
+
+# Contributors  :
+#   -
+
+
+# ----------------------
+# SCRIPT'S DESCRIPTION :
+
+# (Colored) text display functions.
+
+
+# ----------------------------
+# SHELLCHECK GLOBAL DISABLER :
+
+# Add a coma after each warning code to disable multiple warnings at one go.
+
+# Do not uncomment the "shellcheck disable" line, or else the "$(shellcheck)" command will be executed during the script's execution, and will not detect any coding mistake during a debugging process.
+
+# DO NOT ADD A COMA AFTER A SHELLCHECK CODE IF THERE'S NO OTHER SHELLCHECK CODE FOLLOWING IT, OR ELSE THE "$(shellcheck)" COMMAND WILL RETURN ERRORS DURING THE DEBUGGING PROCESS !!!
+
+# IF YOU WANT TO ADD ANOTHER SHELLCHECK CODE, WRITE THIS CODE DIRECTLY AFTER THE COMMA, WITHOUT ADDING A BLANK SPACE AFTER IT !!!
+
+# shellcheck disable=SC2154
+
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------
+# DO NOT EXECUTE THIS SCRIPT DIRECTLY, instead, just source it by calling the "${__BU_MAIN_FUNCTIONS_FILES_PATH}" array in the initializer file.
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+# Preventing the direct execution of this file, as it is not meant to be directly executed, but sourced.
+if [ "${0##*/}" == "${BASH_SOURCE[0]##*/}" ]; then
+    if [[ "${LANG}" == de_* ]]; then
+        echo -e "ACHTUNG !" >&2; echo >&2;
+        echo -e "Dieses Shell-Skript (${BASH_SOURCE[0]}) ist nicht dazu gedacht, direkt ausgeführt zu werden !" >&2; echo >&2;
+        echo -e "Verwenden Sie nur dieses Skript, indem Sie es in Ihr Projekt aufnehmen." >&2;
+
+    elif [[ "${LANG}" == es_* ]]; then
+        echo -e "ATENCIÓN !" >&2; echo >&2;
+        echo -e "Este script de shell (${BASH_SOURCE[0]}) no debe ejecutarse directamente !" >&2; echo >&2;
+        echo -e "Utilice sólo este script incluyéndolo en el script de su proyecto." >&2;
+
+    elif [[ "${LANG}" == fr_* ]]; then
+        echo -e "ATTENTION !" >&2; echo >&2;
+        echo -e "Ce script shell (${BASH_SOURCE[0]}) n'est pas conçu pour être directement exécuté !" >&2; echo >&2;
+        echo -e "Utilisez seulement ce script en l'incluant dans votre projet." >&2;
+
+    elif [[ "${LANG}" == hi_* ]]; then
+        echo -e "चेतावनी!" >&2; echo >&2;
+        echo -e "यह शेल स्क्रिप्ट (${BASH_SOURCE[0]}) सीधे निष्पादित करने के लिए नहीं है!" >&2; echo >&2;
+        echo -e "इस स्क्रिप्ट को अपने प्रोजेक्ट स्क्रिप्ट में शामिल करके ही इस्तेमाल करें।" >&2;
+
+    elif [[ "${LANG}" == id_* ]]; then
+        echo -e "PERINGATAN !" >&2; echo >&2;
+        echo -e "Skrip shell ini (${BASH_SOURCE[0]}) tidak dimaksudkan untuk dieksekusi secara langsung !" >&2; echo >&2;
+        echo -e "Gunakan skrip ini hanya dengan memasukkannya ke dalam skrip proyek Anda." >&2;
+
+    elif [[ "${LANG}" == ja_* ]]; then
+        echo -e "警告 ！" >&2; echo >&2;
+        echo -e "このシェルスクリプト（${BASH_SOURCE[0]}）は、直接実行することはできません！" >&2; echo >&2;
+        echo -e "このスクリプトは、プロジェクトスクリプトに含める必要があり、このスクリプトと一緒にしか使用できません。" >&2;
+
+    elif [[ "${LANG}" == ko_* ]]; then
+        echo -e "경고 !" >&2; echo >&2;
+        echo -e "이 셸 스크립트(${BASH_SOURCE[0]})는 직접 실행하도록 설계되지 않았습니다!" >&2; echo >&2;
+        echo -e "프로젝트 스크립트에 포함하여 이 스크립트만 사용하십시오." >&2;
+
+    elif [[ "${LANG}" == pt_* ]]; then
+        echo -e "ATENÇÃO !" >&2; echo >&2;
+        echo -e "Este script de shell (${BASH_SOURCE[0]}) não é para ser executado directamente !" >&2; echo >&2;
+        echo -e "Utilize este guião apenas incluindo-o no seu projecto." >&2;
+
+    elif [[ "${LANG}" == ru_* ]]; then
+        echo -e "ВНИМАНИЕ !" >&2; echo >&2;
+        echo -e "Этот сценарий оболочки (${BASH_SOURCE[0]}) не предназначен для непосредственного выполнения !" >&2; echo >&2;
+        echo -e "Используйте только этот скрипт, включив его в свой проект." >&2;
+
+    elif [[ "${LANG}" == sv_* ]]; then
+        echo -e "VARNING!" >&2; echo >&2;
+        echo -e "Detta skalskript (${BASH_SOURCE[0]}) är inte avsett att köras direkt!" >&2; echo >&2;
+        echo -e "Använd endast detta skript genom att inkludera det i ditt projektskript." >&2;
+
+    elif [[ "${LANG}" == tr_* ]]; then
+        echo -e "UYARI!" >&2; echo >&2;
+        echo -e "Bu kabuk betiği (${BASH_SOURCE[0]}) doğrudan çalıştırılmak üzere tasarlanmamıştır!" >&2; echo >&2;
+        echo -e "Proje kodunuza dahil ederek yalnızca bu kodu kullanın." >&2;
+
+    elif [[ "${LANG}" == uk_* ]]; then
+        echo -e "УВАГА !" >&2; echo >&2;
+        echo -e "Цей скрипт оболонки (${BASH_SOURCE[0]}) не призначений для безпосереднього виконання !" >&2; echo >&2;
+        echo -e "Використовуйте тільки цей скрипт, включивши його в скрипт вашого проекту." >&2;
+
+    elif [[ "${LANG}" == zh_* ]]; then
+        echo -e "警告 !" >&2; echo >&2;
+        echo -e "这个shell脚本(${BASH_SOURCE[0]})是不能直接执行的!" >&2; echo >&2;
+        echo -e "只使用这个脚本并将其纳入你的项目脚本。" >&2;
+
+    else
+        echo -e "WARNING !" >&2; echo >&2;
+        echo -e "This shell script (${BASH_SOURCE[0]}) is not meant to be executed directly !" >&2; echo >&2;
+        echo -e "Use only this script by including it in your project script." >&2;
+
+    fi;
+    
+    echo >&2; 
+    
+    exit 1; 
+fi
+
+# End of the prevention of the direct execution of this file.
+
+# ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; #
+
+#################################### DEFINING LIBRARY FUNCTIONS ###################################
+
+#### PRINTING FORMATTED STRINGS
+#### DEBUG ID : "bu::main::echo::printing-formatted-strings"
+
+declare -r __BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__PRINTING_FORMATTED_STRINGS="bu::main::echo::printing-formatted-strings";
+
+## DEBUGGING
+## DEBUG ID : debugging
+
+declare -r __BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__PRINTING_FORMATTED_STRINGS__DEBUGGING="${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__PRINTING_FORMATTED_STRINGS}::debugging";
+
+# ···················································································
+# This function only serves as text printer for the " BU.Main.Echo.Debug()" function.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.__EchoVoid()         -> Main -> Echo.lib (this file)
+
+#   - BU.ModuleInit.CheckIsDebugging()  -> Modules initializer script
+
+# shellcheck disable=
+function BU.Main.Echo.__Debug()
+{
+    BU.ModuleInit.CheckIsDebugging && {
+        BU.Main.Echo.__EchoVoid;
+
+        echo "----------------------------------------";
+        echo "DEBUGGING THE FUNCTION ${1}";
+
+        echo; echo "Waiting for the two seconds timer for the ${1}() function to elapse"; echo;
+
+        sleep 2;
+
+     #   set -x;
+
+        BU.Main.Echo.__EchoVoid;
+    }
+}
+
+# ···················································································
+# This function only serves as text printer for the " BU.Main.Echo.Debug()" function.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.__EchoVoid()         -> Main -> Echo.lib (this file)
+
+#   - BU.ModuleInit.CheckIsDebugging()  -> Modules initializer script
+
+# shellcheck disable=
+function BU.Main.Echo.DebugEnd()
+{
+ #   set +x;
+
+    BU.ModuleInit.CheckIsDebugging && {
+        if [ "${__BU_MAIN_ECHO__IS_DEBUGGING_THIS_FUNCTION,,}" == 'true' ]; then
+            BU.Main.Echo.__EchoVoid;
+
+            echo "---------------------------------------";
+            echo "END OF THE DEBUGGING OF THE FUNCTION ${1}";
+
+            BU.Main.Echo.__EchoVoid;
+
+            __BU_MAIN_ECHO__IS_DEBUGGING_THIS_FUNCTION='false';
+        fi
+    }
+}
+
+# ·········································································································
+# Printing the name of the processed function if the main script is launched with the "$(bash -x)" command.
+
+## TODO : RÉFLÉCHIR À LA MISE EN PLACE DE L'AFFICHAGE DU NOM DE LA FONCTION CIBLE LORS DE LA PROCÉDURE DE DÉBOGUAGE AVEC LA COMMANDE "$(bash -x)".
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.__Debug()            -> Main -> Echo.lib (this file)
+
+#   - BU.ModuleInit.CheckIsDebugging()  -> Modules initializer script
+
+# shellcheck disable=
+function BU.Main.Echo.Debug()
+{
+    # The six following conditional lines are used as test / debug procedures. Please leave them commented if you are not debugging the behavior of the modules debugger.
+    # if [ -n "${__BU_MODULE_INIT_STAT_DEBUG_BASHX}" ];                         then echo "BASHX : ${__BU_MODULE_INIT_STAT_DEBUG_BASHX}"; else echo 'BASHX FALSE'; fi
+
+    # if [ -n "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_CATEGORY_ARRAY[*]}" ];       then echo "CATS ARRAY VALUES : ${__BU_MODULE_INIT_STAT_DEBUG_BASHX_CATEGORY_ARRAY[*]}";     else echo 'CATS ARRAY FALSE'; fi
+    # if [ -n "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_FILES_ARRAY[*]}" ];          then echo "FILE ARRAY VALUES : ${__BU_MODULE_INIT_STAT_DEBUG_BASHX_FILES_ARRAY[*]}";        else echo 'FILE ARRAY FALSE'; fi
+    # if [ -n "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_FUNCTIONS_ARRAY[*]}" ];      then echo "FUNC ARRAY VALUES : ${__BU_MODULE_INIT_STAT_DEBUG_BASHX_FUNCTIONS_ARRAY[*]}";    else echo 'FUNC ARRAY FALSE'; fi
+    # if [ -n "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_MODULES_ARRAY[*]}" ];        then echo "MODL ARRAY VALUES : ${__BU_MODULE_INIT_STAT_DEBUG_BASHX_MODULES_ARRAY[*]}";      else echo 'MODL ARRAY FALSE'; fi
+    # if [ -n "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_SUB_CATEGORY_ARRAY[*]}" ];   then echo "SUBC ARRAY VALUES : ${__BU_MODULE_INIT_STAT_DEBUG_BASHX_SUB_CATEGORY_ARRAY[*]}"; else echo 'SUBC ARRAY FALSE'; fi
+
+    BU.ModuleInit.CheckIsDebugging && {
+        #**** Parameters ****
+        local p_modname=${1:-$'\0'};    # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Module where the function currently processed is defined.
+        local p_filename=${2:-$'\0'};   # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : File where the function currently processed is defined.
+        local p_funcname=${3:-$'\0'};   # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Print the name of the function currently processed, during the debug procedure.
+        local p_category=${4:-$'\0'};   # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Get the category of the targeted function.
+        local p_subcateg=${5:-$'\0'};   # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Get the sub-category of the targeted function.
+
+        #**** Code ****
+        [ -n "${__BU_MODULE_INIT_STAT_DEBUG_BASHX}" ] &&
+        {
+            if [[ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX,,}" == c?(at?(eg?(ory))) ]] || [[ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX,,}" == c?(at?(eg?(orie)))?(s) ]] || [ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX^^}" == 'C' ]; then
+                if [ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_CATEGORY_ARRAY[0],,}" == 'all' ]; then
+                    BU.Main.Echo.__Debug "${p_funcname}"; return 0;
+                else
+                    for targetCategory in "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_CATEGORY_ARRAY[@]}"; do
+                        # If the "${targetCategory}" value is found in the array, and the function which comes from the "${p_category}" file matches with the "${targetCategory}" variable's value.
+                        [[ ${targetCategory,,} =~ ${p_category,,} ]] && { BU.Main.Echo__Debug "${p_funcname}"; break; }
+                    done
+                fi
+
+            elif [[ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX,,}" == fi?(l?(e))?(s) ]] || [ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX^^}" == 'F' ]; then
+                local v_file="${p_filename%%.[Ll][Ii][Bb]*}";
+
+                if [ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_FILES_ARRAY[0],,}" == 'all' ]; then
+                    BU.Main.Echo.__Debug "${p_funcname}"; return 0;
+                else
+                    for targetFile in "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_FILES_ARRAY[@]}"; do
+                        # If the "${targetFile}" value is found in the array, and the function which comes from the "${v_file}" file matches with the "${targetFile}" variable's value.
+                        [[ ${targetFile,,} =~ ${v_file,,} ]] && { BU.Main.Echo.__Debug "${p_funcname}"; break; };
+                    done
+                fi
+
+            elif [[ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX,,}" == fun?(c?(t?(ion))?(s)) ]] || [[ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX^^}" == FN?(C?(T))?(S) ]]; then
+                if [ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_FUNCTIONS_ARRAY[0],,}" == 'all' ]; then
+                    BU.Main.Echo.__Debug "${p_funcname}"; return 0;
+                else
+                    for targetFunction in "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_FUNCTIONS_ARRAY[@]}"; do
+                        # If the "${targetFunction}" value is found in the array, and the function which comes from the "${p_funcname}" file matches with the "${targetFunction}" variable's value.
+                        [[ ${targetFunction,,} =~ ${p_funcname,,} ]] && { BU.Main.Echo.__Debug "${p_funcname}"; break; }
+                    done
+                fi
+
+            elif [[ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX,,}" == m?(od?(ule))?(s) ]]; then
+                if [ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_MODULES_ARRAY[0],,}" == 'all' ]; then
+                    BU.Main.Echo.__Debug "${p_modname}"; return 0;
+                else
+                    for targetModule in "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_MODULES_ARRAY[@]}"; do
+                        # If the "${targetModule}" value is found in the array, and the function which comes from the "${p_modname}" file matches with the "${targetModule}" variable's value.
+                        [[ ${targetModule,,} =~ ${p_modname,,} ]] && { BU.Main.Echo.__Debug "${p_funcname}"; break; }
+                    done
+                fi
+
+            elif [[ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX,,}" == s?(ub)?(-)c?(at?(eg?(ory))) ]] || [[ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX,,}" == s?(ub)?(-)?(c?(at?(eg?(orie)))?(s)) ]] || [ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX^^}" == 'S' ]; then
+                if [ "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_SUB_CATEGORY_ARRAY[0],,}" == 'all' ]; then
+                    BU.Main.Echo.__Debug "${p_funcname}"; return 0;
+                else
+                    for targetSubCategory in "${__BU_MODULE_INIT_STAT_DEBUG_BASHX_SUB_CATEGORY_ARRAY[@]}"; do
+                        # If the "${targetSubCategory}" value is found in the array, and the function which comes from the "${p_subcateg}" file matches with the "${targetSubCategory}" variable's value.
+                        [[ ${targetSubCategory,,} =~ ${p_subcateg,,} ]] && { BU.Main.Echo__Debug "${p_funcname}"; break; }
+                    done
+                fi
+            fi
+        }
+
+        __BU_MAIN_ECHO__IS_DEBUGGING_THIS_FUNCTION='true';
+
+    } # > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}";
+
+    return 0;
+}
+
+# ···················································
+# Print void lines before and after calling a header.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.Main.Echo.__EchoVoid()
+{
+printf "
+
+
+
+
+
+
+
+
+
+" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" ||
+    {
+        echo >&2; echo "IN « ${BASH_SOURCE[0]} », LINE « ${LINENO} » --> WARNING --> UNABLE TO WRITE THE « ${FUNCNAME[0]}() » IN THE « ${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH} FILE »" >&2; echo >&2; exit 1;
+    }
+}
+
+# ·················································································
+# "BU.Echo<...>()" functions debug output for a better view during a debug process.
+
+# It's better to also execute the project's script with the "$(bash -x "${project_name}")" command, instead of the "./${project_name}" way.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Args.PrintFFL()                       -> Main -> Args.lib
+
+#   - BU.Main.Checkings.IsAlphaChar()               -> Main -> Checkings.lib
+#   - BU.Main.Checkings.CheckProjectRelatedFile()   -> Main -> Checkings.lib
+
+#   - BU.Main.Decho.Decho()                         -> Main -> Decho.lib
+#   - BU.Main.Decho.Decho.Function()                -> Main -> Decho.lib
+#   - BU.Main.Decho.Decho.Path()                    -> Main -> Decho.lib
+
+#   - BU.Main.Echo.__EchoCPLS()                     -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.__EchoVoid()                     -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.Debug()                          -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.DebugEnd()                       -> Main -> Echo.lib (this file)
+
+#   - BU.Main.Errors.Exit()                         -> Main -> Errors.lib
+
+#   - BU.Main.Headers.DrawLine()                    -> Main -> Headers.lib
+
+#   - BU.Main.Status.ChangeSTAT_ECHO()              -> Main -> Status.lib
+#   - BU.Main.Status.CheckStatIsBackupEchoing()     -> Main -> Status.lib
+
+# shellcheck disable=
+function BU.Main.Echo.__EchoOutput()
+{
+    # This function call makes it easier for the user to find the current function and its executed
+    # content if it is called during the execution of the main script with the "$(bash -x)" command.
+    BU.Main.Echo.Debug \
+        "main" \
+        "$(basename "${BASH_SOURCE[0]}")" \
+        "${FUNCNAME[0]}" \
+        "${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__PRINTING_FORMATTED_STRINGS}" \
+        "${__BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__PRINTING_FORMATTED_STRINGS__DEBUGGING}";
+
+	#**** Parameters ****
+	local p_string=${1:-$'\0'};     # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : String to display.
+	local p_context=${2:-$'\0'};    # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Begin or end of the debug process.
+	local p_type=${3:-$'\0'};       # ARG TYPE : Char       - REQUIRED | DEFAULT VAL : NULL     - DESC : Type of message (error 'E', Msg 'm', newstep 'N', success 'S' or warning 'W').
+
+	#**** Variables ****
+	local v_strlen="${#p_string}";  # VAR TYPE : Int        - DESC :
+
+	#**** Code ****
+	# If the "${p_type}" argument is a string, then the first character is extracted.
+	if ! BU.Main.Checkings.IsAlphaChar "${p_type}"; then
+        local v_type=${p_type:0:1};
+
+        p_type="${v_type}";
+	fi
+
+	if [ "${__BU_MODULE_INIT_STAT_DEBUG,,}" == 'false' ]; then return 0;
+
+	elif [ "${__BU_MODULE_INIT_STAT_DEBUG,,}" == "true" ]; then
+	    # Passing the "${__BU_MAIN_STAT_ECHO}" global status variable's value from "false" to "true".
+        if ! BU.Main.Status.CheckStatIsBackupEchoing; then
+            local v_BU_MAIN_STAT_ECHO_val="${__BU_MAIN_STAT_ECHO}"; BU.Main.Status.ChangeSTAT_ECHO "true" 'main' "${BASH_SOURCE[0]}" "${LINENO}";
+        fi
+
+		BU.Main.Checkings.CheckProjectRelatedFile "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PARENT}" "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_NAME}" "f" || { BU.Main.Echo.__EchoCPLS "$(BU.Main.Decho.Decho.Function "${FUNCNAME[0]}") --> Unable to create the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_NAME}") debug log file" 'E' "CPLS"; BU.Main.Errors.Exit 1; return "${?}"; }
+
+		BU.Main.Headers.DrawLine "${__BU_MAIN_TXT_CHAR_HEADER_LINE}" '' "$(( 24 + v_strlen ))";
+
+        if [ "${p_context,,}" == "begin" ]; then
+            BU.Main.Echo.__EchoVoid;
+
+            if [ "${p_type^^}" == "E" ]; then
+                BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_}BEGIN DEBUGGING TEXT : ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "In $(BU.Main.Args.PrintFFL "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}") --> Unable to write the $(BU.Main.Decho.Decho "BEGIN DEBUGGING TEXT") debug test in the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}") file"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+            elif [ "${p_type,,}" == 'm' ]; then
+                BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_}BEGIN DEBUGGING TEXT : ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "In $(BU.Main.Args.PrintFFL "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}") --> Unable to write the $(BU.Main.Decho.Decho "BEGIN DEBUGGING TEXT") debug test in the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}") file"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+            elif [ "${p_type^^}" == 'N' ]; then
+                BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_}BEGIN DEBUGGING TEXT : ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "In $(BU.Main.Args.PrintFFL "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}") --> Unable to write the $(BU.Main.Decho.Decho "BEGIN DEBUGGING TEXT") debug test in the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}") file"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+            elif [ "${p_type^^}" == 'S' ]; then
+                BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_}BEGIN DEBUGGING TEXT : ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "In $(BU.Main.Args.PrintFFL "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}") --> Unable to write the $(BU.Main.Decho.Decho "BEGIN DEBUGGING TEXT") debug test in the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}") file"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+            elif [ "${p_type^^}" == 'W' ]; then
+                BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_}BEGIN DEBUGGING TEXT : ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "In $(BU.Main.Args.PrintFFL "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}") --> Unable to write the $(BU.Main.Decho.Decho "BEGIN DEBUGGING TEXT") debug test in the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}") file"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+            fi
+
+            BU.Main.Headers.DrawLine "${__BU_MAIN_TXT_CHAR_HEADER_LINE}" '' "$(( 24 + v_strlen ))";
+
+            # Reassigning the "${__BU_MAIN_STAT_ECHO}" global status variable's former value.
+            if [ -n "${v_BU_MAIN_STAT_ECHO_val}" ]; then
+                __BU_MAIN_STAT_ECHO="${v_BU_MAIN_STAT_ECHO_val}"; v_BU_MAIN_STAT_ECHO_val=''
+            fi
+
+            BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 0;
+
+        elif [ "${p_context,,}" == "end" ]; then
+            if [ "${p_type^^}" == "E" ]; then
+                BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_}END DEBUGGING TEXT : ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "In $(BU.Main.Args.PrintFFL "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}") --> Unable to write the $(BU.Main.Decho.Decho "END DEBUGGING TEXT") debug test in the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}") file"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+            elif [ "${p_type,,}" == 'm' ]; then
+                BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_}END DEBUGGING TEXT : ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "In $(BU.Main.Args.PrintFFL "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}") --> Unable to write the $(BU.Main.Decho.Decho "END DEBUGGING TEXT") debug test in the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}") file"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+            elif [ "${p_type^^}" == 'N' ]; then
+                BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_}END DEBUGGING TEXT : ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "In $(BU.Main.Args.PrintFFL "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}") --> Unable to write the $(BU.Main.Decho.Decho "END DEBUGGING TEXT") debug test in the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}") file"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+            elif [ "${p_type^^}" == 'S' ]; then
+                BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_}END DEBUGGING TEXT : ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "In $(BU.Main.Args.PrintFFL "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}") --> Unable to write the $(BU.Main.Decho.Decho "END DEBUGGING TEXT") debug test in the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}") file"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+            elif [ "${p_type^^}" == 'W' ]; then
+                BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_}END DEBUGGING TEXT : ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" > "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "In $(BU.Main.Args.PrintFFL "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}") --> Unable to write the $(BU.Main.Decho.Decho "END DEBUGGING TEXT") debug test in the $(BU.Main.Decho.Decho.Path "${__BU_MAIN_PROJECT_ECHO_OUTPUT_FILE_PATH}") file"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+            fi
+
+            BU.Main.Headers.DrawLine "${__BU_MAIN_TXT_CHAR_HEADER_LINE}" '' "$(( 24 + v_strlen ))";
+
+            # Reassigning the "${__BU_MAIN_STAT_ECHO}" global status variable's former value.
+            if [ -n "${v_BU_MAIN_STAT_ECHO_val}" ]; then
+                __BU_MAIN_STAT_ECHO="${v_BU_MAIN_STAT_ECHO_val}"; v_BU_MAIN_STAT_ECHO_val='';
+            fi
+
+            BU.Main.Echo.__EchoVoid; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 0;
+        fi
+    fi
+}
+
+# ····················································································································
+# Failsafe if any "BU.Echo<...>()" function has to be called in the "BU.Main.Status.CheckProjectLogStatus()" function.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Debug()                          -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.DebugEnd()                       -> Main -> Echo.lib (this file)
+
+#   - BU.Main.Status.CheckStatIsInitializing()      -> Main -> Status.conf
+
+#   - BU.ModuleInit.Msg()                           -> Modules initializer script
+
+# shellcheck disable=
+function BU.Main.Echo.__EchoCPLS()
+{
+    # This function call makes it easier for the user to find the current function and its executed
+    # content if it is called during the execution of the main script with the "$(bash -x)" command.
+    BU.Main.Echo.Debug
+        "main" \
+        "$(basename "${BASH_SOURCE[0]}")" \
+        "${FUNCNAME[0]}" \
+        "${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__PRINTING_FORMATTED_STRINGS}" \
+        "${__BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__PRINTING_FORMATTED_STRINGS__DEBUGGING}";
+
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : Any        - OPTIONAL | DEFAULT VAL : NULL     - DESC : Text to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+
+    shift 2; pa_extraArgs=("${@}"); # VAR TYPE : Array  - DESC : More processing arguments (like the processing of a whole line-long string).
+
+    #**** Code ****
+    # DO NOT CALL THE "BU.Main.Args.GetFuncArgsArrayValues()" FUNCTION IN THIS FUNCTION, OR ELSE AN INFINITE LOOP WILL LIKELY OCCUR !!!!!
+
+    for val in "${pa_extraArgs[@]}"; do
+        if [ "${val}" == 'nodate' ]; then
+            case "${p_option}" in
+                '-n' | 'n')
+                    if BU.Main.Status.CheckStatIsInitializing; then
+                        BU.ModuleInit.Msg "${p_string}" 'n' || BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1;
+                    else
+                        echo -ne "${p_string}";
+                    fi
+                    ;;
+                '' | *)
+                    if BU.Main.Status.CheckStatIsInitializing; then
+                        BU.ModuleInit.Msg "${p_string}" || BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1;
+                    else
+                        echo -e "${p_string}";
+                    fi
+                    ;;
+            esac
+        elif [ -z "${val}" ]; then
+            case "${p_option}" in
+                '-n' | 'n')
+                    if BU.Main.Status.CheckStatIsInitializing; then
+                        BU.ModuleInit.Msg "${p_string}" 'n' || BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1;
+                    else
+                        echo -ne "${__BU_MAIN_TIME_DATE_DISPLAY} ${p_string}";
+                    fi
+                    ;;
+                '' | *)
+                    if BU.Main.Status.CheckStatIsInitializing; then
+                        BU.ModuleInit.Msg "${p_string}" || BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1;
+                    else
+                        echo -e "${__BU_MAIN_TIME_DATE_DISPLAY} ${p_string}";
+                    fi
+                    ;;
+            esac
+        else
+            case "${p_option}" in
+                '-n' | 'n')
+                    if BU.Main.Status.CheckStatIsInitializing; then
+                        BU.ModuleInit.Msg "${p_string}" 'n' || BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1;
+                    else
+                        echo -ne "${__BU_MAIN_TIME_DATE_DISPLAY} ${p_string}";
+                    fi
+                    ;;
+                '' | *)
+                    if BU.Main.Status.CheckStatIsInitializing; then
+                        BU.ModuleInit.Msg "${p_string}" || BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1;
+                    else
+                        echo -e "${__BU_MAIN_TIME_DATE_DISPLAY} ${p_string}";
+                    fi
+                    ;;
+            esac
+        fi
+
+		if [ -n "${__BU_MAIN_STAT_TIME_HEADER}" ]   && (( $(echo "${__BU_MAIN_STAT_TIME_HEADER} > 0"    | bc -l ) )); then sleep "0"; fi
+		if [ -n "${__BU_MAIN_STAT_TIME_NEWLINE}" ]  && (( $(echo "${__BU_MAIN_STAT_TIME_NEWLINE} > 0"   | bc -l ) )); then sleep "0"; fi
+		if [ -n "${__BU_MAIN_STAT_TIME_TXT}" ]      && (( $(echo "${__BU_MAIN_STAT_TIME_TXT} > 0"       | bc -l ) )); then sleep "0"; fi
+    done
+   # if (( $(echo "${num1} > ${num2}" |bc -l) ));
+
+    BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 0;
+}
+
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+#### TEXT DISPLAYING
+#### DEBUG ID : "bu::main::echo::text-displaying"
+
+declare -r __BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__TEXT_DISPLAYING="bu::main::echo::text-displaying";
+
+## DISPLAYING A CONTEXT MESSAGE
+## DEBUG ID : displaying-a-context-message
+
+declare -r __BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__TEXT_DISPLAYING__DISPLAYING_A_CONTEXT_MESSAGE="${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__TEXT_DISPLAYING}::displaying-a-context-message";
+
+# --> DISPLAYING A COLORED CONTEXT MESSAGE WITH A PAUSE TIME DEPENDING ON THE "${__BU_MAIN_STAT_TIME_TXT}" GLOBAL STATUS VARIABLE.
+
+# ·····················
+# Error message display
+
+# Usage :
+#	BU.Main.Echo.Error "<Text to write>" "<optional echo argument>" "<Any extra argument supported by the BU.Main.Status.CheckProjectLogStatus() function>";
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Args.GetFuncArgsArrayValues()     -> Main -> Args.lib
+
+#   - BU.Main.Echo.__EchoCPLS()                 -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.__EchoOutput()               -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.Debug()                      -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.DebugEnd()                   -> Main -> Echo.lib (this file)
+
+#   - BU.Main.Status.CheckProjectLogStatus()    -> Main -> Status.lib
+#   - BU.Main.Status.CheckStatIsBackupEchoing() -> Main -> Status.lib
+
+#   - BU.ModuleInit.SetInitErrorMsg()           -> Modules initializer script
+#   - BU.ModuleInit.UnsetInitErrorMsg()         -> Modules initializer script
+
+# shellcheck disable=
+function BU.Main.Echo.Error()
+{
+    # This function call makes it easier for the user to find the current function and its executed
+    # content if it is called during the execution of the main script with the "$(bash -x)" command.
+    BU.Main.Echo.Debug \
+        "main" \
+        "$(basename "${BASH_SOURCE[0]}")" \
+        "${FUNCNAME[0]}" \
+        "${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__TEXT_DISPLAYING}" \
+        "${__BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__TEXT_DISPLAYING__DISPLAYING_A_CONTEXT_MESSAGE}";
+
+    #**** Parameters ****
+    local p_string=${1:-$'\0'};	# ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to print and / or redirect to the log file.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command options (it is a string, since the "BU.Main.Status.CheckProjectLogStatus()" function accepts a '-' before the option).
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Args.GetFuncArgsArrayValues "${FUNCNAME[0]}" "${pa_extraArgs[@]}";
+
+    # If the framework is still initializing when an error occurs.
+    BU.ModuleInit.SetInitErrorMsg && local VEchoError='1';
+
+    if ! BU.Main.Status.CheckStatIsBackupEchoing; then
+        BU.Main.Echo.__EchoOutput "${p_string}" 'begin' 'E' || { local C="${?}"; [ -n "${VEchoError}" ] && BU.ModuleInit.UnsetInitErrorMsg; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+        BU.Main.Status.CheckProjectLogStatus "${__BU_MAIN_COLOR_TXT_ERROR}${__BU_MAIN_TXT_PRINT_TAB}${__BU_MAIN_TXT_PRINT_TAB} ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+        BU.Main.Echo.__EchoOutput "${p_string}" 'end' 'E' || { local C="${?}"; [ -n "${VEchoError}" ] && BU.ModuleInit.UnsetInitErrorMsg; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+    # Failsafe if any "BU.Echo<...>()" function has to be called in the "BU.Main.Status.CheckProjectLogStatus()" function.
+    else
+        BU.Main.Echo.__EchoOutput "${p_string}" 'begin' 'E' || { local C="${?}"; [ -n "${VEchoError}" ] && BU.ModuleInit.UnsetInitErrorMsg; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+        BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_ERROR}${__BU_MAIN_TXT_PRINT_TAB}${__BU_MAIN_TXT_PRINT_TAB} ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+        BU.Main.Echo.__EchoOutput "${p_string}" 'end' 'E' || { local C="${?}"; [ -n "${VEchoError}" ] && BU.ModuleInit.UnsetInitErrorMsg; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+    fi
+
+    # Restoring the former value of the "${__BU_MODULE_INIT_MSG_ARRAY_PERMISSION}" global variable.
+    [ -n "${VEchoError}" ] && BU.ModuleInit.UnsetInitErrorMsg;
+
+    BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 0;
+}
+
+# ····································································
+# Normal message (without any extra color), with redirection checking.
+
+# Usage :
+#	BU.Main.Echo.Error "<Text to write>" "<optional echo argument>" "<Any extra argument supported by the BU.Main.Status.CheckProjectLogStatus() function>";
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Args.GetFuncArgsArrayValues()     -> Main -> Args.lib
+
+#   - BU.Main.Echo.__EchoCPLS()                 -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.__EchoOutput()               -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.Debug()                      -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.DebugEnd()                   -> Main -> Echo.lib (this file)
+
+#   - BU.Main.Status.CheckProjectLogStatus()    -> Main -> Status.lib
+#   - BU.Main.Status.CheckStatIsBackupEchoing() -> Main -> Status.lib
+
+# shellcheck disable=
+function BU.Main.Echo.Msg()
+{
+    # This function call makes it easier for the user to find the current function and its executed
+    # content if it is called during the execution of the main script with the "$(bash -x)" command.
+    BU.Main.Echo.Debug \
+        "main" \
+        "$(basename "${BASH_SOURCE[0]}")" \
+        "${FUNCNAME[0]}" \
+        "${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__TEXT_DISPLAYING}" \
+        "${__BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__TEXT_DISPLAYING__DISPLAYING_A_CONTEXT_MESSAGE}";
+
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to print and / or redirect to the log file.
+    local p_option=${2:-$'\0'};	# ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command options (it is a string, since the "BU.Main.Status.CheckProjectLogStatus()" function accepts a '-' before the option).
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Args.GetFuncArgsArrayValues "${FUNCNAME[0]}" "${pa_extraArgs[@]}";
+
+    if ! BU.Main.Status.CheckStatIsBackupEchoing; then
+        BU.Main.Echo.__EchoOutput "${p_string}" 'begin' 'm' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+        BU.Main.Status.CheckProjectLogStatus "${p_string}" "${p_option}" "${pa_extraArgs[@]}" || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+        BU.Main.Echo.__EchoOutput "${p_string}" 'end' 'm' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+    # Failsafe if any "BU.Echo<...>()" function has to be called in the "BU.Main.Status.CheckProjectLogStatus()" function.
+    else
+        BU.Main.Echo.__EchoOutput "${p_string}" 'begin' 'm' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+        BU.Main.Echo.__EchoCPLS "${p_string}" "${p_option}" "${pa_extraArgs[@]}" || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+        BU.Main.Echo.__EchoOutput "${p_string}" 'end' 'm' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+    fi
+
+    BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 0;
+}
+
+# ····························
+# New sub-step message display
+
+# Usage :
+#	BU.Main.Echo.Error "<Text to write>" "<optional echo argument>" "<Any extra argument supported by the BU.Main.Status.CheckProjectLogStatus() function>";
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Args.GetFuncArgsArrayValues()     -> Main -> Args.lib
+
+#   - BU.Main.Echo.__EchoCPLS()                 -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.__EchoOutput()               -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.Debug()                      -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.DebugEnd()                   -> Main -> Echo.lib (this file)
+
+#   - BU.Main.Status.CheckProjectLogStatus()    -> Main -> Status.lib
+#   - BU.Main.Status.CheckStatIsBackupEchoing() -> Main -> Status.lib
+
+# shellcheck disable=
+function BU.Main.Echo.Newstep()
+{
+    # This function call makes it easier for the user to find the current function and its executed
+    # content if it is called during the execution of the main script with the "$(bash -x)" command.
+    BU.Main.Echo.Debug \
+        "main" \
+        "$(basename "${BASH_SOURCE[0]}")" \
+        "${FUNCNAME[0]}" \
+        "${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__TEXT_DISPLAYING}" \
+        "${__BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__TEXT_DISPLAYING__DISPLAYING_A_CONTEXT_MESSAGE}";
+
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL    - DESC : String to print and / or redirect to the log file.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL    - DESC : "$(echo)" command options (it is a string, since the "BU.Main.Status.CheckProjectLogStatus()" function accepts a '-' before the option).
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Args.GetFuncArgsArrayValues "${FUNCNAME[0]}" "${pa_extraArgs[@]}";
+
+    if ! BU.Main.Status.CheckStatIsBackupEchoing; then
+        BU.Main.Echo.__EchoOutput "${p_string}" 'begin' 'N' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+        BU.Main.Status.CheckProjectLogStatus "${__BU_MAIN_COLOR_TXT_NEWSTEP}${__BU_MAIN_TXT_PRINT_TAB}${__BU_MAIN_TXT_PRINT_TAB} ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+        BU.Main.Echo.__EchoOutput "${p_string}" 'end' 'N' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+    # Failsafe if any "BU.Echo<...>()" function has to be called in the "BU.Main.Status.CheckProjectLogStatus()" function.
+    else
+        BU.Main.Echo.__EchoOutput "${p_string}" 'begin' 'N' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+        BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_NEWSTEP}${__BU_MAIN_TXT_PRINT_TAB}${__BU_MAIN_TXT_PRINT_TAB} ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+        BU.Main.Echo.__EchoOutput "${p_string}" 'end' 'N' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+    fi
+
+    BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 0;
+}
+
+# ·································
+# "$(read)" command's input values.
+
+# Usage :
+#	BU.Main.Echo.Error "<Text to write>" "<optional echo argument>" "<Any extra argument supported by the BU.Main.Status.CheckProjectLogStatus() function>";
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Decho.Decho.Var() -> Main -> Decho.lib
+
+#   - BU.Main.Echo.__EchoCPLS() -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.Debug()      -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.DebugEnd()   -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Read()
+{
+    # This function call makes it easier for the user to find the current function and its executed
+    # content if it is called during the execution of the main script with the "$(bash -x)" command.
+    BU.Main.Echo.Debug \
+        "main" \
+        "$(basename "${BASH_SOURCE[0]}")" \
+        "${FUNCNAME[0]}" \
+        "${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__TEXT_DISPLAYING}" \
+        "${__BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__TEXT_DISPLAYING__DISPLAYING_A_CONTEXT_MESSAGE}";
+
+	#**** Parameters ****
+	local p_string=${1:-$'\0'}; # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : User's keyboard input.
+
+	#**** Code ****
+	if [ -f "${__BU_MAIN_PROJECT_LOG_FILE_PATH}" ] && [ "${__BU_MAIN_STAT_LOG}" == "true" ] && [ -n "${__BU_MAIN_STAT_LOG_REDIRECT}" ]; then
+		echo -e "Keyboard input value : $(BU.Main.Decho.Decho.Var "${p_string}")" >> "${__BU_MAIN_PROJECT_LOG_FILE_PATH}" || { BU.Main.Echo.__EchoCPLS "" 'R' "CPLS"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 1; }
+	fi; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 0;
+}
+
+# ·······················
+# Success message display
+
+# Usage :
+#	BU.Main.Echo.Error "<Text to write>" "<optional echo argument>" "<Any extra argument supported by the BU.Main.Status.CheckProjectLogStatus() function>";
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Args.GetFuncArgsArrayValues()     -> Main -> Args.lib
+
+#   - BU.Main.Echo.__EchoCPLS()                 -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.__EchoOutput()               -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.Debug()                      -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.DebugEnd()                   -> Main -> Echo.lib (this file)
+
+#   - BU.Main.Status.CheckProjectLogStatus()    -> Main -> Status.lib
+#   - BU.Main.Status.CheckStatIsBackupEchoing() -> Main -> Status.lib
+
+# shellcheck disable=
+function BU.Main.Echo.Success()
+{
+    # This function call makes it easier for the user to find the current function and its executed
+    # content if it is called during the execution of the main script with the "$(bash -x)" command.
+    BU.Main.Echo.Debug \
+        "main" \
+        "$(basename "${BASH_SOURCE[0]}")" \
+        "${FUNCNAME[0]}" \
+        "${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__TEXT_DISPLAYING}" \
+        "${__BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__TEXT_DISPLAYING__DISPLAYING_A_CONTEXT_MESSAGE}";
+
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to print and / or redirect to the log file.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command options (it is a string, since the "BU.Main.Status.CheckProjectLogStatus()" function accepts a '-' before the option).
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Args.GetFuncArgsArrayValues "${FUNCNAME[0]}" "${pa_extraArgs[@]}";
+
+    if ! BU.Main.Status.CheckStatIsBackupEchoing; then
+        BU.Main.Echo.__EchoOutput "${p_string}" 'begin' 'S' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+        BU.Main.Status.CheckProjectLogStatus "${__BU_MAIN_COLOR_TXT_SUCCESS}${__BU_MAIN_TXT_PRINT_TAB}${__BU_MAIN_TXT_PRINT_TAB} $'p_string'${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+        BU.Main.Echo.__EchoOutput "${p_string}" 'end' 'S' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+    # Failsafe if any "BU.Echo<...>()" function has to be called in the "BU.Main.Status.CheckProjectLogStatus()" function.
+    else
+        BU.Main.Echo.__EchoOutput "${p_string}" 'begin' 'S' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+        BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_SUCCESS}${__BU_MAIN_TXT_PRINT_TAB}${__BU_MAIN_TXT_PRINT_TAB} ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+        BU.Main.Echo.__EchoOutput "${p_string}" 'end' 'S' || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+    fi
+
+    BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 0;
+}
+
+# ·······················
+# Warning message display
+
+# Usage :
+#	BU.Main.Echo.Error "<Text to write>" "<optional echo argument>" "<Any extra argument supported by the BU.Main.Status.CheckProjectLogStatus() function>";
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Args.GetFuncArgsArrayValues()     -> Main -> Args.lib
+
+#   - BU.Main.Echo.__EchoCPLS()                 -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.__EchoOutput()               -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.Debug()                      -> Main -> Echo.lib (this file)
+#   - BU.Main.Echo.DebugEnd()                   -> Main -> Echo.lib (this file)
+
+#   - BU.Main.Status.CheckProjectLogStatus()    -> Main -> Status.lib
+#   - BU.Main.Status.CheckStatIsBackupEchoing() -> Main -> Status.lib
+
+#   - BU.ModuleInit.SetInitErrorMsg()           -> Modules initializer script
+#   - BU.ModuleInit.UnsetInitErrorMsg()         -> Modules initializer script
+
+# shellcheck disable=
+function BU.Main.Echo.Warning()
+{
+    # This function call makes it easier for the user to find the current function and its executed
+    # content if it is called during the execution of the main script with the "$(bash -x)" command.
+    BU.Main.Echo.Debug \
+        "main" \
+        "$(basename "${BASH_SOURCE[0]}")" \
+        "${FUNCNAME[0]}" \
+        "${__BU_MAIN_ECHO_LIB__CAT_DEBUG_ID__TEXT_DISPLAYING}" \
+        "${__BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__TEXT_DISPLAYING__DISPLAYING_A_CONTEXT_MESSAGE}";
+
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - Default : NULL	- String to print and / or redirect to the log file.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - Default : NULL	- "$(echo)" command options (it is a string, since the "BU.Main.Status.CheckProjectLogStatus()" function accepts a '-' before the option).
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # Array - More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus" or the "BU.Main.Echo.__EchoCPLS" functions.
+
+    #**** Code ****
+    BU.Main.Args.GetFuncArgsArrayValues "${FUNCNAME[0]}" "${pa_extraArgs[@]}";
+
+    # If the framework is still initializing when an error occurs.
+    BU.ModuleInit.SetInitErrorMsg && local VEchoWarning='1';
+
+    if ! BU.Main.Status.CheckStatIsBackupEchoing; then
+        BU.Main.Echo.__EchoOutput "${p_string}" 'begin' 'W' || { local C="${?}"; [ -n "${VEchoWarning}" ] && BU.ModuleInit.UnsetInitErrorMsg; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+        BU.Main.Status.CheckProjectLogStatus "${__BU_MAIN_COLOR_TXT_WARNING}${__BU_MAIN_TXT_PRINT_TAB}${__BU_MAIN_TXT_PRINT_TAB} ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+        BU.Main.Echo.__EchoOutput "${p_string}" 'end' 'W' || { local C="${?}"; [ -n "${VEchoWarning}" ] && BU.ModuleInit.UnsetInitErrorMsg; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+    # Failsafe if any "BU.Echo<...>()" function has to be called in the "BU.Main.Status.CheckProjectLogStatus()" function.
+    else
+        BU.Main.Echo.__EchoOutput "${p_string}" 'begin' 'W' || { local C="${?}"; [ -n "${VEchoWarning}" ] && BU.ModuleInit.UnsetInitErrorMsg; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+        BU.Main.Echo.__EchoCPLS "${__BU_MAIN_COLOR_TXT_WARNING}${__BU_MAIN_TXT_PRINT_TAB}${__BU_MAIN_TXT_PRINT_TAB} ${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || { local C="${?}"; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+
+        BU.Main.Echo.__EchoOutput "${p_string}" 'end' 'W' || { local C="${?}"; [ -n "${VEchoWarning}" ] && BU.ModuleInit.UnsetInitErrorMsg; BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return "${C}"; };
+    fi
+
+    # Restoring the former value of the "${__BU_MODULE_INIT_MSG_ARRAY_PERMISSION}" global variable.
+    [ -n "${VEchoWarning}" ] && BU.ModuleInit.UnsetInitErrorMsg;
+
+    BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 0;
+}
+
+## ==============================================
+
+## DISPLAYING A COLORED MESSAGE
+
+# --> DISPLAYING A COLORED MESSAGE WITH A PAUSE TIME DEPENDING ON THE "${__BU_MAIN_STAT_TIME_TXT}" GLOBAL STATUS VARIABLE.
+
+# ····································································································································
+# Note : These function call the "BU.Main.Echo.Msg()" function in order to avoid rewriting tons of lines that would do the same thing.
+
+# ··························
+# Aqua blue colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Aqua()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_AQUA}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ······················
+# Black colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Black()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_BLACK}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·····················
+# Blue colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Blue()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_BLUE}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·····················
+# Cyan colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Cyan()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_CYAN}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ························
+# Fuchsia colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Fuchsia()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_FUCHSIA}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·····················
+# Gray colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Gray()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_GRAY}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ······················
+# Green colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Green()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_GREEN}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ···························
+# Lime green colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Lime()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_LIME}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·······················
+# Maroon colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Maroon()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_MAROON}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ··························
+# Navy blue colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Navy()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_NAVY}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ····························
+# Olive green colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Olive()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_OLIVE}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·······················
+# Orange colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Orange()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_ORANGE}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·····················
+# Pink colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Pink()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_PINK}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·······················
+# Purple colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Purple()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_PURPLE}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ····················
+# Red colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Red()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_RED}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·······················
+# Salmon colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Salmon()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_SALMON}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·······················
+# Silver colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Silver()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_SILVER}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ····················
+# Tan colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Tan()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_TAN}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·····················
+# Teal colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Teal()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_TEAL}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ··························
+# Turquoise colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Turquoise()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_TURQUOISE}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·······················
+# Violet colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Violet()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_VIOLET}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ······················
+# White colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.White()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_WHITE}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+# ·······················
+# Yellow colored message.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Echo.Msg()    -> Main -> Echo.lib (this file)
+
+# shellcheck disable=
+function BU.Main.Echo.Yellow()
+{
+    #**** Parameters ****
+    local p_string=${1:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : String to display.
+    local p_option=${2:-$'\0'}; # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : "$(echo)" command's options.
+    shift 2;
+
+    local pa_extraArgs=("${@}"); # ARG TYPE : Array     - OPTIONAL | DEFAULT VAL : NULL     - DESC : More processing arguments (like the processing of a whole line-long string) for the "BU.Main.Checkings.CheckProjectLogStatus()" or the "BU.Main.Echo.__EchoCPLS()" functions.
+
+    #**** Code ****
+    BU.Main.Echo.Msg "${__BU_MAIN_COLOR_TXT_YELLOW}${p_string}${__BU_MAIN_COLOR_TXT_RESET}" "${p_option}" "${pa_extraArgs[@]}" || return 1;
+
+    return 0;
+}
+
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+#### LINE BREAKS
+#### DEBUG ID : "bu::main::echo::line-breaks"
+
+declare -r __BU_MAIN_TEXT_LIB__CAT_DEBUG_ID__LINE_BREAKS="bu::main::echo::line-breaks";
+
+## LINE BREAKS ACCORDING TO THE "${__BU_MAIN_PROJECT_LOG_FILE_PATH}" VARIABLE VALUE
+## DEBUG ID : "line-breaks-according-to-the-project-log-file-var-val"
+
+declare -r __BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__LINE_BREAKS__LINE_BREAKS_ACCORDING_TO_THE_PROJECT_LOG_FILE_VAR_VAL="${__BU_MAIN_TEXT_LIB__CAT_DEBUG_ID__LINE_BREAKS}::line-breaks-according-to-the-project-log-file-var-val":
+
+# ·············································
+# Redirecting the output of the "echo" command.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.Main.Checkings.IsPositiveInt() -> Main -> Checkings.lib
+
+#   - BU.Main.Decho.Decho.Function()    -> Main -> Decho.lib
+
+#   - BU.Main.Echo.__EchoCPLS()         -> Main -> Echo.lib
+#   - BU.Main.Echo.Debug()              -> Main -> Echo.lib
+#   - BU.Main.Echo.DebugEnd()           -> Main -> Echo.lib
+#   - BU.Main.Echo.Msg()                -> Main -> Echo.lib
+
+#	- BU.Main.Errors.HandleErrors()     -> Main -> Errors.lib
+
+# shellcheck disable=
+function BU.Main.Echo.Newline()
+{
+    # This function call makes it easier for the user to find the current function and its executed
+    # content if it is called during the execution of the main script with the "$(bash -x)" command.
+    BU.Main.Echo.Debug \
+        "main" \
+        "$(basename "${BASH_SOURCE[0]}")" \
+        "${FUNCNAME[0]}" \
+        "${__BU_MAIN_TEXT_LIB__CAT_DEBUG_ID__LINE_BREAKS}" \
+        "${__BU_MAIN_ECHO_LIB__SUBCAT_DEBUG_ID__LINE_BREAKS__LINE_BREAKS_ACCORDING_TO_THE_PROJECT_LOG_FILE_VAR_VAL}";
+
+    #**** Parameters ****
+    local p_number=${1:-1}; # ARG TYPE : Int    - OPTIONAL | DEFAULT VAL : 1    - DESC : Line breaks iterator.
+
+    #**** Variables ****
+    declare -i i;           # VAR TYPE : Int    - DESC : "For" loop counter.
+
+    #**** Code ****
+    if [ -n "${p_number}" ]; then
+        if ! BU.Main.Checkings.IsPositiveInt "${p_number}"; then
+            BU.Main.Echo.Msg '' '' 'nodate';
+            BU.Main.Echo.__EchoCPLS "$(BU.Main.Decho.Decho.Function "${FUNCNAME[0]}()") --> Warning : the number of line breaks must be an integer" 'R';
+            BU.Main.Echo.Msg '' '' 'nodate';
+        else
+            # Doing X line breaks according to the number passed as argument.
+            for ((i=0; i<p_number; i++)); do
+                BU.Main.Echo.Msg '' '' 'nodate';
+            done
+        fi
+    else
+        BU.Main.Echo.Msg '' '' 'nodate';
+    fi
+
+    BU.Main.Echo.DebugEnd "${FUNCNAME[0]}"; return 0;
+}
+
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #
