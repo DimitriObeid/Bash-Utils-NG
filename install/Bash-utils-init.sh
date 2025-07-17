@@ -5,7 +5,7 @@
 
 # Name          : Bash-utils-init.sh
 # Author(s)     : Dimitri OBEID
-# Version       : 1.0-NG
+# Version       : Beta 0.2-NG
 
 
 # ----------------------
@@ -252,25 +252,35 @@ function BU.ModuleInit.PrintIsInScriptEnvironmentErrorMessage()
 # shellcheck disable=
 function BU.ModuleInit.DefineTraps()
 {
+    BU.ModuleInit.IsTranslated; local __v="${?}"; echo "Translated : ${__v}"
+
     #**** Variables ****
-    if ! IsTranslated; then
+    if ! BU.ModuleInit.IsTranslated; then
         # If the string variables are not defined from translation files' by the time the trap is called, their message will be displayed in English for everyone.
 
-        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__EXITING_SCRIPT; # VAR TYPE : String     - DESC :
-        __BU_MODULE_INIT_MSG__DEFINING_TRAPS__SIGINT;       # VAR TYPE : String     - DESC :
+        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGHUP;         # VAR TYPE : String     - DESC :
+        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGINT;         # VAR TYPE : String     - DESC :
+        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGSTP;         # VAR TYPE : String     - DESC :
+        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTERM;        # VAR TYPE : String     - DESC :
+        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTRAP;        # VAR TYPE : String     - DESC :
+
+        # Defining strings variables.
+        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGHUP="Terminal closure detected (HUP)";
+        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGINT="Interrupted by the user (Ctrl+C)";
+        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGSTP="Manual pause (Ctrl+Z)";
+        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTERM="Termination signal received (TERM)";
+        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTRAP="SIGTRAP signal received";
     fi
 
     #**** Code ****
-    if ! IsTranslated; then
-        # Defining strings variables.
-        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__EXITING_SCRIPT=""
-        __BU_MODULE_INIT_MSG__DEFINING_TRAPS__SIGINT="Interruption par l'utilisateur (Ctrl+C)";
-    fi
 
     # Defining traps.
     trap 'BU.ModuleInit.Exit 0' EXIT;
-
-    trap 'printf "\n[!] %s" "${__BU_MODULE_INIT_MSG__DEFINING_TRAPS__SIGINT}"; BU.ModuleInit.Exit 2' SIGINT;
+    trap 'printf "\n[!] %s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGHUP}"' SIGHUP;
+    trap 'printf "\n[!] %s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGINT}"; BU.ModuleInit.Exit 2' SIGINT;
+    # trap 'printf "\n[|] %s\n" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGSTP}"; kill -STOP ${$}' SIGSTP;
+    trap 'printf "\n[!] %s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTERM}"' SIGTERM;
+    trap 'printf "%s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTRAP}"' SIGTRAP;
 }
 
 # ····················································································································································
