@@ -169,285 +169,6 @@ function BU.ModuleInit.CheckBashMinimalVersion()
 	fi
 }
 
-## ==============================================
-
-## FUNCTIONS NEEDED FOR THE TRANSLATIONS OF MESSAGES BEFORE THE INCLUSION OF THE TRANSLATION FILES.
-
-# ················································································································
-# NOTE : In the functions with embedded translations, only the languages spoken by more than 100 million people in
-# the world (according to this website : https://lingua.edu/the-20-most-spoken-languages-in-the-world-in-2022/)
-# will be embedded, as well as a few extra languages, in order to avoid bloating the initializer script with
-# thousands and thousands of lines of hard-coded messages.
-
-# ·····································································································································································································
-# Printing the message called in the "BU.ModuleInit.IsInScript()" function, which tells the user that the Bash Utils framework cannot tell if its code is executed from a file or an interactive shell.
-
-# WARNING : Do not call the "BU.ModuleInit.Msg()" function into this function, as this function is called into the "BU.ModuleInit.Msg()" function via the "BU.ModuleInit.Exit()" function.
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-# Featured shell commands and their options(s) :
-#   - echo		|
-#	- local		|
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-# Featured function(s) and file(s) by module(s) and from the "functions" folder :
-#   - Feel free to call a function if it is needed for your contribution.
-
-# shellcheck disable=
-function BU.ModuleInit.PrintIsInScriptEnvironmentErrorMessage()
-{
-    #**** Variables ****
-    local v_isPrinted;  # VAR TYPE : Bool   - DESC : Checks if one of the languages supported by the "Bash-utils-init.sh" file was found on the user's system and that the translated message was printed.
-    local v__userLang;  # VAR TYPE : String - DESC : Stores the IS0 639-1 code of the language currently used by the framework.
-
-    #**** Code ****
-    v__userLang="$(echo "${LANG}" | cut -d _ -f1)";
-
-#    [ "${v__userLang,,}" == 'ar' ] && echo "يرجى تشغيل كود إطار عمل Bash-utils من ملف Bash المصدر ، أو تحقق من العملية الرئيسية" >&2 && v_isPrinted='true';
-    [ "${v__userLang,,}" == 'de' ] && echo "Bitte führen Sie den bash-utils-Framework-Code aus der bash-Quelldatei aus oder überprüfen Sie den Hauptprozess" >&2 && v_isPrinted='true';
-    [ "${v__userLang,,}" == 'en' ] && echo "Please run the Bash-utils framework's code from a Bash source file, or check the parent process" >&2 && v_isPrinted='true';
-
-    [ "${v__userLang,,}" == 'es' ] && echo "Por favor, ejecute el código del framework bash-utils desde el archivo fuente bash o compruebe el proceso principal" >&2 && v_isPrinted='true';
-    [ "${v__userLang,,}" == 'fr' ] && echo "Veuillez exécuter le code du framework Bash Utils à partir d'un fichier source Bash ou vérifier le processus parent" >&2 && v_isPrinted='true';
-    [ "${v__userLang,,}" == 'hi' ] && echo "कृपया बैश स्रोत फ़ाइल से बैश-यूटिल्स फ्रेमवर्क का कोड चलाएं, या मूल प्रक्रिया की जांच करें" >&2 && v_isPrinted='true';
-
-    [ "${v__userLang,,}" == 'id' ] && echo "Jalankan kode kerangka kerja Bash-utils dari berkas sumber Bash atau periksa proses utama" >&2 && v_isPrinted='true';
-    [ "${v__userLang,,}" == 'ja' ] && echo "Bash ソース ファイルから Bash-utils フレームワーク コードを実行するか、親プロセスを確認します。" >&2 && v_isPrinted='true';
-    [ "${v__userLang,,}" == 'ko' ] && echo "Bash 소스 파일에서 Bash-utils 프레임워크 코드를 실행하거나 기본 프로세스를 확인하십시오." >&2 && v_isPrinted='true';
-
-    [ "${v__userLang,,}" == 'pt' ] && echo "Execute o código da estrutura Bash-utils a partir do ficheiro fonte do Bash ou verifique o processo principal" >&2 && v_isPrinted='true';
-    [ "${v__userLang,,}" == 'ru' ] && echo "Пожалуйста, запустите код фреймворка « Bash-utils » из исходного файла « Bash » или проверьте родительский процесс" >&2 && v_isPrinted='true';
-    [ "${v__userLang,,}" == 'tr' ] && echo "Lütfen Bash-utils çerçevesinin kodunu bir Bash kaynak dosyasından çalıştırın veya ana işlemi kontrol edin" >&2 && v_isPrinted='true';
-
-    [ "${v__userLang,,}" == 'uk' ] && echo "Будь ласка, запустіть код фреймворку « Bash-utils » з вихідного файлу « Bash » або перевірте батьківський процес" >&2 && v_isPrinted='true';
-    [ "${v__userLang,,}" == 'zh' ] && echo "请从 Bash 源文件运行 Bash-utils 框架的代码，或者检查父进程" >&2 && v_isPrinted='true';
-
-    [ "${v_isPrinted}" != 'true' ] && echo "Please run the Bash-utils framework's code from a Bash source file, or check the parent process" >&2;
-
-    echo >&2;
-}
-
-## ==============================================
-
-
-
-# /////////////////////////////////////////////////////////////////////////////////////////////// #
-
-#### INITIALIZER RESOURCES - OTHER FUNCTIONS
-
-## CORE FUNCTIONS
-
-# ·······························
-# Defining the framework's traps.
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-# Featured shell commands and their options(s) :
-#   - echo  |
-#   - trap	|
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-# Featured function(s) and file(s) by module(s) and from the "functions" folder :
-#   - Feel free to call a function if it is needed for your contribution.
-
-# shellcheck disable=
-function BU.ModuleInit.DefineTraps()
-{
-    BU.ModuleInit.IsTranslated; local __v="${?}"; echo "Translated : ${__v}"
-
-    #**** Variables ****
-    if ! BU.ModuleInit.IsTranslated; then
-        # If the string variables are not defined from translation files' by the time the trap is called, their message will be displayed in English for everyone.
-
-        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGHUP;         # VAR TYPE : String     - DESC :
-        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGINT;         # VAR TYPE : String     - DESC :
-        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGSTP;         # VAR TYPE : String     - DESC :
-        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTERM;        # VAR TYPE : String     - DESC :
-        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTRAP;        # VAR TYPE : String     - DESC :
-
-        # Defining strings variables.
-        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGHUP="Terminal closure detected (HUP)";
-        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGINT="Interrupted by the user (Ctrl+C)";
-        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGSTP="Manual pause (Ctrl+Z)";
-        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTERM="Termination signal received (TERM)";
-        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTRAP="SIGTRAP signal received";
-    fi
-
-    #**** Code ****
-
-    # Defining traps.
-    trap 'BU.ModuleInit.Exit 0' EXIT;
-    trap 'printf "\n[!] %s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGHUP}"' SIGHUP;
-    trap 'printf "\n[!] %s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGINT}"; BU.ModuleInit.Exit 2' SIGINT;
-    # trap 'printf "\n[|] %s\n" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGSTP}"; kill -STOP ${$}' SIGSTP;
-    trap 'printf "\n[!] %s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTERM}"' SIGTERM;
-    trap 'printf "%s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTRAP}"' SIGTRAP;
-}
-
-# ····················································································································································
-# Stopping the execution of the framework in case an error occurs, after printing an error message, according to the way the main script was executed.
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-# Featured shell commands and their options(s) :
-#   - exit		|
-#	- local		|
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-# Featured function(s) and file(s) by module(s) and from the "functions" folder :
-#   - BU.ModuleInit.IsInScript()                        -> Modules initializer script (this file)
-
-
-# shellcheck disable=
-function BU.ModuleInit.Exit()
-{
-    #**** Variables ****
-    local p_code=${1:-1};
-    
-    #***** Code *****
-    BU.ModuleInit.IsInScript && exit "${p_code}";
-    
-    return "${p_code}";
-}
-
-# ··································································································································································································
-# Checking if the function and / or sourced code currently executed is a part of a script file (with the "${BASH_SOURCE}" variable) or running in an interactive shell (with the "${PS1}" variable).
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-# Featured shell commands and their options(s) :
-#   - local	|
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-# Featured function(s) and file(s) by module(s) and from the "functions" folder :
-#   - BU.ModuleInit.PrintIsInScriptEnvironmentErrorMessage() -> Modules initializer script (this file)
-
-
-# shellcheck disable=
-function BU.ModuleInit.IsInScript()
-{
-    #**** Code ****
-    if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-        return 1;
-    elif [[ -n "$BASH_VERSION" ]]; then
-        return 0;
-    else
-        BU.ModuleInit.PrintIsInScriptEnvironmentErrorMessage;
-
-        return 255;
-    fi
-}
-
-# ·····················································································
-# Checking if the framework's features are translated to another language than English.
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-# Featured shell commands and their options(s) :
-#   -
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-# Featured function(s) and file(s) by module(s) and from the "functions" folder :
-#   - Feel free to call a function if it is needed for your contribution.
-
-# shellcheck disable=
-function BU.ModuleInit.IsTranslated()                   { if [ "${__BU_MODULE_INIT__BU_BASE_IS_TRANSLATED,,}" == 'true' ]; then return 0; else return 1; fi }
-
-
-
-## ==============================================
-
-## MODULES ENGINE'S FUNCTIONS
-
-
-
-## ==============================================
-
-
-
-# /////////////////////////////////////////////////////////////////////////////////////////////// #
-
-#### BEGINNING OF THE INITIALIZATION PROCESS
-
-## CHECKING IF THE CURRENT SHELL IS BASH
-
-if [ -z "${BASH_VERSION}" ]; then
-    lang=$(echo "${LANG}" | cut -d_ -f1)
-
-    case "${lang}" in
-        de)
-            echo "BASH-UTILS FEHLER: Ihre aktuelle Shell ist nicht « Bash », sondern « ${SHELL##*/} »." >&2 ;;
-        en)
-            echo "BASH-UTILS ERROR: Your current shell interpreter is not « Bash », but « ${SHELL##*/} »." >&2 ;;
-        es)
-            echo "ERROR DE BASH-UTILS: Su intérprete de shell actual no es « Bash », sino « ${SHELL##*/} »." >&2 ;;
-        fr)
-            echo "ERREUR BASH-UTILS : Votre interpréteur actuel n’est pas « Bash », mais « ${SHELL##*/} »." >&2 ;;
-        hi)
-            echo "BASH-UTILS त्रुटि: आपका वर्तमान शेल इंटरप्रेटर « Bash » नहीं है, बल्कि « ${SHELL##/} » है" >&2 ;;
-        id)
-            echo "KESALAHAN BASH-UTILS: Shell Anda saat ini bukan « Bash », melainkan « ${SHELL##*/} »." >&2 ;;
-        ja)
-            echo "BASH-UTILS エラー: 現在のシェルインタプリタは「Bash」ではなく、「${SHELL##/}」です。" >&2 ;;
-        ko)
-            echo "BASH-UTILS 오류: 현재 셸 인터프리터는 Bash가 아니라 ${SHELL##/}입니다." >&2 ;;
-        pt)
-            echo "ERRO DO BASH-UTILS : O seu interpretador de shell não é o « Bash », mas sim o « ${SHELL##/} »" >&2 ;;
-        ru)
-            echo "ОШИБКА BASH-UTILS: Текущий интерпретатор оболочки — не « Bash », а « ${SHELL##*/} »." >&2 ;;
-        tr)
-            echo "BASH-UTILS HATASI: Mevcut kabuk yorumlayıcınız « Bash » değil, « ${SHELL##/} »." >&2 ;;
-        uk)
-            echo "ПОМИЛКА BASH-UTILS: Поточний інтерпретатор — не « Bash », а « ${SHELL##*/} »." >&2 ;;
-        zh)
-            echo "BASH-UTILS 错误：你当前的 shell 解释器不是「Bash」，而是「${SHELL##/}」。" >&2 ;;
-        *)
-            echo "BASH-UTILS ERROR: This script requires Bash, but you are using « ${SHELL##*/} »." >&2 ;;
-    esac
-
-    echo >&2;
-
-    # WARNING : Do not call the "BU.ModuleInit.AskPrintLog()" function here, this code is executed before the initialization of the "${__BU_MODULE_INIT_MSG_ARRAY[@]}" array.
-
-    # Handling the situation where the code is executed from a script or when this file is included in the user's prompt.
-    case "${0}" in
-        -*)
-            # Si "${0}" commence par un tiret, c'est probablement un shell interactif
-            return 1 2>/dev/null;
-            ;;
-        *)
-            # Si ce script est exécuté directement, on fait un exit
-            [ "$(basename -- "${0}")" != "sh" ] && exit 1
-            
-            return 1 2>/dev/null;
-            ;;
-    esac
-fi
-
-## ==============================================
-
-## STARTING A TIMER IN ORDER TO CHECK THE INITIALIZATION PROCESS'S TIME
-
-# Do not assign any value here now, it will be done at the end of the framework's initialization process.
-declare -i __BU_MODULE_INIT__FRAMEWORK_INITIALIZATION_PROCESS_TIMER;
-
-## ==============================================
-
-## CHECKING THE VERSION OF BASH CURRENTLY USED TO EXECUTE THE FRAMEWORK
-
-# Checking the version of the Bash language currently used on the user's system.
-BU.ModuleInit.CheckBashMinimalVersion || { BU.ModuleInit.Exit 1; return "${?}"; };
-
-## ==============================================
-
-## CALLING THE TRAPS RESOURCES
-
-BU.ModuleInit.DefineTraps;
-
-sleep 5
-
-echo "STOP TEST"; exit 0;
-
-## ==============================================
-
-## DEFINING GLOBAL VARIABLES
-
 # ··························································································································································
 # Defining a function in order to suppress every shellcheck advices about the "printf" command, in order to do so at once AND to keep the code's decoration.
 
@@ -896,6 +617,287 @@ function BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModule
                                               'sub-' 'sub-s' 'sub-c' 'sub-cs' 'sub-cat' 'sub-cats' 'sub-categ' 'sub-categs' 'sub-category' 'sub-categorie' 'sub-categories');
     return 0;
 }
+
+## ==============================================
+
+## FUNCTIONS NEEDED FOR THE TRANSLATIONS OF MESSAGES BEFORE THE INCLUSION OF THE TRANSLATION FILES.
+
+# ················································································································
+# NOTE : In the functions with embedded translations, only the languages spoken by more than 100 million people in
+# the world (according to this website : https://lingua.edu/the-20-most-spoken-languages-in-the-world-in-2022/)
+# will be embedded, as well as a few extra languages, in order to avoid bloating the initializer script with
+# thousands and thousands of lines of hard-coded messages.
+
+# ·····································································································································································································
+# Printing the message called in the "BU.ModuleInit.IsInScript()" function, which tells the user that the Bash Utils framework cannot tell if its code is executed from a file or an interactive shell.
+
+# WARNING : Do not call the "BU.ModuleInit.Msg()" function into this function, as this function is called into the "BU.ModuleInit.Msg()" function via the "BU.ModuleInit.Exit()" function.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   - echo		|
+#	- local		|
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.PrintIsInScriptEnvironmentErrorMessage()
+{
+    #**** Variables ****
+    local v_isPrinted;  # VAR TYPE : Bool   - DESC : Checks if one of the languages supported by the "Bash-utils-init.sh" file was found on the user's system and that the translated message was printed.
+    local v__userLang;  # VAR TYPE : String - DESC : Stores the IS0 639-1 code of the language currently used by the framework.
+
+    #**** Code ****
+    v__userLang="$(echo "${LANG}" | cut -d _ -f1)";
+
+#    [ "${v__userLang,,}" == 'ar' ] && echo "يرجى تشغيل كود إطار عمل Bash-utils من ملف Bash المصدر ، أو تحقق من العملية الرئيسية" >&2 && v_isPrinted='true';
+    [ "${v__userLang,,}" == 'de' ] && echo "Bitte führen Sie den bash-utils-Framework-Code aus der bash-Quelldatei aus oder überprüfen Sie den Hauptprozess" >&2 && v_isPrinted='true';
+    [ "${v__userLang,,}" == 'en' ] && echo "Please run the Bash-utils framework's code from a Bash source file, or check the parent process" >&2 && v_isPrinted='true';
+
+    [ "${v__userLang,,}" == 'es' ] && echo "Por favor, ejecute el código del framework bash-utils desde el archivo fuente bash o compruebe el proceso principal" >&2 && v_isPrinted='true';
+    [ "${v__userLang,,}" == 'fr' ] && echo "Veuillez exécuter le code du framework Bash Utils à partir d'un fichier source Bash ou vérifier le processus parent" >&2 && v_isPrinted='true';
+    [ "${v__userLang,,}" == 'hi' ] && echo "कृपया बैश स्रोत फ़ाइल से बैश-यूटिल्स फ्रेमवर्क का कोड चलाएं, या मूल प्रक्रिया की जांच करें" >&2 && v_isPrinted='true';
+
+    [ "${v__userLang,,}" == 'id' ] && echo "Jalankan kode kerangka kerja Bash-utils dari berkas sumber Bash atau periksa proses utama" >&2 && v_isPrinted='true';
+    [ "${v__userLang,,}" == 'ja' ] && echo "Bash ソース ファイルから Bash-utils フレームワーク コードを実行するか、親プロセスを確認します。" >&2 && v_isPrinted='true';
+    [ "${v__userLang,,}" == 'ko' ] && echo "Bash 소스 파일에서 Bash-utils 프레임워크 코드를 실행하거나 기본 프로세스를 확인하십시오." >&2 && v_isPrinted='true';
+
+    [ "${v__userLang,,}" == 'pt' ] && echo "Execute o código da estrutura Bash-utils a partir do ficheiro fonte do Bash ou verifique o processo principal" >&2 && v_isPrinted='true';
+    [ "${v__userLang,,}" == 'ru' ] && echo "Пожалуйста, запустите код фреймворка « Bash-utils » из исходного файла « Bash » или проверьте родительский процесс" >&2 && v_isPrinted='true';
+    [ "${v__userLang,,}" == 'tr' ] && echo "Lütfen Bash-utils çerçevesinin kodunu bir Bash kaynak dosyasından çalıştırın veya ana işlemi kontrol edin" >&2 && v_isPrinted='true';
+
+    [ "${v__userLang,,}" == 'uk' ] && echo "Будь ласка, запустіть код фреймворку « Bash-utils » з вихідного файлу « Bash » або перевірте батьківський процес" >&2 && v_isPrinted='true';
+    [ "${v__userLang,,}" == 'zh' ] && echo "请从 Bash 源文件运行 Bash-utils 框架的代码，或者检查父进程" >&2 && v_isPrinted='true';
+
+    [ "${v_isPrinted}" != 'true' ] && echo "Please run the Bash-utils framework's code from a Bash source file, or check the parent process" >&2;
+
+    echo >&2;
+}
+
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+#### INITIALIZER RESOURCES - OTHER FUNCTIONS
+
+## CORE FUNCTIONS
+
+# ·······························
+# Defining the framework's traps.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   - echo  |
+#   - trap	|
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.DefineTraps()
+{
+    BU.ModuleInit.IsTranslated; local __v="${?}"; echo "Translated : ${__v}"
+
+    #**** Variables ****
+    if ! BU.ModuleInit.IsTranslated; then
+        # If the string variables are not defined from translation files' by the time the trap is called, their message will be displayed in English for everyone.
+
+        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGHUP;         # VAR TYPE : String     - DESC :
+        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGINT;         # VAR TYPE : String     - DESC :
+        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGSTP;         # VAR TYPE : String     - DESC :
+        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTERM;        # VAR TYPE : String     - DESC :
+        declare -g __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTRAP;        # VAR TYPE : String     - DESC :
+
+        # Defining strings variables.
+        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGHUP="Terminal closure detected (HUP)";
+        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGINT="Interrupted by the user (Ctrl+C)";
+        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGSTP="Manual pause (Ctrl+Z)";
+        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTERM="Termination signal received (TERM)";
+        __BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTRAP="SIGTRAP signal received";
+    fi
+
+    #**** Code ****
+
+    # Defining traps.
+    trap 'BU.ModuleInit.Exit 0' EXIT;
+    trap 'printf "\n[HUP] %s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGHUP}"' SIGHUP;
+    trap 'printf "\n[INT] %s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGINT}"; BU.ModuleInit.Exit 2' SIGINT;
+    # trap 'printf "\n[TSTP] %s\n" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGSTP}"; kill -STOP ${$}' SIGSTP;
+    trap 'printf "\n[TERM] %s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTERM}"' SIGTERM;
+    trap 'printf "\n[] %s" "${__BU_MODULE_INIT_MSG__DEFINE_TRAPS__SIGTRAP}"' SIGTRAP;
+}
+
+# ····················································································································································
+# Stopping the execution of the framework in case an error occurs, after printing an error message, according to the way the main script was executed.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   - exit		|
+#	- local		|
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.ModuleInit.IsInScript()                        -> Modules initializer script (this file)
+
+
+# shellcheck disable=
+function BU.ModuleInit.Exit()
+{
+    #**** Variables ****
+    local p_code=${1:-1};
+    
+    #***** Code *****
+    BU.ModuleInit.IsInScript && exit "${p_code}";
+    
+    return "${p_code}";
+}
+
+# ··································································································································································································
+# Checking if the function and / or sourced code currently executed is a part of a script file (with the "${BASH_SOURCE}" variable) or running in an interactive shell (with the "${PS1}" variable).
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   - local	|
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.ModuleInit.PrintIsInScriptEnvironmentErrorMessage() -> Modules initializer script (this file)
+
+
+# shellcheck disable=
+function BU.ModuleInit.IsInScript()
+{
+    #**** Code ****
+    if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+        return 1;
+    elif [[ -n "$BASH_VERSION" ]]; then
+        return 0;
+    else
+        BU.ModuleInit.PrintIsInScriptEnvironmentErrorMessage;
+
+        return 255;
+    fi
+}
+
+# ·····················································································
+# Checking if the framework's features are translated to another language than English.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   -
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.IsTranslated()                   { if [ "${__BU_MODULE_INIT__BU_BASE_IS_TRANSLATED,,}" == 'true' ]; then return 0; else return 1; fi }
+
+
+
+## ==============================================
+
+## MODULES ENGINE'S FUNCTIONS
+
+
+
+## ==============================================
+
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////// #
+
+#### BEGINNING OF THE INITIALIZATION PROCESS
+
+## CHECKING IF THE CURRENT SHELL IS BASH
+
+if [ -z "${BASH_VERSION}" ]; then
+    lang=$(echo "${LANG}" | cut -d_ -f1)
+
+    case "${lang}" in
+        de)
+            echo "BASH-UTILS FEHLER: Ihre aktuelle Shell ist nicht « Bash », sondern « ${SHELL##*/} »." >&2 ;;
+        en)
+            echo "BASH-UTILS ERROR: Your current shell interpreter is not « Bash », but « ${SHELL##*/} »." >&2 ;;
+        es)
+            echo "ERROR DE BASH-UTILS: Su intérprete de shell actual no es « Bash », sino « ${SHELL##*/} »." >&2 ;;
+        fr)
+            echo "ERREUR BASH-UTILS : Votre interpréteur actuel n’est pas « Bash », mais « ${SHELL##*/} »." >&2 ;;
+        hi)
+            echo "BASH-UTILS त्रुटि: आपका वर्तमान शेल इंटरप्रेटर « Bash » नहीं है, बल्कि « ${SHELL##/} » है" >&2 ;;
+        id)
+            echo "KESALAHAN BASH-UTILS: Shell Anda saat ini bukan « Bash », melainkan « ${SHELL##*/} »." >&2 ;;
+        ja)
+            echo "BASH-UTILS エラー: 現在のシェルインタプリタは「Bash」ではなく、「${SHELL##/}」です。" >&2 ;;
+        ko)
+            echo "BASH-UTILS 오류: 현재 셸 인터프리터는 Bash가 아니라 ${SHELL##/}입니다." >&2 ;;
+        pt)
+            echo "ERRO DO BASH-UTILS : O seu interpretador de shell não é o « Bash », mas sim o « ${SHELL##/} »" >&2 ;;
+        ru)
+            echo "ОШИБКА BASH-UTILS: Текущий интерпретатор оболочки — не « Bash », а « ${SHELL##*/} »." >&2 ;;
+        tr)
+            echo "BASH-UTILS HATASI: Mevcut kabuk yorumlayıcınız « Bash » değil, « ${SHELL##/} »." >&2 ;;
+        uk)
+            echo "ПОМИЛКА BASH-UTILS: Поточний інтерпретатор — не « Bash », а « ${SHELL##*/} »." >&2 ;;
+        zh)
+            echo "BASH-UTILS 错误：你当前的 shell 解释器不是「Bash」，而是「${SHELL##/}」。" >&2 ;;
+        *)
+            echo "BASH-UTILS ERROR: This script requires Bash, but you are using « ${SHELL##*/} »." >&2 ;;
+    esac
+
+    echo >&2;
+
+    # WARNING : Do not call the "BU.ModuleInit.AskPrintLog()" function here, this code is executed before the initialization of the "${__BU_MODULE_INIT_MSG_ARRAY[@]}" array.
+
+    # Handling the situation where the code is executed from a script or when this file is included in the user's prompt.
+    case "${0}" in
+        -*)
+            # Si "${0}" commence par un tiret, c'est probablement un shell interactif
+            return 1 2>/dev/null;
+            ;;
+        *)
+            # Si ce script est exécuté directement, on fait un exit
+            [ "$(basename -- "${0}")" != "sh" ] && exit 1
+            
+            return 1 2>/dev/null;
+            ;;
+    esac
+fi
+
+## ==============================================
+
+## STARTING A TIMER IN ORDER TO CHECK THE INITIALIZATION PROCESS'S TIME
+
+# Do not assign any value here now, it will be done at the end of the framework's initialization process.
+declare -i __BU_MODULE_INIT__FRAMEWORK_INITIALIZATION_PROCESS_TIMER;
+
+## ==============================================
+
+## CHECKING THE VERSION OF BASH CURRENTLY USED TO EXECUTE THE FRAMEWORK
+
+# Checking the version of the Bash language currently used on the user's system.
+BU.ModuleInit.CheckBashMinimalVersion || BU.ModuleInit.Exit 1;
+
+## ==============================================
+
+## CALLING THE TRAPS RESOURCES
+
+BU.ModuleInit.DefineTraps;
+
+sleep 5
+
+echo "STOP TEST"; exit 0;
+
+## ==============================================
+
+## DEFINING GLOBAL VARIABLES
+
+
 
 # Calling the function previously defined, or else the global variables will not be declared.
 BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModules;
