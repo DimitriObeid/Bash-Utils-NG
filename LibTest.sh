@@ -26,7 +26,7 @@ if ! source "${HOME}/Bash-utils-init.sh"; then
 
     echo >&2;
 
-    exit 1;
+    BU.ModuleInit.Exit 1;
 fi
 
 # Calling the "BashUtils_InitModules()" function.
