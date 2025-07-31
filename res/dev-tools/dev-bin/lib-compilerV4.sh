@@ -197,21 +197,29 @@ if [ -d '/usr/local/lib/Bash-utils' ]; then
 elif [ -d "${HOME}/.Bash-utils/Bash-utils" ]; then 
     declare -gr __BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR="${HOME}/.Bash-utils/Bash-utils";
 
-else 
-    declare -g      __BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR;
-                    __BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR="$(cat "${HOME}/.Bash-utils/Bash-utils-root-val.path")";
-        readonly    __BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR;
-        
-    if [ ! -d "${__BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR}" ]; then
-        # shellcheck disable=SC2059
-        printf "%sERROR : THE %s%s%s FOLDER DOESN'T EXISTS !!!%s\n" "${__ERROR}" "${__HIGHLIGHT}" "${__BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR}" "${__ERROR}" "${__RESET}" >&2;
-        echo "Please check the existence of the root directory of the Bash Utils library." >&2;
-        echo >&2; echo >&2;
-
-        echo "${__ERROR}STOPPING THE EXECUTION OF THE COMPILER, NO FILES FROM THE ${__HIGHLIGHT}BASH UTILS${__ERROR} FRAMEWORK WERE COMPILED !!!${__RESET}" >&2;
-        echo >&2;
+else
+    if [ ! -f "${HOME}/.Bash-utils/Bash-utils-root-val.path" ]; then
+        printf "%sERROR : THE %s%s%s FILE DOESN'T EXISTS !!!%s\n" "${__ERROR}" "${__HIGHLIGHT}" "${HOME}/.Bash-utils/Bash-utils-root-val.path" "${__ERROR}" "${__RESET}" >&2;
+        printf "\n";
 
         exit 1;
+    else
+
+        declare -g      __BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR;
+                        __BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR="$(cat "${HOME}/.Bash-utils/Bash-utils-root-val.path")";
+            readonly    __BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR;
+            
+        if [ ! -d "${__BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR}" ]; then
+            # shellcheck disable=SC2059
+            printf "%sERROR : THE %s%s%s FOLDER DOESN'T EXISTS !!!%s\n" "${__ERROR}" "${__HIGHLIGHT}" "${__BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR}" "${__ERROR}" "${__RESET}" >&2;
+            echo "Please check the existence of the root directory of the Bash Utils library." >&2;
+            echo >&2; echo >&2;
+
+            echo "${__ERROR}STOPPING THE EXECUTION OF THE COMPILER, NO FILES FROM THE ${__HIGHLIGHT}BASH UTILS${__ERROR} FRAMEWORK WERE COMPILED !!!${__RESET}" >&2;
+            echo >&2;
+
+            exit 1;
+        fi
     fi
 fi
 

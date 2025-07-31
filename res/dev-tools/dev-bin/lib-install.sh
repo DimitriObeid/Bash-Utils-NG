@@ -85,16 +85,22 @@ __BU__BIN__LIB_INSTALL__ARGS__ACTION=${1:-$'\0'};
 ## PATHS
 
 # Path to the "install/.Bash-utils" directory.
-declare -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__DOT_BU_DIR_PATH="install/.Bash-utils/";
+declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__DOT_BU_DIR_PATH="install/.Bash-utils/";
 
-# Path to the "Bash-utils-init.sh" in the "install/" folder.
-declare -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BUINIT_PATH="install/Bash-utils-init.sh";
+# Path to the "Bash-utils-init.sh" folder into the "install/" directory.
+declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BUINIT_PATH="install/Bash-utils-init.sh";
+
+# Path to the ".Bash-utils" folder into the home directory.
+declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_D_IN_HOME_DIR="${HOME}/.Bash-utils";
+
+# Path to the ".Bash-utils-init-val.path" file into the ".Bash-utils" directory.
+declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH="${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_D_IN_HOME_DIR}/Bash-utils-init-val.path";
 
 # Path to the directory containing the compiled stable files in the project's folder.
-declare -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__STABLE_FILES_PROJECT_DIR='install/.Bash-utils/compiled/stable';
+declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__STABLE_FILES_PROJECT_DIR='install/.Bash-utils/compiled/stable';
 
 # Path to the directory containing the compiled stable files in the user's home directory.
-declare -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__STABLE_FILES_HOME_DIR="${HOME}/.Bash-utils/compiled/stable";
+declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__STABLE_FILES_HOME_DIR="${HOME}/.Bash-utils/compiled/stable";
 
 ## ==============================================
 
@@ -165,7 +171,7 @@ then
         chmod +wr "${file}" > /dev/null 2>&1 || {
             printf "Failed %s❌%s\n\n" "$(tput setaf 9)" "$(tput sgr0)";
 
-            echo "Unable to unset the read-only mode from the ${file} file";
+            printf "Unable to unset the read-only mode from the %s%s%s file\n" "$(tput setaf 6)" "${file}" "$(tput sgr0)";
 
             exit 1;
         };
@@ -186,6 +192,27 @@ cp -r "install/.Bash-utils" ~       || {
 echo "Successfully copied the Bash Utils modules directory in the ${HOME} directory";
 echo;
 
+# If the "Bash-utils-init-val.path" file does not exists into the "${HOME}/.Bash-utils" directory.
+if [ ! -f "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" ]; then
+    printf "Creating the %s%s%s file" "$(tput setaf 6)" "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" "$(tput sgr0)";
+
+    touch "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" || {
+        printf "Failed %s❌%s\n\n" "$(tput setaf 9)" "$(tput sgr0)";
+
+        printf "Unable to create the %s%s%s file\n" "$(tput setaf 6)" "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" "$(tput sgr0)";
+
+        exit 1;
+    };
+
+    printf "done %s✓%s\n" "$(tput setaf 2)" "$(tput sgr0)";
+    printf "\n";
+
+    printf "Do you want to use the %s%s%s project's directory outside of its default location?\n" "$(tput setaf 6)" "Bash-Utils-NG" "$(tput sgr0)";
+    printf "Default location is %s%s%s\n" "$(tput setaf 6)" "/usr/local/lib" "$(tput sgr0)";
+    printf "\n";
+
+fi
+
 # If one or more stable files are found in the "${HOME}/.Bash-utils/compiled/stable" directory.
 if [ -n "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__STABLE_FILES_HOME_DIR}" ] \
     && [ -n "$(ls "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__STABLE_FILES_HOME_DIR}")" ] \
@@ -193,12 +220,12 @@ if [ -n "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__STABLE_FILES_HOME_DIR}" ] \
 then
     # Resetting the files in their original read-only mode.
     for file in "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__STABLE_FILES_HOME_DIR}"*.sh; do
-        printf "Resetting the read-only mode for this file : %s..." "${file}";
+        printf "Resetting the read-only mode for this file : %s%s%s..." "$(tput setaf 6)" "${file}" "$(tput sgr0)";
 
         chmod -wx+r "${file}" > /dev/null 2>&1 || {
             printf "Failed %s❌%s\n\n" "$(tput setaf 9)" "$(tput sgr0)";
 
-            echo "Unable to reset the read-only mode for this file : ${file}";
+            printf "Unable to reset the read-only mode for this file : %s%s%s\n" "$(tput setaf 6)" "${file}" "$(tput sgr0)";
 
             exit 1;
         };
