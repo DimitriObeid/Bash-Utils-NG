@@ -1,15 +1,13 @@
-#!/usr/bin/env bash
-
-# -----------------------
-# SCRIPT'S INFORMATIONS :
+# ---------------------
+# FILE'S INFORMATIONS :
 
 # Name          : Bash-utils-init.sh
 # Author(s)     : Dimitri OBEID
 # Version       : Beta 0.2-NG
 
 
-# ----------------------
-# SCRIPT'S DESCRIPTION :
+# --------------------
+# FILE'S DESCRIPTION :
 
 # This file contains the main part of the framework initializer script.
 
@@ -136,6 +134,156 @@ fi
 
 #### INITIALIZER RESOURCES - FUNCTIONS REQUIRED TO INITIALIZE THE MODULE ENGINE
 
+## DEBUG & TESTING FUNCTIONS
+
+function __TestFunction()
+{
+    sleep 5;
+
+    echo "STOP TEST";
+
+    exit 0;
+}
+
+
+# ······································································································
+# Checking if the Bash Utils framework's main code is executed from a stable version of a compiled file.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   -
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.IsFrameworkCompiledStable()
+{
+    local v_currFile;
+
+    v_currFile="$(basename "${BASH_SOURCE[0]}")";
+
+    if [[ "${v_currFile##*/,,}" == bash-utils-stable?(-full|-multilang|-[a-z][a-z]).?(ba)sh ]]; then
+        return 0;
+    else
+        return 1;
+    fi
+}
+
+# ·········································································································
+# Checking if the Bash Utils framework's main code is executed from an unstable version of a compiled file.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   -
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.IsFrameworkCompiledUnstable()
+{
+    local v_currFile;
+
+    v_currFile="$(basename "${BASH_SOURCE[0]}")";
+
+    if [[ "${v_currFile##*/,,}" == bash-utils?(-unstable)?(-full|-multilang|-[a-z][a-z]).?(ba)sh ]]; then
+        return 0;
+    else
+        return 1;
+    fi
+}
+
+# ············································································································································································································
+# Checking if the whole framework's main code (config, initializer and main module's code) is compiled in a single localized file (English is not shipped or is not the only language shipped into this file).
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   -
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.IsFrameworkCompiledLocalized()
+{
+    local v_currFile;
+    
+    v_currFile="$(basename "${BASH_SOURCE[0]}")"; 
+    
+    if  [[ ("${v_currFile##*/,,}" == bash-utils?(-?(un)stable)-[a-z][a-z].?(ba)sh) || \
+        ("${v_currFile##*/,,}" == bash-utils?(-?(un)stable)?(-full|-multilang).?(ba)sh) ]] && \
+        [ "$(wc -l "${v_currFile}" | cut -f1 -d" ")" -ge 15000 ];
+    then
+        return 0;
+    else
+        return 1;
+    fi
+}
+
+# ························································································································································································
+# Checking if the whole framework's main code (config, initializer and main module's code) is compiled in a single unlocalized file (English is the only language shipped into this file).
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   - echo	|
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.IsFrameworkCompiledUnlocalized()
+{
+    local v_currFile;
+
+    v_currFile="$(basename "${BASH_SOURCE[0]}")";
+
+    if  [[ "${v_currFile##*/,,}" == bash-utils?(-?(un)stable)-full.?(ba)sh ]] && \
+        [ "$(wc -l "${v_currFile}" | cut -f1 -d" ")" -ge 15000 ];
+    then
+        echo "FILE = ${v_currFile}";
+
+        return 0;
+    else
+        return 1;
+    fi
+}
+
+# ····································································································································
+# Checking if the whole framework's main code (config, initializer and main module's code) is compiled in a single (un)localized file.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   -
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.ModuleInit.IsFrameworkCompiledLocalized()      -> Modules initializer script (this file)
+#   - BU.ModuleInit.IsFrameworkCompiledUnlocalized()    -> Modules initializer script (this file)
+
+
+# shellcheck disable=
+function BU.ModuleInit.IsFrameworkCompiled()
+{
+    local v_currFile;
+
+    v_currFile="$(basename "${BASH_SOURCE[0]}")";
+
+    if  BU.ModuleInit.IsFrameworkCompiledLocalized || \
+        BU.ModuleInit.IsFrameworkCompiledUnlocalized;
+    then
+        return 0;
+    else
+        return 1;
+    fi
+}
+
+## ==============================================
+
 ## 
 
 # ····················································
@@ -218,7 +366,7 @@ function BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModule
 
             declare -g \
             __BU_MODULE_INIT__ROOT;
-            
+
             __BU_MODULE_INIT__ROOT="$(BU.ModuleInit.FindPath "${__BU_MODULE_INIT__ROOT_HOME}" ".Bash-utils" 'd' || {
                 printf \
                     "${__BU_MODULE_INIT_MSG__PRINT_MISSING_PATH_FOR_DEFINED_GLOBAL_VARIABLE__NO_FNCT}" \
@@ -237,7 +385,7 @@ function BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModule
 
                 declare -g \
                 __BU_MODULE_INIT__INITIALIZER_PATH;
-                
+
                 __BU_MODULE_INIT__INITIALIZER_PATH="$(BU.ModuleInit.FindPath "${__BU_MODULE_INIT__ROOT_HOME}" "$(basename "${BASH_SOURCE[0]}")" 'f' || {
                     printf \
                         "${__BU_MODULE_INIT_MSG__PRINT_MISSING_PATH_FOR_DEFINED_GLOBAL_VARIABLE__NO_FNCT}" \
@@ -319,6 +467,8 @@ function BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModule
             };
         fi
     fi
+
+    __TestFunction;
 
     #~ ~~~~~~~~~~~~~~~~~~~
     #~ TEMPORARY DIRECTORY
@@ -618,6 +768,134 @@ function BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModule
     return 0;
 }
 
+# ··············································································································
+# Getting the path returned by the "find" command, to make the directories and files searching case insensitive.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#	- declare	| (-i)
+#	- echo		|
+#	- find		| (-maxdepth | -iname | -print)
+#	- grep		| (-v)
+#	- local		|
+#	- touch		|
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.ModuleInit.AskPrintLog()                           -> Modules initializer script (this file)
+#   - BU.ModuleInit.Exit()                                  -> Modules initializer script (this file)
+#   - BU.ModuleInit.FindPathNoTranslationFilesSourced()     -> Modules initializer script (this file)
+#   - BU.ModuleInit.IsFrameworkBeingInstalled()             -> Modules initializer script (this file)
+#   - BU.ModuleInit.IsFrameworkCompiled()                   -> Modules initializer script (this file)
+#   - BU.ModuleInit.IsInitializerTranslated()               -> Modules initializer script (this file)
+#   - BU.ModuleInit.PrintLogError()                         -> Modules initializer script (this file)
+
+
+# shellcheck disable=SC2059
+function BU.ModuleInit.FindPath()
+{
+    #**** Parameters ****
+    local v_parentdir=${1:-$'\0'};      # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Parent directory.
+    local v_target=${2:-$'\0'};         # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Targeted directory or file.
+    local v_targetType=${3:-$'\0'};     # ARG TYPE : Char       - REQUIRED | DEFAULT VAL : NULL     - DESC : Getting the type of data to create (d : Directory ; f : File), for the "BU.ModuleInit.CheckPath()" function.
+    local v_shut=${4:-$'\0'};           # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : Shut the function's text output, when the function is used to find a file according to a certain pattern.
+    local v_specific_var=${5:-$'\0'}    # ARG TYPE : String     - OPTIONAL | DEFAULT VAL : NULL     - DESC : Create a temporary file to store a specific path, for example if you check the existence of a file in a condition.
+
+    #**** Variables ****
+    local v_hasFailed;                  # VAR TYPE : String     - DESC : Ending the execution of the current function if an error occured during the execution of the "$(find)" command when a value is passed to the "${v_specific_var}" parameter.
+
+    #**** Code ****
+    [ "${v_targetType,,}" != 'd' ] && [ "${v_targetType,,}" != 'f' ] && v_targetType='NULL';
+
+    find "${v_parentdir}" -maxdepth 1 -iname "${v_target}" -print 2>&1 | grep -v "Permission denied" || \
+	{
+        # If the "Bash-utils-root-val.path" was not found, its error management is skipped, since there may be a super-user privileged version called "Bash-utils-root-val-ROOT.path";
+        if [ -z "${__BU_MODULE_INIT__TMP_VAR__FIND_PATH_FUNC_NO_ERR}" ]; then
+            #**** Error management variables ****
+            declare -i v_e_lineno="$(( LINENO - 2 ))";  # VAR TYPE : Int   - DESC : Storing the line where the last command has failed to execute correctly.
+
+            #**** Error management code ****
+            # If the current function is called before the initialization of the "${__BU_MODULE_INIT_MSG_ARRAY_EXISTS}", then it means that the languages files were not included yet.
+            if [ -z "${__BU_MODULE_INIT_MSG_ARRAY_EXISTS}" ]; then
+                if [ "${v_shut,,}" != 'shut' ]; then
+                    echo >&2;
+
+                    # If the "${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH}" directory is not defined yet, or if the current file is not a compiled version of the Bash Utils Framework,
+                    # it means that the translation files are not sourced yet, so the messages to display are hard-coded in this file.
+                    if ! BU.ModuleInit.IsInitializerTranslated && ! BU.ModuleInit.IsFrameworkCompiled && ! BU.ModuleInit.IsFrameworkBeingInstalled; then
+                        BU.ModuleInit.PrintLogError "${BASH_SOURCE[0]}" "${v_e_lineno}" 'E_BUINIT__FIND_PATH__ECHO_1__PATH_NOT_FOUND';
+
+                        BU.ModuleInit.FindPathNoTranslationFilesSourced "${FUNCNAME[0]}" "${FUNCNAME[1]}" "${BASH_SOURCE[0]}" "${v_e_lineno}" 'echo';
+
+                        BU.ModuleInit.Exit 1; return "${?}";
+                    else
+                        BU.ModuleInit.PrintLogError "${BASH_SOURCE[0]}" "${v_e_lineno}" 'E_BUINIT__FIND_PATH__ECHO_2__PATH_NOT_FOUND';
+
+                        printf "${__BU_MODULE_INIT_MSG__FIND_PATH__PATH_NOT_FOUND} --> %s/%s\n" "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}" "${v_parentdir}" "${v_target}" >&2; echo >&2;
+
+                        printf "${__BU_MODULE_INIT_MSG__FIND_PATH__TOP_LEVEL_FUNCTION}\n" "${FUNCNAME[0]}" "${FUNCNAME[1]}" >&2;
+
+                        BU.ModuleInit.Exit 1; return "${?}";
+                    fi
+                fi
+
+            else
+                if [ "${v_shut,,}" != 'shut' ]; then declare -i lineno="${LINENO}";
+                    BU.ModuleInit.Msg >&2;
+
+                    # If the "${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH}" directory is not defined yet, or if the current file is not a compiled version of the Bash Utils Framework,
+                    # it means that the translation files are not sourced yet, so the messages to display are hard-coded in this file.
+                    if [ -z "${__BU_MODULE_INIT_IS_TRANSLATION_FILES_SOURCED}" ] && ! BU.ModuleInit.IsFrameworkCompiled && ! BU.ModuleInit.IsFrameworkBeingInstalled; then
+                        BU.ModuleInit.PrintLogError "${BASH_SOURCE[0]}" "${v_e_lineno}" 'E_BUINIT__FIND_PATH__MSG_1__PATH_NOT_FOUND';
+
+                        BU.ModuleInit.FindPathNoTranslationFilesSourced "${FUNCNAME[0]}" "${FUNCNAME[1]}" "${BASH_SOURCE[0]}" "${v_e_lineno}" 'echo';
+
+                        BU.ModuleInit.Exit 1; return "${?}";
+                    else
+                        BU.ModuleInit.PrintLogError "${BASH_SOURCE[0]}" "${v_e_lineno}" 'E_BUINIT__FIND_PATH__MSG_2__PATH_NOT_FOUND';
+
+                        BU.ModuleInit.Msg "$(printf "${__BU_MODULE_INIT_MSG__FIND_PATH__PATH_NOT_FOUND} --> %s/%s\n" "$(basename "${BASH_SOURCE[0]}")" "${FUNCNAME[0]}" "${LINENO}" "${v_parentdir}" "${v_target}")" >&2; BU.ModuleInit.Msg >&2;
+
+                        BU.ModuleInit.Msg "$(printf "${__BU_MODULE_INIT_MSG__FIND_PATH__TOP_LEVEL_FUNCTION}\n" "${FUNCNAME[0]}" "${FUNCNAME[1]}")" >&2;
+
+                        BU.ModuleInit.AskPrintLog || { BU.ModuleInit.Exit 1; return "${?}"; };
+
+                        BU.ModuleInit.Exit 1; return "${?}";
+                    fi
+                fi
+            fi
+
+            v_hasFailed='failed';
+        fi
+	};
+
+	if [ "${v_hasFailed}" == 'failed' ]; then echo "FAILED"; BU.ModuleInit.Exit 1; return "${?}"; fi
+
+	if [ -n "${v_specific_var}" ]; then
+        if [ -n "${__BU_MODULE_INIT__TMP_DIR_PATH}" ]; then
+            local v_tmpfile;
+
+            v_tmpfile="${__BU_MODULE_INIT__TMP_DIR_PATH}/BU_module_init__find_path.${v_specific_var}.tmp";
+
+            if [ ! -f "${v_tmpfile}" ]; then touch "${v_tmpfile}"; fi
+
+            echo "${v_parentdir}/${v_target}" > "${v_tmpfile}";
+
+            return 0;
+        else
+            # This function is called when the "${__BU_MODULE_INIT__TMP_DIR_PATH}" is created, but at this point, the temporary directory doesn't exists yet, so this feature MUST be disabled UNTIL this directory is created.
+            if [ -z "${__BU_MODULE_INIT__TMP_DIR_NAME}" ]; then
+                # Creating a variable to store the path of the file, if this value needs to be processed externally.
+                __BU_MODULE_INIT__FIND_PATH_RETVAL="${v_parentdir}/${v_target}"; echo "${__BU_MODULE_INIT__FIND_PATH_RETVAL}" > "${__BU_MODULE_INIT__TMP_DIR_PATH}/BU_module_init__find_path.tmp";
+
+                return 0;
+            fi
+        fi
+    fi
+
+	return 0;
+}
+
 ## ==============================================
 
 ## FUNCTIONS NEEDED FOR THE TRANSLATIONS OF MESSAGES BEFORE THE INCLUSION OF THE TRANSLATION FILES.
@@ -627,6 +905,54 @@ function BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModule
 # the world (according to this website : https://lingua.edu/the-20-most-spoken-languages-in-the-world-in-2022/)
 # will be embedded, as well as a few extra languages, in order to avoid bloating the initializer script with
 # thousands and thousands of lines of hard-coded messages.
+
+# ·····················································································
+# Checking if the framework's features are translated to another language than English.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   -
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.IsInitializerTranslated()
+{
+    if [ "${__BU_MODULE_INIT_IS_TRANSLATION_FILES_SOURCED,,}" == 'true' ]; then
+        return 0;
+    else
+        return 1;
+    fi
+}
+
+# ················································································································
+# NOTE : In the functions with embedded translations, only the languages spoken by more than 100 million people in
+# the world (according to this website : https://lingua.edu/the-20-most-spoken-languages-in-the-world-in-2022/)
+# will be embedded, as well as a few extra languages, in order to avoid bloating the initializer script with
+# thousands and thousands of lines of hard-coded messages.
+
+# ·····················································································
+# Checking if the framework's features are translated to another language than English.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   -
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.IsTranslated()
+{
+    if [ "${__BU_MODULE_INIT__BU_BASE_IS_TRANSLATED,,}" == 'true' ]; then
+        return 0;
+    else
+        return 1;
+    fi
+}
 
 # ·····································································································································································································
 # Printing the message called in the "BU.ModuleInit.IsInScript()" function, which tells the user that the Bash Utils framework cannot tell if its code is executed from a file or an interactive shell.
@@ -701,8 +1027,6 @@ function BU.ModuleInit.PrintIsInScriptEnvironmentErrorMessage()
 # shellcheck disable=
 function BU.ModuleInit.DefineTraps()
 {
-    BU.ModuleInit.IsTranslated; local __v="${?}"; echo "Translated : ${__v}"
-
     #**** Variables ****
     if ! BU.ModuleInit.IsTranslated; then
         # If the string variables are not defined from translation files' by the time the trap is called, their message will be displayed in English for everyone.
@@ -756,6 +1080,30 @@ function BU.ModuleInit.Exit()
     
     return "${p_code}";
 }
+
+# ······················································································
+# Checking if the framework is being installed thanks to the installation script (TODO).
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   -
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.IsFrameworkBeingInstalled()
+{
+    if  [ "${__BU_MODULE_PRE_INIT__IS_FRAMEWORK_INSTALLED,,}" == 'true' ] || \
+        [[ ( "${0,,}" == "./install-framework."?(ba)sh )  || ( "${0,,}" == "install-framework".?(ba)sh ) ]]; then 
+        
+        return 0;
+    else
+        return 1;
+    fi
+}
+
 
 # ··································································································································································································
 # Checking if the function and / or sourced code currently executed is a part of a script file (with the "${BASH_SOURCE}" variable) or running in an interactive shell (with the "${PS1}" variable).
@@ -888,10 +1236,6 @@ BU.ModuleInit.CheckBashMinimalVersion || BU.ModuleInit.Exit 1;
 ## CALLING THE TRAPS RESOURCES
 
 BU.ModuleInit.DefineTraps;
-
-sleep 5
-
-echo "STOP TEST"; exit 0;
 
 ## ==============================================
 

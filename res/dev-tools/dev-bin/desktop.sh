@@ -43,7 +43,7 @@ fi
 
 ## PATHS
 
-# ARG TYPË : Filepath
+# ARG TYPE : Filepath
 # REQUIRED
 # DEFAULT VAL : NULL
 
