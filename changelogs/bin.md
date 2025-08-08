@@ -7,7 +7,7 @@ Commits changelogs :
 
 
 
-Commit ID - :
+Commit ID - 7b8f0fa913b1ba3ab05a38facc326b0697248c16 :
     - **REF** : Deleted the "_dev-translation_" directory after moving its "_locale_" sub-directories into their respective executable file's resources folder in the "_dev-src/_" directory.
     - **REF** : Adapted the aforementioned change into the "_lib-compilerV4.sh_" script.
 
