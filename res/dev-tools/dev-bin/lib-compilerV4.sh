@@ -5,8 +5,8 @@
 
 # Name          : lib-compilerV4.sh
 # Author(s)     : Dimitri OBEID
-# Version       : Beta 3.0
-# Beta version  : 4.0
+# Version       : 4.0
+# Beta version  : Beta 4.1
 
 
 # ----------------------
@@ -224,7 +224,7 @@ else
 fi
 
 # Path to the locale files.
-declare -gr __BU__BIN__LIB_COMPILER_V4__RESOURCES__MSG_PATH="${__BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR}/res/dev-tools/dev-translations/lib-compilerV4/locale";
+declare -gr __BU__BIN__LIB_COMPILER_V4__RESOURCES__MSG_PATH="${__BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR}/res/dev-tools/dev-res/lib-compilerV4/locale";
 
 ## ==============================================
 
@@ -289,7 +289,7 @@ fi
 declare -gr __BU__BIN__LIB_COMPILER_V4__RESOURCES__COMPILED_DIR_PATH="${__BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR}/install/.Bash-utils/compiled";
 
 # Path to the file which stores the content of the here document used into each of the "BU.DevBin.LibCompilerV4.Functions.WriteCommentCode.Heredoc.${__v_loop_curr_locale}()" functions, which is called into the "BU.DevBin.LibCompilerV4.Functions.WriteCommentCode()" function.
-declare -gr __BU__BIN__LIB_COMPILER_V4__RESOURCES__HEREDOC_PATH="${__BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR}/res/dev-tools/dev-translations/lib-compilerV4/heredoc";
+declare -gr __BU__BIN__LIB_COMPILER_V4__RESOURCES__HEREDOC_PATH="${__BU__BIN__LIB_COMPILER_V4__GLOBVARS__PATHS__BASH_UTILS_ROOT_DIR}/res/dev-tools/dev-res/lib-compilerV4/heredoc";
 
 # Path to the file which stores the Shellchecked files and their MD5 checksum.
 declare -gr __BU__BIN__LIB_COMPILER_V4__RESOURCES__SHELLCHECKED_FILES_LIST="${__BU__BIN__LIB_COMPILER_V4__RESOURCES__COMPILED_DIR_PATH}/compiled.out.txt";
