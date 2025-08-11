@@ -5,6 +5,9 @@
 
 # Name          : lib-compiler-for-all-supported-versions.sh
 # Author(s)     : Dimitri OBEID
+# Contributors  :
+#   -
+
 # Version       : 1.0
 
 # ----------------------

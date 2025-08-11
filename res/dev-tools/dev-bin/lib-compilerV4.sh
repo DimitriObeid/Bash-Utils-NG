@@ -5,6 +5,9 @@
 
 # Name          : lib-compilerV4.sh
 # Author(s)     : Dimitri OBEID
+# Contributors  :
+#   -
+
 # Version       : 4.0
 # Beta version  : Beta 4.1
 

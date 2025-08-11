@@ -5,6 +5,9 @@
 
 # Name          : latex-create-file-arch-lang.sh
 # Author(s)     : Dimitri OBEID
+# Contributors  :
+#   -
+
 # Version       : 1.0
 
 

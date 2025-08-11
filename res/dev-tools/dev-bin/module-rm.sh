@@ -5,6 +5,9 @@
 
 # Name          : module-rm.sh
 # Author(s)     : Dimitri OBEID
+# Contributors  :
+#   -
+
 # Version       : Beta 1.0
 
 

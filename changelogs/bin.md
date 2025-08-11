@@ -11,10 +11,19 @@ Commits changelogs :
 
 Commit ID - :
 
+<<<<<<< HEAD
 \-
 
 
 Commit ID - 91e0c157a974e7c84d5635426b9148b065e70535:
+=======
+\- **ADD** : Added the "_git-merge-all-branches-from-dev.sh_" script to automatically merge any changes pulled in the "_dev_" branch to every branches, except the master one.
+
+\- **REF** : Added the "_Contributors_" line in the "_DEV-TOOLS EXECUTABLE FILE INFORMATIONS_" section of every scripts in the "_res/dev-tools/dev-bin_" directory.
+
+
+Commit ID - 806c7b6f212a5ac60a444dfbaea45595df612ad2:
+>>>>>>> bin
 
 \- **FIX** : Added a space after the "_Creating the %s%s%s file..._" message in the process of creating the "_Bash-utils-init-val.path_" file.
 
