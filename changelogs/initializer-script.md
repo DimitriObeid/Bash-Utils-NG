@@ -10,7 +10,7 @@ Commits changelogs :
 --------------------
 
 
-Commit ID - :
+Commit ID - 94c18150ff379535488d1d78d90329cc22f73195:
 
 \- **FIX** : Corrected the return code in case of an error in the "_BU.ModuleInit.CheckPathIntegrity()_" function.
 
