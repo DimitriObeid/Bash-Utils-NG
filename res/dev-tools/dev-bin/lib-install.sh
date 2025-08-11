@@ -96,7 +96,7 @@ declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BUINIT_PATH="install/Bash
 # Path to the ".Bash-utils" folder into the home directory.
 declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_D_IN_HOME_DIR="${HOME}/.Bash-utils";
 
-# Path to the ".Bash-utils-root-val.path" file into the ".Bash-utils" directory.
+# Path to the "Bash-utils-root-val.path" file into the ".Bash-utils" directory.
 declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_ROOT_VAL_PATH="${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_D_IN_HOME_DIR}/Bash-utils-root-val.path";
 
 # Path to the directory containing the compiled stable files in the project's folder.
