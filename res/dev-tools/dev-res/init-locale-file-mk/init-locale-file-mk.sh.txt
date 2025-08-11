@@ -38,13 +38,13 @@ function BU.ModuleInit.SetInitLocale.()
     ##  [-----] REPEATED MESSAGES
 
     #
-    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="« %s », « %s », « %s » -->";
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="« %s », « %s() », « %s » -->";
 
     #
     declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT="« %s », « %s » -->";
 
     #
-    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="« %s », « %s », « %s » -->";
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="« %s », « %s() », « %s » -->";
 
     #
     declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT="« %s », « %s » -->";
@@ -380,11 +380,13 @@ function BU.ModuleInit.SetInitLocale.()
 
     # --------
 
-    # ·····································
-    #  : "BU.ModuleInit.FindPath()"
+    # ···············································
+    # FUNCTION : "BU.ModuleInit.CheckPathIntegrity()"
 
-    declare -g __BU_MODULE_INIT_MSG__FIND_PATH__PATH_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : ";
-    declare -g __BU_MODULE_INIT_MSG__FIND_PATH__TOP_LEVEL_FUNCTION=" « %s() »  : %s()";
+    #
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_MISSING="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR} : ";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR} : ";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__TOP_LEVEL_FUNCTION=" « %s() »  : %s()";
 
     # --------
 

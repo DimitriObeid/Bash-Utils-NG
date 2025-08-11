@@ -38,13 +38,13 @@ function BU.ModuleInit.SetInitLocale.sv()
     ## ÖVERFLÖDIGA MEDDELANDEN [-----] REPEATED MESSAGES
 
     # Skriv namnet på filen, namnet på funktionen och radnumret där ett icke-fatalt fel inträffade.
-    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="I DEN « %s » FIL, PÅ « %s » FUNKTION, PÅ LINJEN « %s » --> BASH-UTILS VARNING";
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="I DEN « %s » FIL, PÅ « %s() » FUNKTION, PÅ LINJEN « %s » --> BASH-UTILS VARNING";
 
     # Skriv filnamnet och radnumret där ett icke dödligt fel inträffade.
     declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT="I DEN « %s » FIL, PÅ LINJEN « %s » --> BASH-UTILS VARNING";
 
     # Skriv namnet på filen, namnet på funktionen och radnumret där ett fatalt fel inträffade.
-    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="I DEN « %s » FIL, PÅ « %s » FUNKTION, PÅ LINJEN « %s » --> BASH-UTILS FEL";
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="I DEN « %s » FIL, PÅ « %s() » FUNKTION, PÅ LINJEN « %s » --> BASH-UTILS FEL";
 
     # Skriv filnamnet och radnumret där ett allvarligt fel inträffade.
     declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT="I DEN « %s » FIL, PÅ LINJEN « %s » --> BASH-UTILS FEL";
@@ -380,11 +380,12 @@ function BU.ModuleInit.SetInitLocale.sv()
 
     # --------
 
-    # ·····································
-    # FUNKTION : "BU.ModuleInit.FindPath()"
+    # ···············································
+    # FUNKTION : "BU.ModuleInit.CheckPathIntegrity()"
 
-    declare -g __BU_MODULE_INIT_MSG__FIND_PATH__PATH_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : ";
-    declare -g __BU_MODULE_INIT_MSG__FIND_PATH__TOP_LEVEL_FUNCTION=" « %s() »  : %s()";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_MISSING="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR} : ";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR} : ";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__TOP_LEVEL_FUNCTION=" « %s() »  : %s()";
 
     # --------
 

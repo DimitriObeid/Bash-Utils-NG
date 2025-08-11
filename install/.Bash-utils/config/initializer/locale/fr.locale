@@ -38,13 +38,13 @@ function BU.ModuleInit.SetInitLocale.fr()
     ## MESSAGES REDONDANTS [-----] REPEATED MESSAGES
 
     # Écriture du nom du fichier, du nom de la fonction et du numéro de ligne où une erreur non-fatale s'est produite.
-    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="DANS LE FICHIER « %s », À LA FONCTION « %s », À LA LIGNE « %s » --> AVERTISSEMENT DE BASH-UTILS";
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="DANS LE FICHIER « %s », À LA FONCTION « %s() », À LA LIGNE « %s » --> AVERTISSEMENT DE BASH-UTILS";
 
     # Écriture du nom du fichier et du numéro de ligne où une erreur non-fatale s'est produite.
     declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT="DANS LE FICHIER « %s », À LA LIGNE « %s » --> AVERTISSEMENT DE BASH-UTILS";
 
     # Écriture du nom du fichier, du nom de la fonction et du numéro de ligne où une erreur fatale s'est produite.
-    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="DANS LE FICHIER « %s », À LA FONCTION « %s », À LA LIGNE « %s » --> ERREUR FATALE DE BASH-UTILS";
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="DANS LE FICHIER « %s », À LA FONCTION « %s() », À LA LIGNE « %s » --> ERREUR FATALE DE BASH-UTILS";
 
     # Écriture du nom du fichier et du numéro de ligne où une erreur fatale s'est produite.
     declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT="DANS LE FICHIER « %s », À LA LIGNE « %s » --> ERREUR FATALE DE BASH-UTILS";
@@ -374,17 +374,19 @@ function BU.ModuleInit.SetInitLocale.fr()
     # Cible spécifiée, main non-trouvée.
     declare -g __BU_MODULE_INIT_MSG__CHECKPATH__DIR_NOT_FOUND="(mauvais chemin de dossier : non trouvé)";
     declare -g __BU_MODULE_INIT_MSG__CHECKPATH__FILE_NOT_FOUND="(mauvais chemin de fichier : non trouvé)";
-
+*
     # Cible spécifiée, mais le type est inconnu.
     declare -g __BU_MODULE_INIT_MSG__CHECKPATH__UNKNOWN_TARGET="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : LA VALEUR ACTUELLE DU PARAMÈTRE « p_target » EST « %s », ET PAS L'UNE DES VALEURS ATTENDUES : 'D', 'd', 'F' OR 'f'";
 
     # --------
 
-    # ·····································
-    # FONCTION : "BU.ModuleInit.FindPath()"
+    # ···············································
+    # FONCTION : "BU.ModuleInit.CheckPathIntegrity()"
 
-    declare -g __BU_MODULE_INIT_MSG__FIND_PATH__PATH_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : IMPOSSIBLE DE TROUVER CE CHEMIN";
-    declare -g __BU_MODULE_INIT_MSG__FIND_PATH__TOP_LEVEL_FUNCTION="Fonction où la fonction « %s() » a été appelée : %s()";
+    #
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_MISSING="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR} : AUCUN CHEMIN PASSÉ EN ARGUMENT";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR} : IMPOSSIBLE DE TROUVER CE CHEMIN";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__TOP_LEVEL_FUNCTION="Fonction où la fonction « %s() » a été appelée : %s()";
 
     # --------
 

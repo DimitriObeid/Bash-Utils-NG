@@ -38,13 +38,13 @@ function BU.ModuleInit.SetInitLocale.en()
     ## REPEATED MESSAGES
 
     # Writing the file name, function name and the line number where a non-fatal error occured.
-    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="IN « %s » FILE, AT « %s » FUNCTION, ON LINE « %s » --> BASH-UTILS WARNING";
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING="IN « %s » FILE, AT « %s() » FUNCTION, ON LINE « %s » --> BASH-UTILS WARNING";
 
     # Writing the file name and the line number where a non-fatal error occured.
     declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING__NO_FNCT="IN « %s » FILE, ON LINE « %s » --> BASH-UTILS WARNING";
 
     # Writing the file name, function name and the line number where a fatal error occured.
-    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="IN « %s » FILE, AT « %s » FUNCTION, ON LINE « %s » --> BASH-UTILS ERROR";
+    declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR="IN « %s » FILE, AT « %s() » FUNCTION, ON LINE « %s » --> BASH-UTILS ERROR";
 
     # Writing the file name and the line number where a fatal error occured.
     declare -g __BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR__NO_FNCT="IN « %s » FILE, ON LINE « %s » --> BASH-UTILS ERROR";
@@ -380,11 +380,13 @@ function BU.ModuleInit.SetInitLocale.en()
 
     # --------
 
-    # ·····································
-    # FUNCTION : "BU.ModuleInit.FindPath()"
+    # ···············································
+    # FUNCTION : "BU.ModuleInit.CheckPathIntegrity()"
 
-    declare -g __BU_MODULE_INIT_MSG__FIND_PATH__PATH_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_WARNING} : WARNING : UNABLE TO FIND THIS PATH";
-    declare -g __BU_MODULE_INIT_MSG__FIND_PATH__TOP_LEVEL_FUNCTION="Function where the « %s() » function was called : %s()";
+    #
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_MISSING="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR} : NO PATH PASSED AS ARGUMENT";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_NOT_FOUND="${__BU_MODULE_INIT_MSG__CURRENT_LOCALE_FILE__BU_ERROR} : UNABLE TO FIND THIS PATH";
+    declare -g __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__TOP_LEVEL_FUNCTION="Function where the « %s() » function was called : %s()";
 
     # --------
 
