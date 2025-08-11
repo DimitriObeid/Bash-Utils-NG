@@ -194,7 +194,7 @@ echo;
 
 # If the "Bash-utils-init-val.path" file does not exists into the "${HOME}/.Bash-utils" directory.
 if [ ! -f "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" ]; then
-    printf "Creating the %s%s%s file" "$(tput setaf 6)" "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" "$(tput sgr0)";
+    printf "Creating the %s%s%s file... " "$(tput setaf 6)" "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" "$(tput sgr0)";
 
     touch "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" || {
         printf "Failed %s❌%s\n\n" "$(tput setaf 9)" "$(tput sgr0)";
@@ -207,9 +207,20 @@ if [ ! -f "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" ]; then
     printf "done %s✓%s\n" "$(tput setaf 2)" "$(tput sgr0)";
     printf "\n";
 
-    printf "Do you want to use the %s%s%s project's directory outside of its default location?\n" "$(tput setaf 6)" "Bash-Utils-NG" "$(tput sgr0)";
-    printf "Default location is %s%s%s\n" "$(tput setaf 6)" "/usr/local/lib" "$(tput sgr0)";
-    printf "\n";
+    # printf "Do you want to use the %s%s%s project's directory outside of its default location?\n" "$(tput setaf 6)" "Bash-Utils-NG" "$(tput sgr0)";
+    # printf "Default location is %s%s%s\n" "$(tput setaf 6)" "/usr/local/lib" "$(tput sgr0)";
+    # printf "\n";
+
+    # read -rp "Enter your answer (y/n) : " rep;
+
+    # case "${rep}" in
+    #     )
+    #         ;;
+    #     )
+    #         ;;
+    #     *)
+    #         ;;
+    # esac
 
 fi
 
