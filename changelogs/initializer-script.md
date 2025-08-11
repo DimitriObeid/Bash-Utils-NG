@@ -10,6 +10,20 @@ Commits changelogs :
 --------------------
 
 
+Commit ID - :
+
+\- **FIX** : Corrected the return code in case of an error in the "_BU.ModuleInit.CheckPathIntegrity()_" function.
+
+\- **ADD** : Imported the "_BU.ModuleInit.SourceEnglishTranslationFiles()_" function from the old "_Bash-utils-init.sh_" script.
+
+\- **FIX** : Removed a rogue star characher (*) which was accidentally written in the line 377 of the "_install/.Bash-utils/config/initializer/locale/fr.locale_" file.
+
+\- **REF** : Simplified the following variable's value in the "_BU.ModuleInit.GetModuleInitLanguage_SetEnglishAsDefaultLanguage()_" function:
+    -  __BU_MODULE_INIT__USER_LANG="$(echo "${LANG}" | cut -d _ -f1)    -> __BU_MODULE_INIT__USER_LANG="${LANG%%_*}"
+
+\- **FIX** : Added the simplified version of the previous variable into the "_BU.ModuleInit.GetModuleInitLanguage()_" function, right after the redefinition of the "_${LANG}_" environment variable.
+
+
 Commit ID - fc883411b4688f203acee23e6a974a2bede4dd96:
 
 \- **REF** : Remade the categories and sub-categories of the _Bash-utils-initializer.sh_ script before the _BEGINNING OF THE INITIALIZATION PROCESS_ category:

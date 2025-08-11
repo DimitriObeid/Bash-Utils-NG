@@ -635,7 +635,7 @@ function BU.ModuleInit.GetModuleInitLanguage()
     [[ ${v_betaLang[*]}         =~ ${p_lang_ISO_639_1,,} ]] && v_langMatchBeta="matchBeta";
 
     # If the selected language was not found among the supported languages.
-    if [ -z "${v_langMatch}" ] && [ -z "${v_langMatchBeta}" ]; then
+    if [ -z "${v_langMatch}" ] && [ ! -z "${v_langMatchBeta}" ]; then
         if [ -n "${p_lang_ISO_639_1}" ]; then
 #            [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ar' ] && echo "" >&2 && v_isPrinted='true';
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'de' ] && echo "WARNUNG : Die von Ihnen gewählte Sprache (${p_lang_ISO_639_1,,}) wird (noch) nicht vom Initialisierungsskript unterstützt" >&2 && v_isPrinted='true';
@@ -707,7 +707,9 @@ function BU.ModuleInit.GetModuleInitLanguage()
         echo >&2;
 
         # Changing the current language to English.
-        __BU_MODULE_INIT__USER_LANG="en_US.UTF-8";
+        LANG="en_US.UTF-8";
+
+        __BU_MODULE_INIT__USER_LANG="${LANG%%_*}";
 
         # Setting the value of the "${v_isPrinted}" variable to "false" in order to ensure that the following messages will be printed in English if one of the following messages would be missing.
         v_isPrinted='false';
@@ -773,7 +775,7 @@ function BU.ModuleInit.GetModuleInitLanguage()
 
     else
         # Sourcing the English translation files first, since these files are the most supported, so that if new variables are added, no empty strings will be displayed if the next language files are not updated yet.
-        BU.ModuleInit.SourceEnglishTranslationFiles "${__BU_MODULE_INIT__USER_LANG,,}";
+        BU.ModuleInit.SourceEnglishTranslationFiles "${__BU_MODULE_INIT__USER_LANG,,}" || return 1;
 
         # Sourcing the current language's translations file if the base of the framework is not compiled.
         BU.ModuleInit.IsFrameworkCompiled || {
@@ -943,7 +945,9 @@ function BU.ModuleInit.GetModuleInitLanguage_SetEnglishAsDefaultLanguage()
     #**** Code ****
 
     # Changing the current language to English.
-    LANG="en_US.UTF-8"; __BU_MODULE_INIT__USER_LANG="$(echo "${LANG}" | cut -d _ -f1)";
+    LANG="en_US.UTF-8";
+
+    __BU_MODULE_INIT__USER_LANG="${LANG%%_*}";
 
     BU.ModuleInit.SourceEnglishTranslationFiles "${v_lang_backup}" || return 1;
 
@@ -1239,6 +1243,214 @@ function BU.ModuleInit.PrintLogErrorNoTranslationFilesSourced()
 
 	# TODO : check if it is better to directly call the "echo" command or the "BU.ModuleInit.MsgLine()" function.
     echo >&2;
+
+    return 0;
+}
+
+# ·······································
+# Sourcing the English translation files.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#	- # declare | (-i)
+#	- echo		|
+#	- local		|
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - BU.ModuleInit.IsFrameworkCompiled()   -> Modules initializer script (this file)
+#   - BU.ModuleInit.SetInitLocale.en()      -> Modules initializer script (this file)
+
+
+# shellcheck disable=SC1090,SC1091
+function BU.ModuleInit.SourceEnglishTranslationFiles()
+{
+    #**** Parameters ****
+    local p_lang_backup=${1:-'en'}; # ARG TYPE : ISO 639-1 code    - REQUIRED | DEFAULT VAL : en    - DESC : language in which the  language's backup from the "BU.ModuleInit.GetModuleInitLanguage_SetEnglishAsDefaultLanguage()" function.
+
+    #**** Code ****
+    BU.ModuleInit.IsFrameworkCompiled || {
+        source "${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH}/en.locale" || {
+            echo >&2;
+
+            # العربية | Arabic
+#             [ "${v_userLang,,}" == 'ar' ] && {
+#                 #**** Conditional variables ****
+#                 declare -i i;             # VAR TYPE : Int        # DESC : Number of iteration for the loop which determines the number of characters to display over the fatal error string.
+#                 declare -i x;             # VAR TYPE : Int        # DESC : Number of characters stored into the "${v_ar_fatalErr}" variable;
+#
+#                 local v_ar_fatalErr;      # VAR TYPE : String     # DESC : Storing the Arabic fatal error string in order not to break the line's layout, nor the ">&2" redirection.
+#                 local v_ar_err_expl;      # VAR TYPE : String     # DESC : Storing the Arabic explanation string in order not to break the line's layout, nor the ">&2" redirection.
+#                 local v_ar_err_stop;      # VAR TYPE : String     # DESC : Storing the Arabic termination string in order not to break the line's layout, nor the ">&2" redirection.
+#
+#                 #**** Conditional code ****
+#                 v_ar_fatalErr="خطأ فادح: تعذر تضمين ملف الترجمة باللغة الإنجليزية";
+#                 v_ar_err_expl="نظرًا لأنه يتم تخزين الرسائل في ملف تهيئة الوحدة النمطية في متغيرات ، فإن هذا الملف يعتمد على ملفات الترجمة هذه ، والتي تحدد هذه المتغيرات.";
+#                 v_ar_err_stop="إنهاء تنفيذ النص";
+#
+#                 x="${#v_ar_fatalErr}";
+#
+#                 for ((i=0; i<x; i++)); do
+#                     echo -n '-' >&2;
+#                 done
+#                 echo "${v_ar_fatalErr}" >&2;
+#
+#                 echo "${v_ar_err_expl}" >&2;
+#                 echo "${v_ar_err_stop}" >&2;
+#                 echo >&2;
+#
+#                 v_isPrinted='true';
+#             }
+
+            # Deutch | German
+            [ "${p_lang_backup,,}" == 'de' ] && {
+                echo '------------------------------------------------------------------------------------------------' >&2 && echo >&2;
+                echo "FATALER FEHLER : DIE ENGLISCHE ÜBERSETZUNGSDATEI KONNTE NICHT VON DER QUELLE REFERENZIERT WERDEN" >&2 && echo >&2;
+
+                echo "Da die Nachrichten in der Modulinitialisierungsdatei in Variablen gespeichert werden, stützt sich diese Datei auf diese Übersetzungsdateien, die diese Variablen definieren" >&2;
+                echo "Anhalten der Skriptausführung" >&2;
+                echo >&2;
+            }
+
+            # English
+            [ "${p_lang_backup,,}" == 'en' ] && {
+                echo '-----------------------------------------------------------' >&2 && echo >&2;
+                echo "FATAL ERROR : UNABLE TO SOURCE THE ENGLISH TRANSLATION FILE" >&2 && echo >&2;
+
+                echo "Since the messages in the module initialization file are stored into variables, this file relies on these translation files, which define these variables" >&2;
+                echo "Terminating the script's execution" >&2;
+                echo >&2;
+            }
+
+            # Español | Spanish
+            [ "${p_lang_backup,,}" == 'es' ] && {
+                echo '-----------------------------------------------------------------' >&2 && echo >&2;
+                echo "ERROR FATAL: IMPOSIBLE OBTENER EL ARCHIVO DE TRADUCCIÓN AL INGLÉS" >&2 && echo >&2;
+
+                echo "Como los mensajes del fichero de inicialización del módulo se almacenan en variables, este fichero es asumido por estos ficheros de traducción, que definen estas variables" >&2;
+                echo "Detener la ejecución del script" >&2;
+                echo >&2;
+            }
+
+            # Français | French
+            [ "${p_lang_backup,,}" == 'fr' ] && {
+                echo '------------------------------------------------------------------------' >&2 && echo >&2;
+                echo "ERREUR FATALE : IMPOSSIBLE D'INCLURE LE FICHIER DE TRADUCTION EN ANGLAIS" >&2 && echo >&2;
+
+                echo "Comme les messages du fichier d'initialisation du module sont stockés dans des variables, ce fichier s'appuie sur ces fichiers de traduction, qui définissent ces variables" >&2;
+                echo "Arrêt de l'exécution du script" >&2;
+                echo >&2;
+            }
+
+            # हिंदी | Hindi
+            [ "${p_lang_backup,,}" == 'hi' ] && {
+                echo '--------------------------------------------------------' >&2 && echo >&2;
+                echo 'घातक त्रुटि: अंग्रेजी अनुवाद फ़ाइल शामिल करने में असमर्थ' >&2 && echo >&2;
+
+                echo "चूंकि संदेशों को मॉड्यूल इनिशियलाइज़ेशन फ़ाइल में वेरिएबल्स में संग्रहीत किया जाता है, इसलिए यह फ़ाइल उन ट्रांसलेशन फ़ाइलों पर निर्भर करती है जो इन वेरिएबल्स को परिभाषित करती हैं।" >&2;
+                echo "अंत स्क्रिप्ट निष्पादन" >&2;
+                echo >&2;
+            }
+
+            # Bahasa Indonesia | Indonesian
+            [ "${p_lang_backup,,}" == 'id' ] && {
+                echo '-----------------------------------------------------------------------' >&2 && echo >&2;
+                echo 'KESALAHAN FATAL: TIDAK DAPAT MENYERTAKAN FILE TERJEMAHAN BAHASA INGGRIS' >&2 && echo >&2;
+
+                echo "Karena pesan-pesan dalam berkas inisialisasi modul disimpan ke dalam variabel, berkas ini bergantung pada berkas terjemahan ini, yang mendefinisikan variabel-variabel ini" >&2;
+                echo "Membatalkan eksekusi skrip" >&2;
+                echo >&2;
+            }
+
+            # 日本語 | Japanese
+            [ "${p_lang_backup,,}" == 'ja' ] && {
+                echo '。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。' >&2 && echo >&2;
+                echo '致命的なエラー: 英語の翻訳ファイルを含めることはできません' >&2 && echo >&2;
+
+                echo "モジュール初期化ファイル内のメッセージは変数に格納されるため、このファイルは変換ファイルに依存してこれらの変数を生成します。" >&2;
+                echo "スクリプトの実行を停止する" >&2;
+                echo >&2;
+            }
+
+            # 한국인 | Korean
+            [ "${p_lang_backup,,}" == 'ko' ] && {
+                echo '。。。。。。。。。。。。。。。。。。。。。。。' >&2 && echo >&2;
+                echo "치명적 오류: 영어 번역 파일을 포함할 수 없습니다." >&2 && echo >&2;
+
+                echo "모듈 초기화 파일의 메시지는 변수에 저장되므로 이러한 파일은 이러한 변수를 정의하기 위해 이러한 번역 파일에 의존합니다." >&2;
+                echo "스크립트 실행 종료" >&2;
+                echo >&2;
+            }
+
+            # Português | Portuguese
+            [ "${p_lang_backup,,}" == 'pt' ] && {
+                echo '-----------------------------------------------------------------------' >&2 && echo >&2;
+                echo "ERRO FATAL: IMPOSSIBILIDADE DE INCLUIR O FICHEIRO DE TRADUÇÃO EM INGLÊS" >&2 && echo >&2;
+
+                echo "Como as mensagens no ficheiro de inicialização do módulo são armazenadas em variáveis, este ficheiro baseia-se nestes ficheiros de tradução, que definem estas variáveis" >&2;
+                echo "Interrupção da execução do guião" >&2;
+                echo >&2;
+            }
+
+            # Русский | Russian
+            [ "${p_lang_backup,,}" == 'ru' ] && {
+                echo '----------------------------------------------------------------------' >&2 && echo >&2;
+                echo "ФАТАЛЬНАЯ ОШИБКА: НЕВОЗМОЖНО ВКЛЮЧИТЬ ФАЙЛ ПЕРЕВОДА НА АНГЛИЙСКИЙ ЯЗЫК" >&2 && echo >&2;
+
+                echo "Поскольку сообщения в файле инициализации модуля хранятся в переменных, этот файл опирается на файлы перевода, которые определяют эти переменные" >&2;
+                echo "Прерывание выполнения сценария" >&2;
+                echo >&2;
+            }
+
+            # Türkçe | Turkish
+            [ "${p_lang_backup,,}" == 'tr' ] && {
+                echo '--------------------------------------------------' >&2 && echo >&2;
+                echo 'ÖNEMLİ HATA: İNGİLİZCE ÇEVİRİ DOSYASI DAHİL OLAMAZ' >&2 && 
+                
+                echo "Modül başlatma dosyasındaki mesajlar değişkenlerde saklandığından, bu dosya bu değişkenleri tanımlayan çeviri dosyalarına dayanır." >&2;
+                echo "Komut dosyasının yürütülmesini sonlandırın" >&2;
+                echo >&2;
+            }
+
+            # Українська | Ukrainian
+            [ "${p_lang_backup,,}" == 'uk' ] && {
+                echo '-----------------------------------------------------------------------' >&2 && echo >&2;
+                echo "ФАТАЛЬНА ПОМИЛКА: НЕ ВДАЛОСЯ ВКЛЮЧИТИ ФАЙЛ ПЕРЕКЛАДУ НА АНГЛІЙСЬКУ МОВУ" >&2 && echo >&2;
+
+                echo "Оскільки повідомлення у файлі ініціалізації модуля зберігаються у змінних, цей файл покладається на файли перекладу, які визначають ці змінні" >&2;
+                echo "Переривання виконання поточного скрипта" >&2;
+                echo >&2;
+            }
+
+            # 简体中文 | Simplified Chinese
+            [ "${p_lang_backup,,}" == 'zh' ] && {
+                echo '。。。。。。。。。。。。。。。' >&2 && echo >&2;
+                echo '致命错误：无法获取英文翻译文件' >&2 && echo >&2;
+
+                echo "由于模块初始化文件中的消息存储在变量中，该文件依赖于定义这些变量的这些翻译文件" >&2;
+                echo "终止脚本执行" >&2;
+                echo >&2;
+            }
+
+            # If the language chosen by the user is not (yet) supported directly in this function, the message is displayed in English.
+            [[ "${p_lang_backup}" == * ]] && {
+                echo '-----------------------------------------------------------' >&2 && echo >&2;
+                echo "FATAL ERROR : UNABLE TO SOURCE THE ENGLISH TRANSLATION FILE" >&2 && echo >&2;
+
+                echo "Since the messages in the module initialization file are stored into variables, this file relies on these translation files, which define these variables" >&2;
+                echo "Terminating the script's execution" >&2;
+                echo >&2;
+            }
+
+            # WARNING : Do not call the "BU.ModuleInit.AskPrintLog()" function here, the current function is defined before the "${__BU_MODULE_INIT_MSG_ARRAY}" array.
+            return 1;
+        }
+
+        # Calling the function which defines every variables containing the messages in English.
+        BU.ModuleInit.SetInitLocale.en || return 1;
+
+        return 0;
+    }
 
     return 0;
 }
@@ -1656,7 +1868,7 @@ function BU.ModuleInit.CheckPathIntegrity()
 
         printf "${__BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__TOP_LEVEL_FUNCTION}\n" "${FUNCNAME[0]}" "${FUNCNAME[1]}" >&2;
 
-        return "${?}";
+        return 1;
     fi
 
     # If no path was passed.
@@ -1667,7 +1879,7 @@ function BU.ModuleInit.CheckPathIntegrity()
 
         printf "${__BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__TOP_LEVEL_FUNCTION}\n" "${FUNCNAME[0]}" "${FUNCNAME[1]}" >&2;
 
-        return "${?}";
+        return 1;
     fi
 
 	return 0;
