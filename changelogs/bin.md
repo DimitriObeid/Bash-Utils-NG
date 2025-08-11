@@ -9,8 +9,12 @@ Legend :
 Commits changelogs :
 --------------------
 
-
 Commit ID - :
+
+\-
+
+
+Commit ID - 91e0c157a974e7c84d5635426b9148b065e70535:
 
 \- **FIX** : Added a space after the "_Creating the %s%s%s file..._" message in the process of creating the "_Bash-utils-init-val.path_" file.
 
