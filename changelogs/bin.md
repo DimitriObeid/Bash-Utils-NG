@@ -9,6 +9,12 @@ Legend :
 Commits changelogs :
 --------------------
 
+Commit ID - :
+
+\- **ADD** : Added the "_git-merge-all-branches-from-dev.sh_" script to automatically merge any changes pulled in the "_dev_" branch to every branches, except the master one.
+
+\- **REF** : Added the "_Contributors_" line in the "_DEV-TOOLS EXECUTABLE FILE INFORMATIONS_" section of every scripts in the "_res/dev-tools/dev-bin_" directory.
+
 
 Commit ID - 806c7b6f212a5ac60a444dfbaea45595df612ad2:
 

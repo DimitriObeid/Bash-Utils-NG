@@ -5,6 +5,9 @@
 
 # Name          : install-dev-env.sh
 # Author(s)     : Dimitri OBEID
+# Contributors  :
+#   -
+
 # Version       : Beta 0.1
 
 

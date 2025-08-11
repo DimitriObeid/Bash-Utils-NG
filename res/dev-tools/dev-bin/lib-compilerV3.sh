@@ -5,6 +5,9 @@
 
 # Name          : lib-compilerV3.sh
 # Author(s)     : Dimitri OBEID
+# Contributors  :
+#   -
+
 # Version       : 2.0
 # Beta version  : 3.0
 

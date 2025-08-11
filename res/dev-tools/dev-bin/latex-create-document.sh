@@ -5,7 +5,10 @@
 
 # Name          : latex-create-document.sh
 # Author(s)     : Dimitri OBEID
-# Version       : Beta 1.0
+# Contributors  :
+#   -
+
+# Version       : 1.0
 
 
 # ----------------------

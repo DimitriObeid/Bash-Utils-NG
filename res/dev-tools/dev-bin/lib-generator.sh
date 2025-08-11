@@ -5,6 +5,9 @@
 
 # Name          : lib-generator.sh
 # Author(s)     : Dimitri OBEID
+# Contributors  :
+#   -
+
 # Version       : 1.0
 
 

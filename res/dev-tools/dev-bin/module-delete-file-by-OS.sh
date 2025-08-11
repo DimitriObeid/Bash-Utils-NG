@@ -4,11 +4,11 @@
 # DEV-TOOLS EXECUTABLE FILE INFORMATIONS :
 
 # Name          :
-# Author(s)     :
-# Version       :
-
+# Author(s)     : Dimitri OBEID
 # Contributors  :
 #   -
+
+# Version       :
 
 
 # ----------------------

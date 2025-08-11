@@ -5,6 +5,9 @@
 
 # Name          : init-locale-file-mk.sh
 # Author(s)     : Dimitri OBEID
+# Contributors  :
+#   -
+
 # Version       : 1.1
 
 

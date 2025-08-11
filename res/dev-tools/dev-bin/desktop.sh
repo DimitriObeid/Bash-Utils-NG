@@ -1,10 +1,13 @@
-#!/bin/bash
+c#!/bin/bash
 
 # ----------------------------------------
 # DEV-TOOLS EXECUTABLE FILE INFORMATIONS :
 
 # Name          : desktop.sh
 # Author(s)     : Dimitri OBEID
+# Contributors  :
+#   -
+
 # Version       : 1.0
 
 

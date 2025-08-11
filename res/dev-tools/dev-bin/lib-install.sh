@@ -5,6 +5,9 @@
 
 # Name          : lib-install.sh
 # Author(s)     : Dimitri OBEID
+# Contributors  :
+#   -
+
 # Version       : 2.1
 
 
