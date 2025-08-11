@@ -12,7 +12,9 @@ Commits changelogs :
 
 Commit ID - :
 
-\-
+\- **FIX** : Added a space after the "_Creating the %s%s%s file..._" message in the process of creating the "_Bash-utils-init-val.path_" file.
+
+\- **ADD** : Added and commented the "_read_" command and its associated code, since I'm not sure to implement the default folder selection in this quick installation file, as I use it to test the presence of the framework's core features.
 
 
 Commit ID - 7b8f0fa913b1ba3ab05a38facc326b0697248c16 :
