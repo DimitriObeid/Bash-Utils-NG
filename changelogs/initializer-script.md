@@ -10,7 +10,7 @@ Commits changelogs :
 --------------------
 
 
-Commit ID - :
+Commit ID - fc883411b4688f203acee23e6a974a2bede4dd96:
 
 \- **REF** : Remade the categories and sub-categories of the _Bash-utils-initializer.sh_ script before the _BEGINNING OF THE INITIALIZATION PROCESS_ category:
     - INITIALIZER RESOURCES - FUNCTIONS REQUIRED TO INITIALIZE AND CONFIGURE MODULE ENGINE
