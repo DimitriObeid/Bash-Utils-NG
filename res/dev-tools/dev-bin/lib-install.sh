@@ -96,8 +96,8 @@ declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BUINIT_PATH="install/Bash
 # Path to the ".Bash-utils" folder into the home directory.
 declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_D_IN_HOME_DIR="${HOME}/.Bash-utils";
 
-# Path to the ".Bash-utils-init-val.path" file into the ".Bash-utils" directory.
-declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH="${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_D_IN_HOME_DIR}/Bash-utils-init-val.path";
+# Path to the ".Bash-utils-root-val.path" file into the ".Bash-utils" directory.
+declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_ROOT_VAL_PATH="${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_D_IN_HOME_DIR}/Bash-utils-root-val.path";
 
 # Path to the directory containing the compiled stable files in the project's folder.
 declare -g -r __BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__STABLE_FILES_PROJECT_DIR='install/.Bash-utils/compiled/stable';
@@ -195,14 +195,14 @@ cp -r "install/.Bash-utils" ~       || {
 echo "Successfully copied the Bash Utils modules directory in the ${HOME} directory";
 echo;
 
-# If the "Bash-utils-init-val.path" file does not exists into the "${HOME}/.Bash-utils" directory.
-if [ ! -f "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" ]; then
-    printf "Creating the %s%s%s file... " "$(tput setaf 6)" "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" "$(tput sgr0)";
+# If the "Bash-utils-root-val.path" file does not exists into the "${HOME}/.Bash-utils" directory.
+if [ ! -f "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_ROOT_VAL_PATH}" ]; then
+    printf "Creating the %s%s%s file... " "$(tput setaf 6)" "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_ROOT_VAL_PATH}" "$(tput sgr0)";
 
-    touch "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" || {
+    touch "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_ROOT_VAL_PATH}" || {
         printf "Failed %s❌%s\n\n" "$(tput setaf 9)" "$(tput sgr0)";
 
-        printf "Unable to create the %s%s%s file\n" "$(tput setaf 6)" "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}" "$(tput sgr0)";
+        printf "Unable to create the %s%s%s file\n" "$(tput setaf 6)" "${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_ROOT_VAL_PATH}" "$(tput sgr0)";
 
         exit 1;
     };

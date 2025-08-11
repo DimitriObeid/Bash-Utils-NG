@@ -11,19 +11,20 @@ Commits changelogs :
 
 Commit ID - :
 
-<<<<<<< HEAD
-\-
+\- **FIX** : Corrected the "_Bash-utils-root-val.path_" file name from "_Bash-utils-init-val.path_" into the "_bin/lib-install.sh_" file.
+
+\- **REF** : To reflect the aforementioned change, the name of the "_${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}_" variable was changed to "_${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_ROOT_VAL_PATH}_".
 
 
 Commit ID - 91e0c157a974e7c84d5635426b9148b065e70535:
-=======
+
 \- **ADD** : Added the "_git-merge-all-branches-from-dev.sh_" script to automatically merge any changes pulled in the "_dev_" branch to every branches, except the master one.
 
 \- **REF** : Added the "_Contributors_" line in the "_DEV-TOOLS EXECUTABLE FILE INFORMATIONS_" section of every scripts in the "_res/dev-tools/dev-bin_" directory.
 
 
 Commit ID - 806c7b6f212a5ac60a444dfbaea45595df612ad2:
->>>>>>> bin
+
 
 \- **FIX** : Added a space after the "_Creating the %s%s%s file..._" message in the process of creating the "_Bash-utils-init-val.path_" file.
 
