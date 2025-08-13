@@ -121,6 +121,7 @@ declare -g      __BU__BIN__GIT_MERGE_ALL_BRANCHES_FROM_DEV__CURRENT_BRANCH;
 for branch in "${__BU_ARRAY__LOCAL_BRANCHES[@]}"; do
     git checkout "${branch}"    || exit 1;
     git merge dev               || exit 1;
+    git push                    || exit 1;
 done
 
 git checkout "${__BU__BIN__GIT_MERGE_ALL_BRANCHES_FROM_DEV__CURRENT_BRANCH}";

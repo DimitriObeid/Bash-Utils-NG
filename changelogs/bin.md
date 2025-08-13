@@ -9,6 +9,11 @@ Legend :
 Commits changelogs :
 --------------------
 
+Commit ID - :
+
+\- **ADD** : Added the "_git push_" command in the "_bin/git-merge-all-branches-from-dev.sh_" script in order to update the remote branches with the updated codebase.
+
+
 Commit ID - 0a0e8fc07fe66d5a81dcee35200522f7de22846e:
 
 \- **FIX** : Corrected the "_Bash-utils-root-val.path_" file name from "_Bash-utils-init-val.path_" into the "_bin/lib-install.sh_" file.
