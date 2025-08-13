@@ -10,6 +10,13 @@ Commits changelogs :
 --------------------
 
 
+Commit ID - :
+
+\- **ADD** : Added multiple messages into the "_BU.ModuleInit.GetModuleInitLanguage()_" function to warn the user if they select a translation file in a Beta stage.
+
+\- **ADD** : Added missing Korean and Turkish translations in the same function.
+
+
 Commit ID - 94c18150ff379535488d1d78d90329cc22f73195:
 
 \- **FIX** : Corrected the return code in case of an error in the "_BU.ModuleInit.CheckPathIntegrity()_" function.

@@ -628,6 +628,8 @@ function BU.ModuleInit.GetModuleInitLanguage()
     local v_isPrinted;      # VAR TYPE : Bool       - DESC : Checks if one of the languages supported by the "Bash-utils-init.sh" file was found on the user's system and that the translated message was printed.
 
     #**** Code ****
+    v_isPrinted='false';
+
     v_betaLang=('bg' 'cs' 'da' 'de' 'el' 'es' 'et' 'fi' 'hu' 'id' 'it' 'ja' 'lt' 'lv' 'nl' 'pl' 'pt' 'ro' 'ru' 'sk' 'sl' 'sv' 'tr' 'uk' 'zh');
     v_supportedLang=('en' 'fr');
 
@@ -635,7 +637,7 @@ function BU.ModuleInit.GetModuleInitLanguage()
     [[ ${v_betaLang[*]}         =~ ${p_lang_ISO_639_1,,} ]] && v_langMatchBeta="matchBeta";
 
     # If the selected language was not found among the supported languages.
-    if [ -z "${v_langMatch}" ] && [ ! -z "${v_langMatchBeta}" ]; then
+    if [ -z "${v_langMatch}" ] && [ -z "${v_langMatchBeta}" ]; then
         if [ -n "${p_lang_ISO_639_1}" ]; then
 #            [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ar' ] && echo "" >&2 && v_isPrinted='true';
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'de' ] && echo "WARNUNG : Die von Ihnen gewählte Sprache (${p_lang_ISO_639_1,,}) wird (noch) nicht vom Initialisierungsskript unterstützt" >&2 && v_isPrinted='true';
@@ -647,11 +649,11 @@ function BU.ModuleInit.GetModuleInitLanguage()
 
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'id' ] && echo "PERINGATAN: Bahasa yang Anda pilih (${p_lang_ISO_639_1,,}) tidak (belum) didukung oleh skrip inisialisasi" >&2 && v_isPrinted='true';
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ja' ] && echo "警告 選択された言語（${p_lang_ISO_639_1,,}）は、初期化スクリプトでは（まだ）サポートされていません。" >&2 && v_isPrinted='true';
-#            [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "" >&2 && v_isPrinted='true';
+            [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "경고: 선택한 언어(${p_lang_ISO_639_1,,})는 초기화 스크립트에서 아직 지원되지 않습니다." >&2 && v_isPrinted='true';
 
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'pt' ] && echo "AVISO : A sua língua seleccionada (${p_lang_ISO_639_1,,}) não é (ainda) suportada pelo guião de inicialização" >&2 && v_isPrinted='true';
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ru' ] && echo "ВНИМАНИЕ : Выбранный вами язык (${p_lang_ISO_639_1,,}) не поддерживается (пока) скриптом инициализации" >&2 && v_isPrinted='true';
-#            [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "" >&2 && v_isPrinted='true';
+            [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "UYARI: Seçtiğiniz dil (${p_lang_ISO_639_1,,}) başlangıç komut dosyası tarafından (henüz) desteklenmemektedir." >&2 && v_isPrinted='true';
 
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'uk' ] && echo "ПОПЕРЕДЖЕННЯ: вибрана вами мова (${p_lang_ISO_639_1,,}) ще не підтримується скриптом ініціалізації" >&2 && v_isPrinted='true';
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'zh' ] && echo "警告： 您选择的语言（${p_lang_ISO_639_1,,}）还不被初始化脚本支持。" >&2 && v_isPrinted='true';
@@ -668,11 +670,11 @@ function BU.ModuleInit.GetModuleInitLanguage()
 
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'id' ] && echo "PERINGATAN: Bahasa yang saat ini digunakan oleh sistem operasi Anda (${__BU_MODULE_INIT__USER_LANG ,,}) tidak (belum) didukung oleh skrip inisialisasi" >&2 && v_isPrinted='true';
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ja' ] && echo "警告 オペレーティングシステムが現在使用している言語（${__BU_MODULE_INIT__USER_LANG,,}）は、初期化スクリプトでは（まだ）サポートされていません。" >&2 && v_isPrinted='true';
-#            [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "" >&2 && v_isPrinted='true';
+            [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "경고: 현재 운영 체제에서 사용 중인 언어(${__BU_MODULE_INIT__USER_LANG})는 초기화 스크립트에서 아직 지원되지 않습니다." >&2 && v_isPrinted='true';
 
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'pt' ] && echo "AVISO: O idioma actualmente utilizado pelo seu sistema operativo (${__BU_MODULE_INIT__USER_LANG,,}) não é (ainda) suportado pelo script de arranque" >&2 && v_isPrinted='true';
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ru' ] && echo "ВНИМАНИЕ: Язык, используемый в настоящее время вашей операционной системой (${__BU_MODULE_INIT__USER_LANG,,}), не поддерживается (пока) сценарием загрузки" >&2 && v_isPrinted='true';           
-#            [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "" >&2 && v_isPrinted='true';
+            [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "UYARI: Mevcut diliniz (${__BU_MODULE_INIT__USER_LANG,,}) başlangıç komut dosyası tarafından (henüz) desteklenmemektedir." >&2 && v_isPrinted='true';
 
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'uk' ] && echo "ПОПЕРЕДЖЕННЯ: Мова, яку наразі використовує ваша операційна система (${__BU_MODULE_INIT__USER_LANG,,}), ще не підтримується скриптом ініціалізації" >&2 && v_isPrinted='true';
             [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'zh' ] && echo "警告： 您当前的语言（${__BU_MODULE_INIT__USER_LANG,,}）不被初始化脚本所支持。" >&2 && v_isPrinted='true';
@@ -685,7 +687,7 @@ function BU.ModuleInit.GetModuleInitLanguage()
 
 #        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ar' ] && echo "" >&2 && v_isPrinted='true';
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'de' ] && echo "Das Initialisierungsskript wird Englisch als Standardsprache verwenden." >&2 && v_isPrinted='true';
-        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'en' ] && echo "The initialisation script will use english as default language" >&2 && v_isPrinted='true';
+        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'en' ] && echo "The initialisation script will use English as default language" >&2 && v_isPrinted='true';
         
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'es' ] && echo "El script de inicialización utilizará el inglés como idioma por defecto" >&2 && v_isPrinted='true';
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'fr' ] && echo "Le script d'initialisation utilisera l'anglais en tant que langue par défaut" >&2 && v_isPrinted='true';
@@ -693,16 +695,16 @@ function BU.ModuleInit.GetModuleInitLanguage()
 
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'id' ] && echo "Skrip inisialisasi akan menggunakan bahasa Inggris sebagai bahasa default" >&2 && v_isPrinted='true';        
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ja' ] && echo "初期化スクリプトでは、デフォルトの言語としてenglishを使用します。" >&2 && v_isPrinted='true';
-#        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "" >&2 && v_isPrinted='true';
+        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "초기화 스크립트는 기본 언어로 영어를 사용합니다." >&2 && v_isPrinted='true';
 
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'pt' ] && echo "O guião de inicialização utilizará o inglês como língua padrão" >&2 && v_isPrinted='true';
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ru' ] && echo "Скрипт инициализации будет использовать английский язык в качестве языка по умолчанию" >&2 && v_isPrinted='true';        
-#        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "" >&2 && v_isPrinted='true';
+        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "Başlangıç komut dosyası varsayılan dil olarak İngilizceyi kullanacaktır." >&2 && v_isPrinted='true';
 
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'uk' ] && echo "Скрипт ініціалізації буде використовувати англійську мову як мову за замовчуванням" >&2 && v_isPrinted='true';
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'zh' ] && echo "初始化脚本将使用英语作为默认语言。" >&2 && v_isPrinted='true';
 
-        [ "${v_isPrinted}" != 'true' ] &&  echo "The initialisation script will use english as default language" >&2;
+        [ "${v_isPrinted}" != 'true' ] && echo "The initialisation script will use English as default language" >&2;
 
         echo >&2;
 
@@ -713,6 +715,143 @@ function BU.ModuleInit.GetModuleInitLanguage()
 
         # Setting the value of the "${v_isPrinted}" variable to "false" in order to ensure that the following messages will be printed in English if one of the following messages would be missing.
         v_isPrinted='false';
+
+    # Else, if the selected language's translation file is still in a Beta version.
+    elif [ -z "${v_langMatch}" ] && [ -n "${v_langMatchBeta}" ]; then
+
+        #**** Conditional variables ****
+        local a; # ARG TYPE : String    - DESC : Shorter name for the "${__BU_MODULE_INIT__USER_LANG}" global variable.
+        local b; # ARG TYPE : String    - DESC : Shorter name for the "${p_lang_ISO_639_1}" local variable.
+
+        #**** Conditional code ****
+        a="${__BU_MODULE_INIT__USER_LANG,,}";
+        b="${p_lang_ISO_639_1}";
+
+        # Setting the value of the "${v_isPrinted}" variable to "false" in order to ensure that the following messages will be printed in English if one of the following messages would be missing.
+        v_isPrinted='false';
+
+        [ "${a}" == "ar" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: الملف اللغوي الذي حددته (%s) لا يزال في مرحلة تجريبية.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: معلومات: ملف اللغة المحدد وفقًا لإعدادات نظام التشغيل الخاص بك (%s) لا يزال في مرحلة تجريبية.\n" "${b}.locale" >&2; };
+            }
+            echo "قد يحتوي هذا الملف على ترجمات غير دقيقة ونصوص غير كاملة وأخطاء مطبعية، لذا يوصى باستخدام هذه الترجمة بحذر.";
+            v_isPrinted='true';
+        };
+        [ "${a}" == "de" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: Die von Ihnen ausgewählte Übersetzungsdatei (%s) befindet sich noch in der Beta-Phase.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: Die gemäß den Einstellungen Ihres Betriebssystems ausgewählte Übersetzungsdatei (%s) befindet sich noch in der Beta-Phase.\n" "${b}.locale" >&2; };
+            }
+            echo "Diese Datei kann fehlerhafte Übersetzungen, fehlende Texte und Tippfehler enthalten. Verwenden Sie diese Übersetzung mit Vorsicht." >&2;
+            v_isPrinted='true';
+        };
+        [ "${a}" == "en" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: The language file you selected (%s) is still in a Beta version.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: The language file selected according to your operating system's settings (%s) is still in a Beta version.\n" "${b}.locale" >&2; };
+            }
+            echo "This file may contain incorrect translations, incomplete text, and typographical errors, so it is recommended that you use this translation with caution." >&2
+            v_isPrinted='true';
+        };
+        [ "${a}" == "es" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFORMACIÓN: El archivo de traducción que ha seleccionado (%s) aún se encuentra en fase beta.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: El archivo de idioma seleccionado según la configuración de su sistema operativo (%s) aún está en versión Beta.\n" "${b}.locale" >&2; };
+            }
+            echo "Este archivo puede contener traducciones incorrectas, texto incompleto y errores tipográficos, por lo que se recomienda utilizar esta traducción con precaución." >&2;
+            v_isPrinted='true';
+        };
+        [ "${a}" == "fr" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO : Le fichier de traduction que vous avez sélectionné (%s) est toujours en version Beta.\n" "${b}.locale" >&2; } || \
+                { printf "INFO : Le fichier de traduction sélectionné selon les paramètres de votre système d'exploitation (%s) est toujours en version Beta.\n" "${b}.locale" >&2; };
+            }
+            echo "Ce fichier peut contenir des traductions incorrectes, du texte incomplet et des erreurs typographiques. Il est donc recommandé de l'utiliser avec prudence." >&2;
+            v_isPrinted='true';
+        };
+        [ "${a}" == "hi" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: आपके द्वारा चुनी गई भाषा फ़ाइल (%s) अभी भी बीटा में है\n" "${b}.locale" >&2; } || \
+                { printf "INFO: आपके ऑपरेटिंग सिस्टम सेटिंग्स (%s) के अनुसार चुनी गई भाषा फ़ाइल अभी भी बीटा संस्करण में है\n" "${b}.locale" >&2; };
+            }
+            echo "इस फ़ाइल में गलत अनुवाद, अधूरा पाठ और मुद्रण संबंधी त्रुटियाँ हो सकती हैं, इसलिए यह अनुशंसा की जाती है कि आप इस अनुवाद का उपयोग सावधानी से करें" >&2;
+            v_isPrinted='true';
+        };
+        [ "${a}" == "id" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: Berkas bahasa yang Anda pilih (%s) masih dalam versi Beta.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: Berkas bahasa yang dipilih sesuai dengan pengaturan sistem operasi Anda (%s) masih dalam versi Beta.\n" "${b}.locale" >&2; };
+            }
+            echo "Berkas ini mungkin mengandung terjemahan yang tidak akurat, teks yang tidak lengkap, dan kesalahan ketik, jadi disarankan agar Anda menggunakan terjemahan ini dengan hati-hati." >&2;
+            v_isPrinted='true';
+        };
+        [ "${a}" == "ja" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: 選択された言語ファイル（%s）は現在ベータ版です。\n" "${b}.locale" >&2; } || \
+                { printf "INFO: 選択された言語ファイル（%s）は、お使いのオペレーティングシステムの設定に基づいて選択されましたが、まだベータ版です。\n" "${b}.locale" >&2; };
+            }
+            echo "このファイルには、誤った翻訳、不完全なテキスト、およびタイプミスが含まれている可能性があります。したがって、この翻訳を使用する際は注意が必要です。" >&2;
+            v_isPrinted='true';
+        };
+        [ "${a}" == "ko" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: 선택하신 언어 파일 (%s)은 아직 베타 단계에 있습니다.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: 운영 체제 설정(%s)에 따라 선택한 언어 파일은 여전히 베타 버전입니다.\n" "${b}.locale" >&2; };
+            }
+            echo "이 파일에는 잘못된 번역, 불완전한 텍스트 및 타자 오류가 포함될 수 있으므로 주의하여 사용하시기 바랍니다.";
+        };
+        [ "${a}" == "pt" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: O ficheiro de idioma que selecionou (%s) ainda está na versão Beta.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: O ficheiro de idioma selecionado de acordo com as configurações do seu sistema operativo (%s) ainda está na versão Beta.\n" "${b}.locale" >&2; };
+            }
+            echo "Este ficheiro pode conter traduções incorretas, texto incompleto e erros tipográficos, por isso recomenda-se que utilize esta tradução com cautela." >&2;
+            v_isPrinted='true';
+        };
+        [ "${a}" == "ru" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: Выбранный вами языковой файл (%s) все еще находится в стадии бета-тестирования.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: Языковой файл, выбранный в соответствии с настройками вашей операционной системы (%s), все еще находится в стадии бета-тестирования.\n" "${b}.locale" >&2; };
+            }
+            echo "Этот файл может содержать неверные переводы, неполный текст и типографские ошибки, поэтому рекомендуется использовать этот перевод с осторожностью." >&2;
+            v_isPrinted='true';
+        };
+        [ "${a}" == "tr" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: Seçtiğiniz dil dosyası (%s) hala Beta sürümündedir.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: İşletim sistemi ayarlarınıza göre seçilen dil dosyası (%s) hala Beta sürümündedir.\n" "${b}.locale" >&2; };
+            }
+            echo "Bu dosya yanlış çeviriler, eksik metinler ve yazım hataları içerebilir, bu nedenle bu çeviriyi dikkatli kullanmanız önerilir." >&2;
+            v_isPrinted='true';
+        };
+        [ "${a}" == "uk" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: Вибраний вами мовний файл (%s) все ще перебуває в бета-версії.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: Мовний файл, вибраний відповідно до налаштувань вашої операційної системи (%s), все ще перебуває в бета-версії.\n" "${b}.locale" >&2; };
+            }
+            echo "Цей файл може містити некоректні переклади, неповний текст та друкарські помилки, тому рекомендуємо використовувати цей переклад з обережністю." >&2;
+            v_isPrinted='true';
+        };
+        [ "${a}" == "zh" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: 您选择的语言文件（%s）目前仍处于测试版阶段。\n" "${b}.locale" >&2; } || \
+                { printf "INFO: 根据您的操作系统设置（%s）选择的语言文件仍处于测试阶段。\n" "${b}.locale" >&2; };
+            }
+            echo "本文件可能包含不准确的翻译、不完整的文本及排版错误，因此我们建议您在使用本翻译时务必谨慎。" >&2;
+            v_isPrinted='true';
+        };
+        [ "${v_isPrinted,,}" != "true" ] && {
+            [ -n "${b}" ] && {
+                { printf "INFO: The language file you selected (%s) is still in a Beta version.\n" "${b}.locale" >&2; } || \
+                { printf "INFO: The language file selected according to your operating system's settings (%s) is still in a Beta version.\n" "${b}.locale" >&2; };
+            }
+            echo "This file may contain incorrect translations, incomplete text, and typographical errors, so it is recommended that you use this translation with caution." >&2
+        };
+
+        v_isPrinted='false';
+
+        echo >&2;
     fi
 
 	if [ "${p_lang_ISO_639_1^^}" == 'NULL' ]; then
@@ -726,12 +865,12 @@ function BU.ModuleInit.GetModuleInitLanguage()
 
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'id' ] && echo "PERINGATAN: Tidak ada bahasa yang ditentukan sebagai argumen saat memanggil fungsi « ${FUNCNAME[0]}() »" >&2 && v_isPrinted='true';
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ja' ] && echo "WARNING : 「${FUNCNAME[0]}()」関数の呼び出し時に、引数として指定された言語がありません。" >&2 && v_isPrinted='true';
-#        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "" >&2 && v_isPrinted='true';
+        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "경고: 함수 « ${FUNCNAME[0]}() »를 호출할 때 인수로 지정된 언어가 없습니다." >&2 && v_isPrinted='true';
 
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'pt' ] && echo "ATENÇÃO : Nenhuma língua especificada como argumento ao chamar a função « ${FUNCNAME[0]}() »" >&2 && v_isPrinted='true';
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ru' ] && echo "ВНИМАНИЕ : При вызове функции « ${FUNCNAME[0]}() » в качестве аргумента не указан язык" >&2 && v_isPrinted='true';
-#        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "" >&2 && v_isPrinted='true';
-        
+        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "UYARI: « ${FUNCNAME[0]}() » işlevi, argüman olarak bir dil belirtilmeden çağrılmıştır." >&2 && v_isPrinted='true';
+
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'uk' ] && echo "ПОПЕРЕДЖЕННЯ : Мова не вказана як аргумент при виклику « ${FUNCNAME[0]}() »" >&2 && v_isPrinted='true';
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'zh' ] && echo "警告： 函数\"${FUNCNAME[0]}() \"的调用没有指定语言作为参数。" >&2 && v_isPrinted='true';
 
@@ -755,11 +894,11 @@ function BU.ModuleInit.GetModuleInitLanguage()
 
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'id' ] && echo "PERINGATAN: File terjemahan untuk bahasa yang ditentukan sebagai argumen saat memanggil fungsi « ${FUNCNAME[0]}() » tidak ditemukan di direktori « ${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH} »" >&2 && v_isPrinted='true';
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ja' ] && echo "警告 : \" ${FUNCNAME[0]}() \" 関数呼び出しで引数として指定された言語の翻訳ファイルが \" ${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH} \" ディレクトリに見つかりませんでした." >&2 && v_isPrinted='true';
-#        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "" >&2 && v_isPrinted='true';
+        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "경고: « ${FUNCNAME[0]}() » 함수를 호출할 때 인수로 지정된 언어의 번역 파일이 « ${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH} » 디렉토리에서 발견되지 않았습니다." >&2 && v_isPrinted='true';
 
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'pt' ] && echo "ATENÇÃO : O ficheiro de tradução para a língua especificada como argumento ao chamar a função « ${FUNCNAME[0]}() » não foi encontrado na pasta « ${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH} »" >&2 && v_isPrinted='true';
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ru' ] && echo "ВНИМАНИЕ : Файл перевода для языка, указанного в качестве аргумента при вызове функции « ${FUNCNAME[0]}() » не найден в каталоге « ${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH} »." >&2 && v_isPrinted='true';
-        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "" >&2 && v_isPrinted='true';
+        [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "UYARI: « ${FUNCNAME[0]}() » işlevini çağırırken argüman olarak belirtilen dilin çeviri dosyası « ${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH} » dizininde bulunamadı." >&2 && v_isPrinted='true';
 
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'uk' ] && echo "ПОПЕРЕДЖЕННЯ: Файл перекладу для мови, вказаної як аргумент під час виклику функції « ${FUNCNAME[0]}() », не знайдено у каталозі « ${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH} »" >&2 && v_isPrinted='true';
         [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'zh' ] && echo "警告： 在调用\"${__BU_MODULE_INIT__CONFIG_INIT_LANG_DIR_PATH}\"目录中作为参数指定的语言翻译文件在\"${FUNCNAME[0]}() \"函数中没有找到。" >&2 && v_isPrinted='true';
@@ -790,11 +929,11 @@ function BU.ModuleInit.GetModuleInitLanguage()
 
                 [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'id' ] && echo "PERINGATAN: Tidak dapat menemukan file terjemahan untuk bahasa yang ditentukan sebagai argumen saat memanggil fungsi « ${FUNCNAME[0]}() »" >&2 && v_isPrinted='true';
                 [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ja' ] && echo "WARNING : \"${FUNCNAME[0]}() \"関数呼び出しは、引数で指定された言語の翻訳ファイルをソースにできません。" >&2 && v_isPrinted='true';
-#                [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "" >&2 && v_isPrinted='true';
+                [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ko' ] && echo "경고: 지정된 언어의 번역 파일이 발견되지 않았습니다. 이 문제는 « ${FUNCNAME[0]}() » 함수를 호출할 때 발생했습니다." >&2 && v_isPrinted='true';
 
                 [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'pt' ] && echo "ATENÇÃO : Não foi possível obter o ficheiro de tradução para a língua especificada como argumento ao chamar a função « ${FUNCNAME[0]}() »" >&2 && v_isPrinted='true';
                 [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'ru' ] && echo "ВНИМАНИЕ : Невозможно включить файл перевода для языка, указанного в качестве аргумента, при вызове функции « ${FUNCNAME[0]}() »" >&2 && v_isPrinted='true';
-#                [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "" >&2 && v_isPrinted='true';
+                [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'tr' ] && echo "UYARI: Belirtilen dil için çeviri dosyası bulunamadı. Bu sorun, « ${FUNCNAME[0]}() » işlevini çağırırken ortaya çıktı." >&2 && v_isPrinted='true';
 
                 [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'uk' ] && echo "ПОПЕРЕДЖЕННЯ: Не вдалося включити файл перекладу для мови, вказаної як аргумент під час виклику функції « ${FUNCNAME[0]}() »" >&2 && v_isPrinted='true';
                 [ "${__BU_MODULE_INIT__USER_LANG,,}" == 'zh' ] && echo "警告： 当调用\"${FUNCNAME[0]}() \"函数时，不可能为作为参数指定的语言提供翻译文件源。" >&2 && v_isPrinted='true';
@@ -1858,7 +1997,7 @@ function BU.ModuleInit.CheckPathIntegrity()
 
     #**** Code ****
     # Debug command to check if the path's integrity is valid.
-    echo "Path integrity check : ${p_target}";
+    # echo "Path integrity check : ${p_target}";
 
     # If the target directory  /   file was not found
     if [ ! -d "${p_target}" ] && [ ! -f "${p_target}" ]; then

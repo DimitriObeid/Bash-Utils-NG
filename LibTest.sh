@@ -9,6 +9,8 @@
 # Changing the locale of the system in the scope of the project.
 LANG='fr_FR.UTF-8';
 
+# LANG=""
+
 # Declaring the framework installation variable (not in module argument, as some needed instructions are processed before the arguments processor).
 # __BU_MODULE_PRE_INIT__IS_FRAMEWORK_INSTALLED='true';
 
