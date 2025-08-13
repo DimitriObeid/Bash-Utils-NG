@@ -26,6 +26,37 @@
 
 ## MAIN FUNCTION
 
+# Test function : manage the eventual missing strings in a translation file.
+function BU.ModuleInit.SetInitLocale.Declare()
+{
+    #**** Parameters ****
+    local p_varName=${1:-''};   # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Name of the global translation variable to create or update.
+    local p_text=${2:-''};      # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Text to store into the global translation variable.
+
+    #**** Code ****
+
+    # If no variable name was passed as first argument.
+    if [ -z "${p_varName}" ]; then
+        echo "${FUNCNAME[1]} -> no string passed to define a global translation variable";
+
+        return 1;
+    fi
+
+    # If a value was passed as first argument, but it doesn't respects the format of a variable's name.
+    if [ "${p_varName}" ]; then
+        echo "${FUNCNAME[1]} -> ${p_varName} : not a valid format for a global translation variable";
+
+        return 1;
+    fi
+
+    # If the variable is not defined AND if the text to store is empty.
+    if declare -p "${p_varName}" &>/dev/null && [ -z "${p_text}" ]; then
+        true
+    fi 
+
+    return 0;
+}
+
 # shellcheck disable=
 function BU.ModuleInit.SetInitLocale.en()
 {

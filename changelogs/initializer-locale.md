@@ -12,4 +12,4 @@ Commits changelogs :
 
 Commit ID - :
 
-\-
+\- **ADD** : Added a function named "_BU.ModuleInit.SetInitLocale.Declare()_" to manage the missing texts and ensure the integrity of the messages to display when sourcing a Beta version of a translation file.
