@@ -9,7 +9,7 @@ Legend :
 Commits changelogs :
 --------------------
 
-Commit ID - :
+Commit ID - 3cf159c6d83cc7ae4307e1aa3117b0db27a4e26d:
 
 \- **ADD** : Added the "_git push_" command in the "_bin/git-merge-all-branches-from-dev.sh_" script in order to update the remote branches with the updated codebase.
 
