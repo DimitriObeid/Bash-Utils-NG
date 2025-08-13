@@ -10,7 +10,7 @@ Commits changelogs :
 --------------------
 
 
-Commit ID - :
+Commit ID - 717ba9fa7ff05cdd1ab01e7866e0729bbd948926:
 
 \- **ADD** : Added multiple messages into the "_BU.ModuleInit.GetModuleInitLanguage()_" function to warn the user if they select a translation file in a Beta stage.
 
