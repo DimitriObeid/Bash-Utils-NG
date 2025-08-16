@@ -2293,9 +2293,9 @@ function BU.ModuleInit.PrintLogError()
 ## CHECKING IF THE CURRENT SHELL IS BASH
 
 if [ -z "${BASH_VERSION}" ]; then
-    lang=$(echo "${LANG}" | cut -d_ -f1)
+    ____bu_lang=$(echo "${LANG}" | cut -d_ -f1)
 
-    case "${lang}" in
+    case "${____bu_lang}" in
         de)
             echo "BASH-UTILS FEHLER: Ihre aktuelle Shell ist nicht « Bash », sondern « ${SHELL##*/} »." >&2 ;;
         en)
@@ -2350,7 +2350,7 @@ fi
 ## STARTING A TIMER IN ORDER TO CHECK THE INITIALIZATION PROCESS' TIME
 
 # Do not assign any value here now, it will be done at the end of the framework's initialization process.
-declare -i __BU_MODULE_INIT__FRAMEWORK_INITIALIZATION_PROCESS_TIMER;
+declare -gi __BU_MODULE_INIT__FRAMEWORK_INITIALIZATION_PROCESS_TIMER;
 
 ## ==============================================
 
@@ -2383,7 +2383,14 @@ BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModules || { BU
 # Since this function gets the language currently used by the system, if you want to change the language, you just have to define
 # a new value to the "${LANG}" environment variable before calling the "BashUtils_InitModules()" function in your main script file.
 
-# Setting the whole project's language by getting and sourcing the "gettext.sh" file.
+# Checking if an error occurs during the sourcing of a locale file.
+declare -g __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED='false';
+
+# Counting the number of unnamed variables.
+declare -ag __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB=();
+
+# Counting the number of badly formatted variables names.
+declare -ag __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB=();
 
 # If the framework is compiled, then you should call the "Bash-utils-${language}.sh" file which corresponds to the language that you want to use.
 BU.ModuleInit.IsFrameworkCompiledLocalized || {
