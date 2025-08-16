@@ -37,6 +37,9 @@ function BU.ModuleInit.SetInitLocale.Declare()
 
     # If no variable name was passed as first argument.
     if [ -z "${p_varName}" ]; then
+        [ "${__BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED,,}" == 'false' ] && \
+            __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED='true';
+
         echo "${FUNCNAME[1]} -> no string passed to define a global translation variable";
 
         return 1;
@@ -44,6 +47,9 @@ function BU.ModuleInit.SetInitLocale.Declare()
 
     # If a value was passed as first argument, but it doesn't respects the format of a variable's name.
     if [[ "${p_varName}" != __BU_MODULE_INIT_MSG__* ]]; then
+        [ "${__BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED,,}" == 'false' ] && \
+            __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED='true';
+
         echo "${FUNCNAME[1]} -> ${p_varName} : not a valid format for a global translation variable";
 
         return 1;
