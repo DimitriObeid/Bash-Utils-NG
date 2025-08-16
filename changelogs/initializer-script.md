@@ -1,8 +1,9 @@
 Legend :
     - **ADD** : Added a new file / function / variable/ etc...
     - **DEL** : Deleted a file / function / variable, etc...
+    - **DOC** : Added or edited an important comment or a piece of documentation
     - **FIX** : Fixed a bug
-    - **REF** : Code refactoring (for better lisibility)
+    - **REF** : Code refactoring for better lisibility and optimization
     - **TES** : Testing the code of a specific part of a source file
 
 ---------------------------------------------------------
@@ -17,6 +18,21 @@ Commit ID - :
 \- **FIX** : Changed the type of the following global variables from an array to an integer, and initialized them to 0:
     - __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB
     - __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB
+
+\- **ADD** : Transfert from the "initializer-locale" branch, since the function should be in the "_Bash-utils-init.sh_" script, and it was a hassle to regulary switch between these two branches while the "_BU.ModuleInit.SetInitLocale."${__BU_MODULE_INIT__USER_LANG}"()_" functions' tests haven't even started yet:
+    - Added a function named "_BU.ModuleInit.DeclareLocaleString()_" to manage the missing texts and ensure the integrity of the messages to display when sourcing a Beta version of a translation file.
+
+\- **REF** : Moved all the __BU_MODULE_INIT__LOCALE_INIT__ variables into the "_BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModules()_" function.
+
+\- **ADD** : Added the following global variable in the "_Bash-utils-init.sh_" script into the "_BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModules()_" function:
+    - __BU_MODULE_INIT__LOCALE_INIT__COUNTER                GLOBAL  INT     0
+    - __BU_MODULE_INIT__LOCALE_INIT__DEFINED_VARS           GLOBAL  ARRAY   EMPTY
+    - __BU_MODULE_INIT__LOCALE_INIT__REDEFINED_VARS         GLOBAL  ARRAY   EMPTY
+
+\- **FIX** : Set the the name of the ISO 639-1 code in lowercase when calling the “_BU.ModuleInit.SetInitLocale."${__BU_MODULE_INIT__USER_LANG,,}"()_” function, in order to avoid any error while checking its name in the "_BU.ModuleInit.BU.ModuleInit.DeclareLocaleString ()_" function. 
+
+\- **REF** :
+
 
 Commit ID - 39682c61b6c0bef85a8ef56cf2f0d39c34aac594:
 

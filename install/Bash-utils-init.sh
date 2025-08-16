@@ -545,6 +545,34 @@ function BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModule
     declare -g    __BU_MODULE_INIT__BU_BASE_IS_TRANSLATED="false";
     declare -g -i __bu_module_init__bu_base_is_translated__lineno="$(( LINENO - 1 ))";
 
+    # Checking if an error occurs during the sourcing of a locale file.
+    declare -g    __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED='false';
+    declare -g -i __bu_module_init__locale_init__has_error_occured__lineno="$(( LINENO - 1 ))";
+
+    # Storing the names of the badly formatted variables' names.
+    declare -a -g __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_ARR=();
+    declare -g -i __bu_module_init__locale_init__bad_fmt_namevars_arr__lineno="$(( LINENO - 1 ))";
+
+    # Counting the number of badly formatted variables names (AKA the variables do not correspond to the one in the "en.locale" file).
+    declare -g -i __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB=0;
+    declare -g -i __bu_module_init__locale_init__bad_fmt_namevars_nb__lineno="$(( LINENO - 1 ))";
+
+    # Counting the number of unnamed variables.
+    declare -g -i __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB=0;
+    declare -g -i __bu_module_init__locale_init__unnamed_vars_nb__lineno="$(( LINENO - 1 ))";
+
+    # Storing the names of the defined variables in the "en.locale" file.
+    declare -a -g __BU_MODULE_INIT__LOCALE_INIT__DEFINED_VARS=();
+    declare -g -i __bu_module_init__locale_init__defined_vars__lineno="$(( LINENO - 1 ))";
+
+    # Storing the names of the redefined variables in any other locale file
+    declare -a -g __BU_MODULE_INIT__LOCALE_INIT__REDEFINED_VARS=();
+    declare -g -i __bu_module_init__locale_init__redefined_vars__lineno="$(( LINENO - 1 ))";
+
+    # Counting the processed variables in order to make sure that any translation file outside of the "en.locale" file respects its structure and its variables' names.
+    declare -g -i __BU_MODULE_INIT__LOCALE_INIT__COUNTER=0;
+    declare -g -i __bu_module_init__locale_init__counter__lineno="$(( LINENO - 1 ))";
+
     declare -g    __BU_MODULE_INIT__CSV_TRANSLATION_FILE__DELIM=',';
     declare -g -i __bu_module_init__csv_translation_file__delim__lineno="$(( LINENO - 1 ))";
 
@@ -596,6 +624,71 @@ function BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModule
 # will be embedded, as well as a few extra languages, in order to avoid bloating the initializer script with
 # thousands and thousands of lines of hard-coded messages.
 
+# ··········································································
+# Test function : manage the eventual missing strings in a translation file.
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured shell commands and their options(s) :
+#   - echo  |
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+# Featured function(s) and file(s) by module(s) and from the "functions" folder :
+#   - Feel free to call a function if it is needed for your contribution.
+
+# shellcheck disable=
+function BU.ModuleInit.BU.ModuleInit.DeclareLocaleString()
+{
+    #**** Parameters ****
+    local p_varName=${1:-''};   # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Name of the global translation variable to create or update.
+    local p_text=${2:-''};      # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Text to store into the global translation variable.
+
+    #**** Code ****
+
+    # If no variable name was passed as first argument.
+    if [ -z "${p_varName}" ]; then
+        [ "${__BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED,,}" == 'false' ] && \
+            __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED='true';
+
+        __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB="$(( __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB + 1 ))";
+
+        echo "${FUNCNAME[1]} -> no string passed to define a global translation variable";
+
+        return 1;
+    fi
+
+    # If the English locale file is being sourced.
+    if [ "${FUNCNAME[1]}" == 'BU.ModuleInit.SetInitLocale.en' ]; then
+
+    # Else, if another locale file is being sourced.
+    else
+        # If a value was passed as first argument for the nth time, but it doesn't corresponds to the name of the nth variable in the "en.locale" file.
+        if [[ "${p_varName}" != "${__BU_MODULE_INIT__LOCALE_INIT__REDEFINED_VARS[${__BU_MODULE_INIT__LOCALE_INIT__COUNTER}]}" ]]; then
+            [ "${__BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED,,}" == 'false' ] && \
+                __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED='true';
+
+            __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB="$(( __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB + 1 ))";
+
+            echo "${FUNCNAME[1]} -> ${p_varName} : not a valid format for a global translation variable";
+
+            return 1;
+        fi
+
+        # If the variable is not defined AND if the text to store is empty.
+        if declare -p "${p_varName}" &>/dev/null && [ -z "${p_text}" ]; then
+            true
+        fi 
+
+        # Adding the redefined variable's name into its appropriate array.
+        __BU_MODULE_INIT__LOCALE_INIT__REDEFINED_VARS+=("${p_varName}");
+
+        # Incrementing the value of the counter.
+        __BU_MODULE_INIT__LOCALE_INIT__COUNTER="$(( __BU_MODULE_INIT__LOCALE_INIT__COUNTER + 1 ))";
+
+    fi
+
+    return 0;
+}
+
 # ····························································································································
 # Rewriting the library's languages messages (this function MUST NOT be called if the framework is compiled in a single file).
 
@@ -618,13 +711,13 @@ function BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModule
 function BU.ModuleInit.GetModuleInitLanguage()
 {
     #**** Parameters ****
-    local p_lang_ISO_639_1=${1:-NULL};  # ARG TYPE : String     - REQUIRED | DEFAULT VAL : NULL     - DESC : Wanted language.
+    local p_lang_ISO_639_1=${1:-NULL};  # ARG TYPE : String     - REQUIRED | DEFAULT : "NULL" - DESC : Requested language, provided as an ISO 639-1 code (e.g., "en", "fr"). 
 
     #**** Variables ****
-    local v_betaLang;       # VAR TYPE : Array      - DESC : Array of languages whose support is not yet fully implemented.
-    local v_supportedLang;  # VAR TYPE : Array      - DESC : Array of languages whose support is fully implemented.
-    local v_langMatch;      # VAR TYPE : String     - DESC :
-    local v_langMatchBeta;  # VAR TYPE : String     - DESC :
+    local v_betaLang;        # VAR TYPE : Array     - DESC : List of ISO 639-1 language codes whose support is partially implemented (beta support).
+    local v_supportedLang;   # VAR TYPE : Array     - DESC : List of ISO 639-1 language codes whose support is fully implemented.
+    local v_langMatch;       # VAR TYPE : String    - DESC : Status flag set to "match" if the requested language (p_lang_ISO_639_1) is present in v_supportedLang.
+    local v_langMatchBeta;   # VAR TYPE : String    - DESC : Status flag set to "matchBeta" if the requested language (p_lang_ISO_639_1) is present in v_betaLang.
 
     local v_isPrinted;      # VAR TYPE : Bool       - DESC : Checks if one of the languages supported by the "Bash-utils-init.sh" file was found on the user's system and that the translated message was printed.
 
@@ -951,7 +1044,7 @@ function BU.ModuleInit.GetModuleInitLanguage()
         }
 
         # Calling the function which defines every variables containing the translated messages.
-        BU.ModuleInit.SetInitLocale."${__BU_MODULE_INIT__USER_LANG}" || return 1;
+        BU.ModuleInit.SetInitLocale."${__BU_MODULE_INIT__USER_LANG,,}" || return 1;
 
         return 0;
     fi
@@ -964,9 +1057,32 @@ function BU.ModuleInit.GetModuleInitLanguage()
 # shellcheck disable=
 function BU.ModuleInit.HasLocalInclusionSuccessed()
 {
-    
+    #**** Code ****
+    if [ "${__BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED,,}" != 'false' ]; then
+        echo "ERROR : ";
 
-    return 0;
+        if [ "${__BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB}" -ne 0 ]; then
+            #**** Conditionnal variables ****
+            local i;
+
+            #**** Conditionnal code ****
+            echo "Number of badly formatted variables' names : ${__BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB}";
+
+            echo "List of badly formatted variables :";
+
+            for ((i=0; i<"${#__BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_ARR[@]}"; i++)); do
+                echo "    - ${__BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_ARR[${i}]}";
+            done
+        fi
+
+        if [ "${__BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB}" -ne 0 ]; then
+            echo "Number of unnamed variables : ${__BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB}";
+        fi
+
+        return 1;
+    else
+        return 0;
+    fi
 }
 
 # ·····················································································
@@ -2395,18 +2511,6 @@ BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModules || { BU
 
 # Since this function gets the language currently used by the system, if you want to change the language, you just have to define
 # a new value to the "${LANG}" environment variable before calling the "BashUtils_InitModules()" function in your main script file.
-
-# Checking if an error occurs during the sourcing of a locale file.
-declare -g __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED='false';
-
-# Counting the number of unnamed variables.
-declare -gi __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB=0;
-
-# Counting the number of badly formatted variables names.
-declare -gi __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB=0;
-
-# Storing the names of the badly formatted variables' names.
-declare -ag __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_ARR=();
 
 # If the framework is compiled, then you should call the "Bash-utils-${language}.sh" file which corresponds to the language that you want to use.
 BU.ModuleInit.IsFrameworkCompiledLocalized || {
