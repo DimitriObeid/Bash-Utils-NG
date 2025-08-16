@@ -603,6 +603,7 @@ function BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModule
 # Featured shell commands and their options(s) :
 #	- echo		|
 #	- local		|
+#   - printf    |
 
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 # Featured function(s) and file(s) by module(s) and from the "functions" folder :
@@ -954,6 +955,18 @@ function BU.ModuleInit.GetModuleInitLanguage()
 
         return 0;
     fi
+}
+
+# ······································································
+# Checking if no errors occured during the inclusion of the locale file.
+
+
+# shellcheck disable=
+function BU.ModuleInit.HasLocalInclusionSuccessed()
+{
+    
+
+    return 0;
 }
 
 # ·····················································································
@@ -2387,10 +2400,13 @@ BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModules || { BU
 declare -g __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED='false';
 
 # Counting the number of unnamed variables.
-declare -ag __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB=();
+declare -gi __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB=0;
 
 # Counting the number of badly formatted variables names.
-declare -ag __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB=();
+declare -gi __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB=0;
+
+# Storing the names of the badly formatted variables' names.
+declare -ag __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_ARR=();
 
 # If the framework is compiled, then you should call the "Bash-utils-${language}.sh" file which corresponds to the language that you want to use.
 BU.ModuleInit.IsFrameworkCompiledLocalized || {

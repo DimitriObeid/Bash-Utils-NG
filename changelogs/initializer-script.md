@@ -9,12 +9,21 @@ Legend :
 Commits changelogs :
 --------------------
 
+Commit ID - :
+
+\- **ADD** : Added the following global variable in the "_Bash-utils-init.sh_" script before the call of the "_BU.ModuleInit.GetModuleInitLanguage()_" function:
+    - __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_ARR   GLOBAL  ARRAY   EMPTY
+
+\- **FIX** : Changed the type of the following global variables from an array to an integer, and initialized them to 0:
+    - __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB
+    - __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB
+
 Commit ID - 39682c61b6c0bef85a8ef56cf2f0d39c34aac594:
 
-\- **ADD** : Added the following global variables in the "_Bash-utils-init.sh_" script before the call of the "_BU.ModuleInit.GetModuleInitLanguage()_" function, in order to manage the errors that might occur during the inclusion of a locale file via the call of its associated function.
-    - __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED      BOOL    FALSE
-    - __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB        ARRAY   EMPTY
-    - __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB    ARRAY   EMPTY
+\- **ADD** : Added the following global variables in the "_Bash-utils-init.sh_" script before the call of the "_BU.ModuleInit.GetModuleInitLanguage()_" function, in order to manage the errors that might occur during the inclusion of a locale file via the call of its associated function:
+    - __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED      GLOBAL  BOOL    FALSE
+    - __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB        GLOBAL  ARRAY   EMPTY
+    - __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB    GLOBAL  ARRAY   EMPTY
 
 
 Commit ID - 717ba9fa7ff05cdd1ab01e7866e0729bbd948926:
