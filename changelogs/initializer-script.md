@@ -9,6 +9,13 @@ Legend :
 Commits changelogs :
 --------------------
 
+Commit ID - :
+
+\- **ADD** : Added the following global variables in the "_Bash-utils-init.sh_" script in order to manage the errors that might occur during the inclusion of a locale file via the call of its associated function.
+    - __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED      BOOL    FALSE
+    - __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB        ARRAY   EMPTY
+    - __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB    ARRAY   EMPTY
+
 
 Commit ID - 717ba9fa7ff05cdd1ab01e7866e0729bbd948926:
 
@@ -71,7 +78,7 @@ Commit ID - fc883411b4688f203acee23e6a974a2bede4dd96:
     - __BU_MODULE_INIT_MSG__FIND_PATH__PATH_NOT_FOUND       -> __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_NOT_FOUND
     - __BU_MODULE_INIT_MSG__FIND_PATH__TOP_LEVEL_FUNCTION   -> __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__TOP_LEVEL_FUNCTION
 
-\- **ADD** : Added a new global variable in the locale files : __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_MISSING
+\- **ADD** : Added a new global variable in the locale files : __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_MISSING   STRING
 
 \- **ADD** : Added the "_install/.Bash-utils/config/initializer/Status.conf_" file.
 

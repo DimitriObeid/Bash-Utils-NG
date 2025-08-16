@@ -2383,10 +2383,13 @@ BU.ModuleInit.DefineBashUtilsGlobalVariablesBeforeInitializingTheModules || { BU
 # Since this function gets the language currently used by the system, if you want to change the language, you just have to define
 # a new value to the "${LANG}" environment variable before calling the "BashUtils_InitModules()" function in your main script file.
 
-# Setting the whole project's language by getting and sourcing the "gettext.sh" file.
+# Checking if an error occurs during the sourcing of a locale file.
+declare -g __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED='false';
 
+# Counting the number of unnamed variables.
+declare -ag __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB=();
 
-# Storing a 
+# Counting the number of badly formatted variables names.
 declare -ag __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB=();
 
 # If the framework is compiled, then you should call the "Bash-utils-${language}.sh" file which corresponds to the language that you want to use.
