@@ -43,7 +43,7 @@ function BU.ModuleInit.SetInitLocale.Declare()
     fi
 
     # If a value was passed as first argument, but it doesn't respects the format of a variable's name.
-    if [ "${p_varName}" ]; then
+    if [[ "${p_varName}" != __BU_MODULE_INIT_MSG__* ]]; then
         echo "${FUNCNAME[1]} -> ${p_varName} : not a valid format for a global translation variable";
 
         return 1;
