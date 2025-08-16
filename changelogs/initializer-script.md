@@ -9,9 +9,9 @@ Legend :
 Commits changelogs :
 --------------------
 
-Commit ID - :
+Commit ID - 39682c61b6c0bef85a8ef56cf2f0d39c34aac594:
 
-\- **ADD** : Added the following global variables in the "_Bash-utils-init.sh_" script in order to manage the errors that might occur during the inclusion of a locale file via the call of its associated function.
+\- **ADD** : Added the following global variables in the "_Bash-utils-init.sh_" script before the call of the "_BU.ModuleInit.GetModuleInitLanguage()_" function, in order to manage the errors that might occur during the inclusion of a locale file via the call of its associated function.
     - __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED      BOOL    FALSE
     - __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB        ARRAY   EMPTY
     - __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB    ARRAY   EMPTY
