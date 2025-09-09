@@ -651,7 +651,7 @@ function BU.ModuleInit.BU.ModuleInit.DeclareLocaleString()
 
         __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB="$(( __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB + 1 ))";
 
-        echo "${FUNCNAME[1]} -> no string passed to define a global translation variable";
+        echo "${FUNCNAME[1]} -> no string passed as first argument to define a global translation variable";
 
         return 1;
     fi
@@ -674,7 +674,7 @@ function BU.ModuleInit.BU.ModuleInit.DeclareLocaleString()
         fi
 
         # If the variable is not defined AND if the text to store is empty.
-        if declare -p "${p_varName}" &>/dev/null && [ -z "${p_text}" ]; then
+        if declare -p "${p_varName}" &> /dev/null && [ -z "${p_text}" ]; then
             true
         fi 
 
@@ -2463,13 +2463,13 @@ if [ -z "${BASH_VERSION}" ]; then
     case "${0}" in
         -*)
             # Si "${0}" commence par un tiret, c'est probablement un shell interactif
-            return 1 2>/dev/null;
+            return 1 2> /dev/null;
             ;;
         *)
             # Si ce script est exécuté directement, on fait un exit
             [ "$(basename -- "${0}")" != "sh" ] && exit 1
             
-            return 1 2>/dev/null;
+            return 1 2> /dev/null;
             ;;
     esac
 fi
