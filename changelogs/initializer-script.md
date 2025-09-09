@@ -1,30 +1,47 @@
-Legend :
-    - **ADD** : Added a new file / function / variable/ etc...
-    - **DEL** : Deleted a file / function / variable, etc...
-    - **FIX** : Fixed a bug
-    - **REF** : Code refactoring (for better lisibility)
-    - **TES** : Testing the code of a specific part of a source file
+# changelogs/initializer-script.md
+
+## Legend
+
+```text
+- ADD : Addition — Introduced a new file, function, variable, or feature.
+- DEL : Deletion — Removed a file, function, variable, or feature.
+- DOC : Documentation — Added or updated comments, inline explanations, or external docs.
+- FIX : Fix — Corrected a bug, typo, or unexpected behavior.
+- REF : Refactor — Improved code readability, structure, or performance without changing behavior.
+- TES : Test — Added or executed tests for specific parts of the source code.
+- UPD : Update — Modified dependencies, documentation, or file structure.
+```
 
 ---------------------------------------------------------
-Commits changelogs :
---------------------
 
-Commit ID - 39682c61b6c0bef85a8ef56cf2f0d39c34aac594:
+## Commits changelogs
+
+### Commit N°4
+
+#### ID - `39682c61b6c0bef85a8ef56cf2f0d39c34aac594`
+
+#### DATE - `2025/08/16 - 10:42`
 
 \- **ADD** : Added the following global variables in the "_Bash-utils-init.sh_" script before the call of the "_BU.ModuleInit.GetModuleInitLanguage()_" function, in order to manage the errors that might occur during the inclusion of a locale file via the call of its associated function.
     - __BU_MODULE_INIT__LOCALE_INIT__HAS_ERROR_OCCURED      BOOL    FALSE
     - __BU_MODULE_INIT__LOCALE_INIT__UNNAMED_VARS_NB        ARRAY   EMPTY
     - __BU_MODULE_INIT__LOCALE_INIT__BAD_FMT_NAMEVARS_NB    ARRAY   EMPTY
 
+### Commit N°3
 
-Commit ID - 717ba9fa7ff05cdd1ab01e7866e0729bbd948926:
+#### ID - `717ba9fa7ff05cdd1ab01e7866e0729bbd948926`
+
+#### DATE - `2025/08/13 - 16:49`
 
 \- **ADD** : Added multiple messages into the "_BU.ModuleInit.GetModuleInitLanguage()_" function to warn the user if they select a translation file in a Beta stage.
 
 \- **ADD** : Added missing Korean and Turkish translations in the same function.
 
+### Commit N°2
 
-Commit ID - 94c18150ff379535488d1d78d90329cc22f73195:
+#### ID - `94c18150ff379535488d1d78d90329cc22f73195`
+
+#### DATE - `2025/08/12 - 00:08`
 
 \- **FIX** : Corrected the return code in case of an error in the "_BU.ModuleInit.CheckPathIntegrity()_" function.
 
@@ -37,8 +54,11 @@ Commit ID - 94c18150ff379535488d1d78d90329cc22f73195:
 
 \- **FIX** : Added the simplified version of the previous variable into the "_BU.ModuleInit.GetModuleInitLanguage()_" function, right after the redefinition of the "_${LANG}_" environment variable.
 
+### Commit N°1
 
-Commit ID - fc883411b4688f203acee23e6a974a2bede4dd96:
+#### ID - `fc883411b4688f203acee23e6a974a2bede4dd96`
+
+#### DATE - `2025/08/11 - 18:02`
 
 \- **REF** : Remade the categories and sub-categories of the _Bash-utils-initializer.sh_ script before the _BEGINNING OF THE INITIALIZATION PROCESS_ category:
     - INITIALIZER RESOURCES - FUNCTIONS REQUIRED TO INITIALIZE AND CONFIGURE MODULE ENGINE
@@ -81,9 +101,3 @@ Commit ID - fc883411b4688f203acee23e6a974a2bede4dd96:
 \- **ADD** : Added a new global variable in the locale files : __BU_MODULE_INIT_MSG__CHECKPATHINTEGRITY__PATH_MISSING   STRING
 
 \- **ADD** : Added the "_install/.Bash-utils/config/initializer/Status.conf_" file.
-
-
-
-
-
-

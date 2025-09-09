@@ -18,9 +18,9 @@
 
 ### Commit N°1
 
-#### ID - ``
+#### ID - `5d2d96a308b74669d735a39d949217ee4a3ae1aa`
 
-#### DATE - `2025/09/XX - XX:XX`
+#### DATE - `2025/09/09 - 11:00`
 
 - **UPD** — Refined the changelogs' legend to improve clarity and readability:
   - Introduced the **DOC** and **UPD** keys.
