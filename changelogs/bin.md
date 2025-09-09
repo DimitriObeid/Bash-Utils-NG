@@ -1,50 +1,85 @@
-Legend :
-    - **ADD** : Added a new file / function / variable/ etc...
-    - **DEL** : Deleted a file / function / variable, etc...
-    - **FIX** : Fixed a bug
-    - **REF** : Code refactoring (for better lisibility)
-    - **TES** : Testing the code of a specific part of a source file
+# changelogs/bin.md
+
+## Legend
+
+```text
+- ADD : Addition — Introduced a new file, function, variable, or feature.
+- DEL : Deletion — Removed a file, function, variable, or feature.
+- DOC : Documentation — Added or updated comments, inline explanations, or external docs.
+- FIX : Fix — Corrected a bug, typo, or unexpected behavior.
+- REF : Refactor — Improved code readability, structure, or performance without changing behavior.
+- TES : Test — Added or executed tests for specific parts of the source code.
+- UPD : Update — Modified dependencies, documentation, or file structure.
+```
 
 ---------------------------------------------------------
-Commits changelogs :
---------------------
 
-Commit ID - 3cf159c6d83cc7ae4307e1aa3117b0db27a4e26d:
+## Commits changelogs
 
-\- **ADD** : Added the "_git push_" command in the "_bin/git-merge-all-branches-from-dev.sh_" script in order to update the remote branches with the updated codebase.
+### Commit N°6
 
+#### ID - `3cf159c6d83cc7ae4307e1aa3117b0db27a4e26d`
 
-Commit ID - 0a0e8fc07fe66d5a81dcee35200522f7de22846e:
+#### DATE - `2025/08/13 - 16:55`
 
-\- **FIX** : Corrected the "_Bash-utils-root-val.path_" file name from "_Bash-utils-init-val.path_" into the "_bin/lib-install.sh_" file.
+- **ADD** — Implemented the `git push` command in the `bin/git-merge-all-branches-from-dev.sh` script to ensure that the updated code is propagated to remote branches automatically.
 
-\- **REF** : To reflect the aforementioned change, the name of the "_${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}_" variable was changed to "_${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_ROOT_VAL_PATH}_".
+---------------------------------------------------------
 
+### Commit N°5
 
-Commit ID - 91e0c157a974e7c84d5635426b9148b065e70535:
+#### ID - `0a0e8fc07fe66d5a81dcee35200522f7de22846e`
 
-\- **ADD** : Added the "_git-merge-all-branches-from-dev.sh_" script to automatically merge any changes pulled in the "_dev_" branch to every branches, except the master one.
+#### DATE - `2025/08/11 - 23:26`
 
-\- **REF** : Added the "_Contributors_" line in the "_DEV-TOOLS EXECUTABLE FILE INFORMATIONS_" section of every scripts in the "_res/dev-tools/dev-bin_" directory.
+- **FIX** — Corrected the file reference in `bin/lib-install.sh` from _`Bash-utils-init-val.path`_ to _`Bash-utils-root-val.path`_.
 
+- **REF** — Updated the global variable `${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}` to `${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_ROOT_VAL_PATH}` to reflect the aforementioned change.
 
-Commit ID - 806c7b6f212a5ac60a444dfbaea45595df612ad2:
+---------------------------------------------------------
 
+### Commit N°4
 
-\- **FIX** : Added a space after the "_Creating the %s%s%s file..._" message in the process of creating the "_Bash-utils-init-val.path_" file.
+#### ID - `91e0c157a974e7c84d5635426b9148b065e70535`
 
-\- **ADD** : Added and commented the "_read_" command and its associated code, since I'm not sure to implement the default folder selection in this quick installation file, as I use it to test the presence of the framework's core features.
+#### DATE - `2025/08/11 - 23:02`
 
+- **ADD** — Introduced _`git-merge-all-branches-from-dev.sh`_ to automatically merge changes from the `dev` branch into all other branches except `master`.
 
-Commit ID - 7b8f0fa913b1ba3ab05a38facc326b0697248c16 :
+- **REF** — Added a _`Contributors`_ entry to the `DEV-TOOLS EXECUTABLE FILE INFORMATIONS` section of all scripts in `res/dev-tools/dev-bin`.
 
-\- **REF** : Deleted the "_dev-translation_" directory after moving its "_locale_" sub-directories into their respective executable file's resources folder in the "_dev-src/_" directory.
+---------------------------------------------------------
 
-\- **REF** : Adapted the aforementioned change into the "_lib-compilerV4.sh_" script.
+### Commit N°3
 
+#### ID - `806c7b6f212a5ac60a444dfbaea45595df612ad2`
 
-Commit ID - c354b451ffcc7f9d010cae0470d3502887a8b20a :
+#### DATE - `2025/08/11 - 18:35`
 
-\- **FIX** : Added a condition to check if the "Bash-utils-root-val.path" file is present
+- **FIX** — Corrected message formatting in _`Bash-utils-init-val.path`_ creation: added a space after the _`Creating the %s%s%s file...`_ string.
 
-\- **REF** : Set all the global variables in the "lib-install.sh" file in read-only during their declaration.
+- **ADD** — Introduced and commented the _`read`_ command to allow testing of the framework's core features; pending implementation of default folder selection in the quick install script.
+
+---------------------------------------------------------
+
+### Commit N°2
+
+#### ID - `7b8f0fa913b1ba3ab05a38facc326b0697248c16`
+
+#### DATE - `2025/08/08 - 16:42`
+
+- **REF** — Removed `dev-translation` directory and migrated its `locale` subdirectories into the respective resources folder of each executable script under `dev-src/`.
+
+- **REF** — Updated `lib-compilerV4.sh` to reflect the new directory structure.
+
+---------------------------------------------------------
+
+### Commit N°1
+
+#### ID - `c354b451ffcc7f9d010cae0470d3502887a8b20a`
+
+#### DATE - `2025/07/31 - 18:11`
+
+- **FIX** — Added a safeguard to verify the existence of `Bash-utils-root-val.path` in the user's home directory.
+
+- **REF** — Declared all global variables in `lib-install.sh` as read-only to prevent accidental modifications during execution.
