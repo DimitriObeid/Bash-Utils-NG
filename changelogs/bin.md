@@ -32,7 +32,7 @@
 
 #### DATE - `2025/08/11 - 23:26`
 
-- **FIX** — Corrected the file reference in `bin/lib-install.sh` from _`Bash-utils-init-val.path`_ to _`Bash-utils-root-val.path`_.
+- **FIX** — Corrected the file reference in `bin/lib-install.sh` from `Bash-utils-init-val.path` to `Bash-utils-root-val.path`.
 
 - **REF** — Updated the global variable `${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_INIT_VAL_PATH}` to `${__BU__BIN__LIB_INSTALL__GLOBVARS__PATHS__BU_ROOT_VAL_PATH}` to reflect the aforementioned change.
 
@@ -44,9 +44,9 @@
 
 #### DATE - `2025/08/11 - 23:02`
 
-- **ADD** — Introduced _`git-merge-all-branches-from-dev.sh`_ to automatically merge changes from the `dev` branch into all other branches except `master`.
+- **ADD** — Introduced `git-merge-all-branches-from-dev.sh` to automatically merge changes from the `dev` branch into all other branches except `master`.
 
-- **REF** — Added a _`Contributors`_ entry to the `DEV-TOOLS EXECUTABLE FILE INFORMATIONS` section of all scripts in `res/dev-tools/dev-bin`.
+- **REF** — Added a `Contributors` entry to the `DEV-TOOLS EXECUTABLE FILE INFORMATIONS` section of all scripts in `res/dev-tools/dev-bin`.
 
 ---------------------------------------------------------
 
@@ -56,9 +56,9 @@
 
 #### DATE - `2025/08/11 - 18:35`
 
-- **FIX** — Corrected message formatting in _`Bash-utils-init-val.path`_ creation: added a space after the _`Creating the %s%s%s file...`_ string.
+- **FIX** — Corrected message formatting in the part that creates the `Bash-utils-init-val.path` file: added a space after the `Creating the %s%s%s file...` string.
 
-- **ADD** — Introduced and commented the _`read`_ command to allow testing of the framework's core features; pending implementation of default folder selection in the quick install script.
+- **ADD** — Introduced and commented the `read` command to allow testing of the framework's core features; pending implementation of default folder selection in the quick install script.
 
 ---------------------------------------------------------
 
